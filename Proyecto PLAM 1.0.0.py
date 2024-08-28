@@ -1,17 +1,16 @@
 import DiscosStock
-discos=[]
 uso=0
 while uso==0:
     print('1 Discos')
     print('2 Usuarios')
     print('3 Prestamos')
-    print('4 Salir')
-    funcion = int(input('ingrese un numero del 1 al 4 segun que necesite: '))
+    print('0 Salir')
+    funcion = int(input())
     if funcion==1:
-        fdiscos()
-    elif funcion==2:
+        DiscosStock.menudisco()
+    if funcion==2:
         fusuarios()
-    elif funcion==3:
+    if funcion==3:
         fprestamos()
-    else:
-        uso=0
+    if funcion==0:
+        uso=1
