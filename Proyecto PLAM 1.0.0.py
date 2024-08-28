@@ -8,10 +8,11 @@ while uso==0:
     print('4 Salir')
     funcion = int(input('ingrese un numero del 1 al 4 segun que necesite: '))
     if funcion==1:
-        fdiscos()
+        DiscosStock.crud_discos()
     elif funcion==2:
         fusuarios()
     elif funcion==3:
         fprestamos()
     else:
         uso=0
+
