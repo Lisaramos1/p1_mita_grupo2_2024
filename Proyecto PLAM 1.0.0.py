@@ -14,4 +14,3 @@ while uso==0:
         fprestamos()
     else:
         uso=1
-        
