@@ -7,16 +7,16 @@ def agregar():
     print('Ingrese el nombre del disco, ingrese 0 para volver')
     nombre = input()
     if nombre =='0':
-        limpiar()
+        print()
         return
     for i, (numero , nombred , estado , cantidad) in enumerate(discos):
         if nombre == nombred:
             discos.append((len(discos)+1,nombre,'disponible',cantidad+1))
             print(discos)
+            print()
             return        
     discos.append((len(discos)+1,nombre,'disponible',1))
-    limpiar()
-    print(discos)
+    print()
     return
 
 def modificar():
@@ -24,7 +24,7 @@ def modificar():
     print(discos)
     nro = int(input())
     if nro==0:
-        limpiar()
+        print()
         return
     for i, (numero , nombre , estado , cantidad) in enumerate(discos):
         if numero == nro :
@@ -32,16 +32,18 @@ def modificar():
             print('Ingrese el nuevo nombre del disco, si no es el disco que desea modificar, ingrese 0')
             nuevo = input()
             if nuevo == '0':
-                limpiar()
+                print()
                 return
-            limpiar()
             if nuevo ==nombre:
                 discos[i] = (numero, nuevo, estado, cantidad+1)
+                print()
                 return    
             discos[i] = (numero, nuevo, estado, 1)
+            print()
             return
-    limpiar()
+    
     print(f'\033[31mDisco no encontrado\033[0m')
+    print()
     return
 
 def eliminar():
@@ -49,7 +51,7 @@ def eliminar():
     print(discos)
     nro = int(input())
     if nro==0:
-        limpiar()
+        print()
         return
     for i, (numero , nombre , estado , cantidad) in enumerate(discos):
         if numero == nro :
@@ -57,14 +59,20 @@ def eliminar():
             print('Ingrese 1 para confirmar si no ingrese 0')
             nuevo = input()
             if nuevo == '0':
-                limpiar()
+                print()  
                 return
             discos.pop(i)    
             print(discos)
+            print()
             return
     print(f'\033[31mDisco no encontrado\033[0m')
     return
 
+def mostrar():
+    for i in discos:
+        print(i)
+    print()
+    return
 
 def menudiscos():
     loop=0
@@ -82,7 +90,7 @@ def menudiscos():
         elif menu==3:
             eliminar()
         elif menu==4:
-            mostrar
+            mostrar()
         elif menu==0:
             loop=1
             return
