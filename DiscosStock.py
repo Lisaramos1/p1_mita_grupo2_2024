@@ -1,4 +1,3 @@
-import os, subprocess
 discos = []
 
 def limpiar():
@@ -10,7 +9,12 @@ def agregar():
     if nombre =='0':
         limpiar()
         return
-    discos.append((len(discos)+1,nombre,'disponible'))
+    for i, (numero , nombred , estado , cantidad) in enumerate(discos):
+        if nombre == nombred:
+            discos.append((len(discos)+1,nombre,'disponible',cantidad+1))
+            print(discos)
+            return        
+    discos.append((len(discos)+1,nombre,'disponible',1))
     limpiar()
     print(discos)
     return
@@ -22,7 +26,7 @@ def modificar():
     if nro==0:
         limpiar()
         return
-    for i, (numero , nombre , estado) in enumerate(discos):
+    for i, (numero , nombre , estado , cantidad) in enumerate(discos):
         if numero == nro :
             print(f'el disco que sera modificado es {discos[i]}')
             print('Ingrese el nuevo nombre del disco, si no es el disco que desea modificar, ingrese 0')
@@ -31,32 +35,56 @@ def modificar():
                 limpiar()
                 return
             limpiar()
-            discos[i] = (numero, nuevo, estado)
+            if nuevo ==nombre:
+                discos[i] = (numero, nuevo, estado, cantidad+1)
+                return    
+            discos[i] = (numero, nuevo, estado, 1)
             return
     limpiar()
-    print('Disco no encontrado')
+    print(f'\033[31mDisco no encontrado\033[0m')
     return
 
-
+def eliminar():
+    print('Ingrese el numero del disco que desee eliminar, ingrese 0 para volver')
+    print(discos)
+    nro = int(input())
+    if nro==0:
+        limpiar()
+        return
+    for i, (numero , nombre , estado , cantidad) in enumerate(discos):
+        if numero == nro :
+            print(f'el disco que sera eliminado es {discos[i]}')
+            print('Ingrese 1 para confirmar si no ingrese 0')
+            nuevo = input()
+            if nuevo == '0':
+                limpiar()
+                return
+            discos.pop(i)    
+            print(discos)
+            return
+    print(f'\033[31mDisco no encontrado\033[0m')
+    return
 
 
 def menudiscos():
     loop=0
     while loop==0:
-        print('1 Agregar discos')
-        print('2 Modificar discos')
-        print('3 Eliminar discos')
-        print('4 Rentar discos')
-        print('0 Volver')
+        print('1 Agregar discos ➕')
+        print('2 Modificar discos ⚙')
+        print('3 Eliminar discos ❌')
+        print('4 Visualizar discos 👀')
+        print('0 Volver ')
         menu = int(input('que desearia hacer: '))
         if menu==1:
             agregar()
         elif menu==2:
             modificar()
         elif menu==3:
-            eliminar
+            eliminar()
         elif menu==4:
-            rentar
-        else:
+            mostrar
+        elif menu==0:
             loop=1
             return
+        else:  
+            print('Ingrese un numero valido')
