@@ -1,4 +1,5 @@
-import DiscosStock
+import DiscosStock 
+import prestamos 
 discos=[]
 uso=0
 while uso==0:
@@ -10,9 +11,9 @@ while uso==0:
     if funcion==1:
         DiscosStock.crud_discos()
     elif funcion==2:
-        fusuarios()
+        fusuarios
     elif funcion==3:
-        fprestamos()
+        prestamos.crud_prestamos()
     else:
         uso=0
 

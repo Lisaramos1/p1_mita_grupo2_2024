@@ -6,8 +6,8 @@ def agregar():
 
 
 
-menu=0
 def crud_discos (): 
+    menu=0
     while menu==0:
         print('1 Agregar discos')
         print('2 Modificar discos')
