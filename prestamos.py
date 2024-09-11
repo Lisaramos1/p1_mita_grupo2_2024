@@ -1,40 +1,58 @@
-import datetime
+import validaciones
+import Personas
+
+Personas=[
+     [5005, 'Juan Perez', 12345678],
+    [5006, 'Ana Gomez', 23456789],
+    [5007, 'Luis Martinez', 34567890],
+    [5008, 'Maria Lopez', 45678901],
+    [5009, 'Carlos Sanchez', 56789012]
+]
 
 prestamos=[
-    [5002,'Lemonade','12/5', '27/5',400],
-    [5003,'Abbey Road','13/6','14/7',700],
-    [5007,'Lemonade','14/6','16/8',1000],
-    [5007,'Ok Computer','14/6','16/8',1000]
+    [5002,'Lemonade','12/5', '27/5',400,True],
+    [5003,'Abbey Road','13/6','14/7',700,False],
+    [5007,'Lemonade','14/6','16/8',1000,True],
+    [5007,'Ok Computer','14/6','16/8',1000,True]
     
 ]
 
+aux=validaciones.existenciadeuser(104,prestamos)
+print(aux)
 
-def crear_prestamos ():
+def crear_prestamos (NroCliente,album,DiasdePrestamo):
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz
     """
-    print("Creación de prestamos")
-    NroCliente=int(input('ingrese el numero del cliente: '))
     
+    estado=False
+    while estado == False: #While de validaciones
+        user=validaciones.existenciadeuser(NroCliente,Personas)
+        if user == True:
+            print("Existe el nro de cliente")
+    
+        else:
+            print("El usuario no fue encontrado")
+            print("Debe restrirar al usuario")
+            estado=False
+        
+        """
+        Agregar:
+        Disponibilidad del album
+        """
+        
+            
     """
-    Verificar si puede retirar un album
+    Agregar:
+    Calcular un precio base
     """
-    
-    Album=input("Ingrese el nombre del album: ")
-    
-    """
-    Disponibilidad
-    """
-    
-    
-    fecha_ini=datetime.datetime()
-    print(fecha_ini)
-    fecha_ciere=input('Ingrese la fecha de cierre del prestamo: ')
-    monto=int(input("Ingrese el monto total del prestamo: "))    
-    
-    aux=[NroCliente,Album,fecha_ini,fecha_ciere,monto]
+    print("Creación de prestamos") 
+    fechas=validaciones.SumadeDias(DiasdePrestamo)       #Se contabilizan las fechas de los dias del prestamos
+    fecha_inicio,fecha_cierre=fechas                     # Se asignan las fechas
+    monto=int(input("Ingrese el monto total del prestamo: "))
+    aux=[NroCliente,album,fecha_inicio,fecha_cierre,monto]
     prestamos.append(aux)
-    return
+    return True
 
 
 def modificar_prestamos():    
@@ -42,17 +60,22 @@ def modificar_prestamos():
     pku=int(input("Ingrese el id del usuario del registro a modificar: "))
     
     """
+    AGREGAR:
     Seleccionar por cual filtro se desea realizar la busqueda 
     """
         
     columnas=len(prestamos[0])-1
     
-    # apariciones=[num for num in (prestamos[0]) if prestamos[num] == pku ]      
+    apariciones=[prestamo for prestamo in prestamos if prestamo[0] == pku ]
+    
+    """
+    Creación de listas por compresión 
+    """     
      
-    for num in range (columnas):
-        if prestamos[num][0]==pku:
-            apariciones.append(prestamos[num])
-            indicedeprestamo.append(num)
+    # for num in range (columnas):
+    #     if prestamos[num][0]==pku:
+    #         apariciones.append(prestamos[num])
+    #         indicedeprestamo.append(num)
     
             
     print()
@@ -125,7 +148,10 @@ def crud_prestamos():
         print("0 volver")
         menu = int(input('Ingrese una acción:' ))
         if menu==1:
-            crear_prestamos()
+            NroCliente=int(input("Ingrese el numero de cliente: ")) #Donde debo validar el user id???
+            Album=input("Ingrese el nombre del album: ")
+            Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
+            crear_prestamos(NroCliente,Album,Diasdeprestamos)
         if menu==2:
             modificar_prestamos() 
         if menu==3:

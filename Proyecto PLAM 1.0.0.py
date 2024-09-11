@@ -10,6 +10,7 @@ while uso==0:
     funcion = int(input())
     if funcion==1:
         DiscosStock.menudiscos()
+        
     elif funcion==2:
         Personas.menue()
     if funcion==3:
