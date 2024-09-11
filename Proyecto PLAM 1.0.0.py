@@ -34,10 +34,11 @@ while uso==0:
     print('0 Salir')
     funcion = int(input())
     if funcion==1:
-        DiscosStock.menudiscos()   
+        DiscosStock.menudiscos()
+        
     elif funcion==2:
-        menu_usuarios()
-    elif funcion==3:
+        Personas.menue()
+    if funcion==3:
         prestamos.crud_prestamos()
     else:
         uso=1
