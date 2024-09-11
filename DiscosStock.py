@@ -72,26 +72,3 @@ def mostrar():
         print(i)
     print()
     return
-
-def menudiscos(): #programa principal de DiscosStock
-    loop=0
-    while loop==0:
-        print('1 Agregar discos ➕')
-        print('2 Modificar discos ⚙')
-        print('3 Eliminar discos ❌')
-        print('4 Visualizar discos 👀')
-        print('0 Volver ')
-        menu = int(input('que desearia hacer: '))
-        if menu==1:
-            agregar()
-        elif menu==2:
-            modificar()
-        elif menu==3:
-            eliminar()
-        elif menu==4:
-            mostrar()
-        elif menu==0:
-            loop=1
-            return
-        else:  
-            print('Ingrese un numero valido')
