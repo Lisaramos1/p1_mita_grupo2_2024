@@ -16,10 +16,6 @@ prestamos=[
     [5007,'Ok Computer','14/6','16/8',1000,True]
     
 ]
-
-aux=validaciones.existenciadeuser(104,prestamos)
-print(aux)
-
 def crear_prestamos (NroCliente,album,DiasdePrestamo):
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz

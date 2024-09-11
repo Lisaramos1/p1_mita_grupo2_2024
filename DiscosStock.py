@@ -1,4 +1,14 @@
-discos = []
+discos = [(1, 'Disco 1', 'disponible', 5),
+    (2, 'Disco 2', 'rented', 3),
+    (3, 'Disco 3', 'disponible', 2),
+    (4, 'Disco 4', 'disponible', 7),
+    (5, 'Disco 5', 'rented', 1),
+    (6, 'Disco 6', 'disponible', 4),
+    (7, 'Disco 7', 'disponible', 6),
+    (8, 'Disco 8', 'rented', 2),
+    (9, 'Disco 9', 'disponible', 8),
+    (10, 'Disco 10', 'disponible', 3)
+]
 
 def limpiar(): #posible funcion futura para que limpie la terminal
     print()
@@ -11,7 +21,7 @@ def agregar(): #agregar discos
         return
     for i, (numero , nombred , estado , cantidad) in enumerate(discos): #busca el disco solicitado
         if nombre == nombred:
-            discos.append((len(discos)+1,nombre,'disponible',cantidad+1)) #crea un disco nuevo pero con una cantidad mayor al anterior
+            discos[i] = (numero, nombred, estado, cantidad + 1)  # Modifica la tupla en su lugar
             print(discos)
             print()
             return        
