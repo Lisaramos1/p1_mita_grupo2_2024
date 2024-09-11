@@ -23,6 +23,7 @@ def SumadeDias(DiasdePrestamo):
     
 def existenciadeuser(userid,matriz):
     """
+    Agregar: Funcionalidad.
     pre:Recibe el userid y la matriz
     pos:Si se encuetra el userdi== True ,, si no lo encuentra==False
     """
