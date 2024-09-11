@@ -57,10 +57,10 @@ def listcustomer():
 # Función principal del menú
 def menue():
     while True:
-        print('1 Agregar persona')
-        print('2 Modificar persona')
-        print('3 Eliminar persona')
-        print('4 Mostrar la lista de personas')
+        print('1 Agregar Usuario')
+        print('2 Modificar Usuario')
+        print('3 Eliminar Usuario')
+        print('4 Mostrar la lista de Usuarios')
         print('0 Volver')
         menu = input('¿Qué desea hacer?: ')
 
@@ -78,4 +78,3 @@ def menue():
         else:
             print("Opción no válida.")
         menu = 0  # Para mantener el ciclo activo hasta que decidan volver
-menue()
