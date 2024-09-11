@@ -1,5 +1,5 @@
 import validaciones
-import Personas
+import Usuarios
 
 Personas=[
      [5005, 'Juan Perez', 12345678],

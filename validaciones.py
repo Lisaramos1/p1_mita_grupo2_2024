@@ -58,3 +58,8 @@ def ValidUserid (userid):
         return True
     else : 
         return False
+    
+def ValidDNI(dni):
+    # Valida que el DNI tenga entre 7 y 8 dígitos
+    patron = '\\d{7,8}'
+    return re.fullmatch(patron, dni) is not None

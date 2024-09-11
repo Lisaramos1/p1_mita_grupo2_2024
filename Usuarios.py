@@ -1,26 +1,38 @@
 import re 
+import validaciones
+#validaciones
 
-# Función para validar DNI 
-def validar_dni(dni):
-    return re.fullmatch('\\d{7,8}', dni) is not None
+#validar que el dni no se reptia
+def dnirep(dni):
+    for persona in customer:
+        if persona["dni"] == dni:
+            return True  
+    return False  
+
+#fin validaciones
+
 
 # Lista de los clientes
 customer = []
 
+
 # Función para agregar clientes
 def addcustomer():
-    nombre = input("Ingrese el nombre: ")
-    apellido = input("Ingrese el apellido: ")
+    nombreapellido = input("Ingrese el nombre y apellido: ")
     dni = input("Ingrese el DNI sin puntos ni espacios: ")
 
-    # Validación del DNI
-    if not validar_dni(dni):
+    # Validaciónes del DNI
+    if not validaciones.ValidDNI(dni):
         print("DNI inválido. Debe contener entre 7 y 8 dígitos sin puntos ni espacios.")
         return
-    
-    newcustomer = {"nombre": nombre, "apellido": apellido, "dni": dni}
+    #validaciones del nombre y apellido
+    if not validaciones.ValidUsername(nombreapellido):
+        print("El nombre o apellido contiene caracteres inválidos.")
+        return
+
+    newcustomer = {"nombre y apellido": nombreapellido, "dni": dni}
     customer.append(newcustomer)
-    print(f"Cliente {nombre} {apellido} agregado exitosamente.")
+    print(f"Cliente {nombreapellido} agregado exitosamente.")
     
 def modcustomer():
     dni = input("Ingrese el DNI de la persona a modificar: ")
@@ -28,10 +40,12 @@ def modcustomer():
     # Búsqueda del cliente con el DNI
     for persona in customer:
         if persona["dni"] == dni:
-            nuevo_nombre = input("Ingrese el nuevo nombre: ")
-            nuevo_apellido = input("Ingrese el nuevo apellido: ")
-            persona["nombre"] = nuevo_nombre
-            persona["apellido"] = nuevo_apellido
+            nuevo_nya = input("Ingrese el nuevo nombre: ")
+
+            if not validaciones.ValidUsername(nuevo_nya):
+                print("El nuevo nombre o apellido contiene caracteres inválidos.")
+                return
+            persona["nombre y apellido"] = nuevo_nya
             print("Datos actualizados.")
             return
     print("Persona no encontrada.")
@@ -52,29 +66,5 @@ def listcustomer():
         print("No hay personas registradas.")
     else:
         for persona in customer:
-            print(f"Nombre: {persona['nombre']} - Apellido: {persona['apellido']} - DNI: {persona['dni']}")
+            print(f"Nombre y apellido: {persona['nombreapellido']} - DNI: {persona['dni']}")
 
-# Función principal del menú
-def menue():
-    while True:
-        print('1 Agregar Usuario')
-        print('2 Modificar Usuario')
-        print('3 Eliminar Usuario')
-        print('4 Mostrar la lista de Usuarios')
-        print('0 Volver')
-        menu = input('¿Qué desea hacer?: ')
-
-        if menu == '1':
-            addcustomer()
-        elif menu == '2':
-            modcustomer()
-        elif menu == '3':
-            delcustomer()
-        elif menu == '4':
-            listcustomer()
-        elif menu == '0':
-            print("Volviendo al menú principal.")
-            return
-        else:
-            print("Opción no válida.")
-        menu = 0  # Para mantener el ciclo activo hasta que decidan volver
