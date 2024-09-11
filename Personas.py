@@ -9,8 +9,8 @@ customer = []
 
 # Función para agregar clientes
 def addcustomer():
-    nombre = input("Ingrese el nombre: ").capitalize()  # Capitaliza el nombre
-    apellido = input("Ingrese el apellido: ").capitalize()
+    nombre = input("Ingrese el nombre: ")
+    apellido = input("Ingrese el apellido: ")
     dni = input("Ingrese el DNI sin puntos ni espacios: ")
 
     # Validación del DNI
@@ -28,8 +28,8 @@ def modcustomer():
     # Búsqueda del cliente con el DNI
     for persona in customer:
         if persona["dni"] == dni:
-            nuevo_nombre = input("Ingrese el nuevo nombre: ").capitalize()
-            nuevo_apellido = input("Ingrese el nuevo apellido: ").capitalize()
+            nuevo_nombre = input("Ingrese el nuevo nombre: ")
+            nuevo_apellido = input("Ingrese el nuevo apellido: ")
             persona["nombre"] = nuevo_nombre
             persona["apellido"] = nuevo_apellido
             print("Datos actualizados.")
