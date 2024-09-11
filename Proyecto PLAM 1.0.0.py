@@ -1,4 +1,6 @@
 import DiscosStock
+import prestamos
+import Personas
 uso=0
 while uso==0:
     print('1 Discos')
@@ -8,9 +10,10 @@ while uso==0:
     funcion = int(input())
     if funcion==1:
         DiscosStock.menudiscos()
+        
     elif funcion==2:
-        fusuarios()
+        Personas.menue()
     if funcion==3:
-        fprestamos()
+        prestamos.crud_prestamos()
     else:
         uso=1

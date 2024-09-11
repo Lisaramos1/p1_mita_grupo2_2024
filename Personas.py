@@ -77,6 +77,5 @@ def menue():
             return
         else:
             print("Opción no válida.")
-
-# llamar función principal del menú
+        menu = 0  # Para mantener el ciclo activo hasta que decidan volver
 menue()
