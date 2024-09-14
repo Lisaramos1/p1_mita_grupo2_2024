@@ -1,14 +1,14 @@
 discos = {
-    {'id':1,'nombre':'Disco 1','Artista':A,'Genero':'Rock','cantidad':5},
-    {'id':2,'nombre':'Disco 2','Artista':B,'Genero':'Pop','cantidad':3},
-    {'id':3,'nombre':'Disco 3','Artista':C,'Genero':'Techno','cantidad':2},
-    {'id':4,'nombre':'Disco 4','Artista':D,'Genero':'Dubstep','cantidad':7},
-    {'id':5,'nombre':'Disco 5','Artista':E,'Genero':'Rock nacional','cantidad':1},
-    {'id':6,'nombre':'Disco 6','Artista':F,'Genero':'Rock cristiano alternativo','cantidad':4},
-    {'id':7,'nombre':'Disco 7','Artista':G,'Genero':'Trap','cantidad':6},
-    {'id':8,'nombre':'Disco 8','Artista':H,'Genero':'Cumbia','cantidad':2},
-    {'id':9,'nombre':'Disco 9','Artista':I,'Genero':'Indie','cantidad':8},
-    {'id':10,'nombre':'Disco 10','Artista':J,'Genero':'Clasica','cantidad':3}
+    {'id':1,'nombre':'Disco 1','Artista':"A",'Genero':'Rock','cantidad':5},
+    {'id':2,'nombre':'Disco 2','Artista':"B",'Genero':'Pop','cantidad':3},
+    {'id':3,'nombre':'Disco 3','Artista':"C",'Genero':'Techno','cantidad':2},
+    {'id':4,'nombre':'Disco 4','Artista':"D",'Genero':'Dubstep','cantidad':7},
+    {'id':5,'nombre':'Disco 5','Artista':"E",'Genero':'Rock nacional','cantidad':1},
+    {'id':6,'nombre':'Disco 6','Artista':"F",'Genero':'Rock cristiano alternativo','cantidad':4},
+    {'id':7,'nombre':'Disco 7','Artista':"G",'Genero':'Trap','cantidad':6},
+    {'id':8,'nombre':'Disco 8','Artista':"H",'Genero':'Cumbia','cantidad':2},
+    {'id':9,'nombre':'Disco 9','Artista':"I",'Genero':'Indie','cantidad':8},
+    {'id':10,'nombre':'Disco 10','Artista':"J",'Genero':'Clasica','cantidad':3}
 }
 
 def menu():

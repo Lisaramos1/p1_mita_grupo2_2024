@@ -4,16 +4,16 @@ import Personas
 import funcionesvarias
 
 discos = {
-    {'id':1,'nombre':'Disco 1','Artista':"A",'Genero':"Rock",'cantidad':5},
-    {'id':2,'nombre':'Disco 2','cantidad':3},
-    {'id':3,'nombre':'Disco 3','cantidad':2},
-    {'id':4,'nombre':'Disco 4','cantidad':7},
-    {'id':5,'nombre':'Disco 5','cantidad':1},
-    {'id':6,'nombre':'Disco 6','cantidad':4},
-    {'id':7,'nombre':'Disco 7','cantidad':6},
-    {'id':8,'nombre':'Disco 8','cantidad':2},
-    {'id':9,'nombre':'Disco 9','cantidad':8},
-    {'id':10,'nombre':'Disco 10','cantidad':3}
+    {'id':1,'nombre':'Disco 1','Artista':"A",'Genero':'Rock','cantidad':5},
+    {'id':2,'nombre':'Disco 2','Artista':"B",'Genero':'Pop','cantidad':3},
+    {'id':3,'nombre':'Disco 3','Artista':"C",'Genero':'Techno','cantidad':2},
+    {'id':4,'nombre':'Disco 4','Artista':"D",'Genero':'Dubstep','cantidad':7},
+    {'id':5,'nombre':'Disco 5','Artista':"E",'Genero':'Rock nacional','cantidad':1},
+    {'id':6,'nombre':'Disco 6','Artista':"F",'Genero':'Rock cristiano alternativo','cantidad':4},
+    {'id':7,'nombre':'Disco 7','Artista':"G",'Genero':'Trap','cantidad':6},
+    {'id':8,'nombre':'Disco 8','Artista':"H",'Genero':'Cumbia','cantidad':2},
+    {'id':9,'nombre':'Disco 9','Artista':"I",'Genero':'Indie','cantidad':8},
+    {'id':10,'nombre':'Disco 10','Artista':"J",'Genero':'Clasica','cantidad':3}
 }
 
 uso=0
@@ -72,8 +72,7 @@ while uso==0:
                     loopfiltro=1
             
             valorabuscar=input("Ingrese el valor a buscar: ")
-            idalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,discos) 
-              
+            idalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,discos)
             Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
             prestamos.crear_prestamos(NroCliente,idalbum,Diasdeprestamos)
         if menu==2:
