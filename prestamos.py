@@ -17,9 +17,6 @@ prestamos=[
     
 ]
 
-aux=validaciones.existenciadeuser(104,prestamos)
-print(aux)
-
 def crear_prestamos (NroCliente,album,DiasdePrestamo):
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz
@@ -55,22 +52,21 @@ def crear_prestamos (NroCliente,album,DiasdePrestamo):
     return True
 
 
-def modificar_prestamos():    
+def modificar_prestamos(pku):    
     apariciones,indicedeprestamo=[],[]
-    pku=int(input("Ingrese el id del usuario del registro a modificar: "))
-    
+  
     """
     AGREGAR:
     Seleccionar por cual filtro se desea realizar la busqueda 
     """
         
-    columnas=len(prestamos[0])-1
     
     apariciones=[prestamo for prestamo in prestamos if prestamo[0] == pku ]
     
     """
     Creación de listas por compresión 
     """     
+    columnas=len(prestamos[0])-1
      
     # for num in range (columnas):
     #     if prestamos[num][0]==pku:
@@ -138,29 +134,5 @@ def eliminar_prestamos():
     
     return
 
-def crud_prestamos():
-    loop=0
-    while loop == 0 :
-        print('1 Crear prestamos ➕')
-        print('2 Modificar prestamos ➖')
-        print('3 Eliminar prestamo ⚙️')
-        print('4 Mostrar listado 👀')
-        print("0 volver")
-        menu = int(input('Ingrese una acción:' ))
-        if menu==1:
-            NroCliente=int(input("Ingrese el numero de cliente: ")) #Donde debo validar el user id???
-            Album=input("Ingrese el nombre del album: ")
-            Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
-            crear_prestamos(NroCliente,Album,Diasdeprestamos)
-        if menu==2:
-            modificar_prestamos() 
-        if menu==3:
-            eliminar_prestamos()
-        if menu==4:
-            mostrar_prestamos() 
-        if menu == 0:
-            loop=1
-            return
-        else : 
-            print("Ingrese un numero valido")
-
+def devoliciones():
+    

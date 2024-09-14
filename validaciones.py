@@ -21,17 +21,7 @@ def SumadeDias(DiasdePrestamo):
     return(dia1,dia2)
     
     
-def existenciaenmatrix(userid,matriz):
-    """
-    Agregar: Funcionalidad.
-    pre:Recibe el userid y la matriz
-    pos:Si se encuetra el userdi== True ,, si no lo encuentra==False
-    """
-    for i in matriz :
-        if matriz[0] == userid:
-            return True
-        else:   
-            return False
+
 
 #def  DisponibilidadAlbum (album,matriz)
 

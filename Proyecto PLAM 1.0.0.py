@@ -37,6 +37,7 @@ while uso==0:
         print('2 Modificar prestamos ➖')
         print('3 Eliminar prestamo ⚙️')
         print('4 Mostrar listado 👀')
+        print('5 Devoluciones')
         print("0 volver")
         menu = int(input('Ingrese una acción:' ))
         if menu==1:
@@ -45,11 +46,19 @@ while uso==0:
             Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
             prestamos.crear_prestamos(NroCliente,Album,Diasdeprestamos)
         if menu==2:
-            prestamos.modificar_prestamos() 
+            userid=int(input("Ingrese el id del usuario del registro a modificar: "))
+            prestamos.modificar_prestamos(userid) 
         if menu==3:
             prestamos.eliminar_prestamos()
         if menu==4:
-            prestamos.mostrar_prestamos() 
+            prestamos.mostrar_prestamos()
+        if menu == 5:
+            print('1 Devolver un disco ➕')
+            print('2 Modificar la devolucion ➖')
+            print('4 Mostrar estados de los prestamos 👀')
+            print('5 Devoluciones')
+            print("0 volver")
+            
         if menu == 0:
             loop=1
         else : 
