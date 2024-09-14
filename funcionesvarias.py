@@ -28,3 +28,10 @@ def existenciaenmatrix(userid,matriz):
         else:   
             cont+=1
     return False
+
+def disponibilidadalbum(indicemenu,busqueda,diccionario):
+    if indicemenu==1:
+        busqueda=int(busqueda)
+    
+    
+    return idalbum

@@ -1,6 +1,21 @@
 import DiscosStock
 import prestamos
 import Personas
+import funcionesvarias
+
+discos = {
+    {'id':1,'nombre':'Disco 1','Artista':"A",'Genero':"Rock",'cantidad':5},
+    {'id':2,'nombre':'Disco 2','cantidad':3},
+    {'id':3,'nombre':'Disco 3','cantidad':2},
+    {'id':4,'nombre':'Disco 4','cantidad':7},
+    {'id':5,'nombre':'Disco 5','cantidad':1},
+    {'id':6,'nombre':'Disco 6','cantidad':4},
+    {'id':7,'nombre':'Disco 7','cantidad':6},
+    {'id':8,'nombre':'Disco 8','cantidad':2},
+    {'id':9,'nombre':'Disco 9','cantidad':8},
+    {'id':10,'nombre':'Disco 10','cantidad':3}
+}
+
 uso=0
 while uso==0:
     print('1 Discos')
@@ -41,10 +56,26 @@ while uso==0:
         print("0 volver")
         menu = int(input('Ingrese una acción:' ))
         if menu==1:
-            NroCliente=int(input("Ingrese el numero de cliente: ")) 
-            Album=input("Ingrese el nombre del album: ")
+            NroCliente=int(input("Ingrese el numero de cliente: "))
+            
+            loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
+            while loopfiltro == 0 : 
+                print('1 Id del disco ')
+                print('2 Nombre del disco ')
+                print('3 Nombre del artista ')
+                print('4 Genero del album ')
+                print()
+                indicefiltro=int(input("Ingrese como desea buscar el album: "))
+                if indicefiltro > 4 or indicefiltro< 1:
+                    print("Ingrese un numero valido")   
+                else:
+                    loopfiltro=1
+            
+            valorabuscar=input("Ingrese el valor a buscar: ")
+            idalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,discos) 
+              
             Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
-            prestamos.crear_prestamos(NroCliente,Album,Diasdeprestamos)
+            prestamos.crear_prestamos(NroCliente,idalbum,Diasdeprestamos)
         if menu==2:
             userid=int(input("Ingrese el id del usuario del registro a modificar: "))
             prestamos.modificar_prestamos(userid) 

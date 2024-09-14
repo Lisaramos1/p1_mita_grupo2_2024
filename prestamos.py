@@ -17,6 +17,7 @@ prestamos=[
     
 ]
 
+
 def crear_prestamos (NroCliente,album,DiasdePrestamo):
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz
@@ -59,7 +60,7 @@ def modificar_prestamos(pku):
     AGREGAR:
     Seleccionar por cual filtro se desea realizar la busqueda 
     """
-        
+
     
     apariciones=[prestamo for prestamo in prestamos if prestamo[0] == pku ]
     
@@ -135,4 +136,3 @@ def eliminar_prestamos():
     return
 
 def devoliciones():
-    

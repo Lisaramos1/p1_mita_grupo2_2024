@@ -5,10 +5,6 @@ import datetime
 
 def SumadeDias(DiasdePrestamo):
     """
-    Agregar:
-    formato d/m
-    """
-    """
     pre: Se reciben los dias que se va a realizar el prestamo
     pos: Se devuelve la fecha de inicio del prestamo y la fecha de devolucion 
     """
