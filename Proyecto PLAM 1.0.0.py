@@ -11,12 +11,7 @@ while uso==0:
     if funcion==1:
         loop=0
         while loop==0:
-            print('ingrese un numero del 0 al 4')
-            print('1: Agregar Discos ➕')
-            print('2: Modificar Discos ⚙')
-            print('3: Eliminar Discos ✖')
-            print('4: Ver Stock 👀')
-            print('0: Volver')
+            DiscosStock.menu()
             menu = int(input())
             if menu==1:
                 DiscosStock.agregar()
