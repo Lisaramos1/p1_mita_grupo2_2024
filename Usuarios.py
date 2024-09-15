@@ -1,47 +1,33 @@
 import re 
 import validaciones
-#validaciones
-
-#validar que el dni no se reptia
-def dnirep(dni):
-    for persona in customer:
-        if persona["dni"] == dni:
-            return True  
-    return False  
-
-#fin validaciones
-
+from funcionesvarias import generadorid
 
 # Lista de los clientes
 customer = []
 
-
 # Función para agregar clientes
-def addcustomer():
-    nombreapellido = input("Ingrese el nombre y apellido: ")
-    dni = input("Ingrese el DNI sin puntos ni espacios: ")
-
-    # Validaciónes del DNI
+def addcustomer(nombreapellido, dni):
+    # Validación del DNI
     if not validaciones.ValidDNI(dni):
         print("DNI inválido. Debe contener entre 7 y 8 dígitos sin puntos ni espacios.")
         return
-    #validaciones del nombre y apellido
+
+    # Validación del nombre y apellido
     if not validaciones.ValidUsername(nombreapellido):
         print("El nombre o apellido contiene caracteres inválidos.")
         return
 
-    newcustomer = {"nombre y apellido": nombreapellido, "dni": dni}
+    id = generadorid(customer)
+    
+    newcustomer = {"id": id, "nombre y apellido": nombreapellido, "dni": dni}
     customer.append(newcustomer)
-    print(f"Cliente {nombreapellido} agregado exitosamente.")
+    print(f"Cliente {nombreapellido} agregado exitosamente con ID {id}.")
     
-def modcustomer():
-    dni = input("Ingrese el DNI de la persona a modificar: ")
-    
+# Función para modificar clientes
+def modcustomer(dni, nuevo_nya):
     # Búsqueda del cliente con el DNI
     for persona in customer:
         if persona["dni"] == dni:
-            nuevo_nya = input("Ingrese el nuevo nombre: ")
-
             if not validaciones.ValidUsername(nuevo_nya):
                 print("El nuevo nombre o apellido contiene caracteres inválidos.")
                 return
@@ -50,9 +36,8 @@ def modcustomer():
             return
     print("Persona no encontrada.")
 
-def delcustomer():
-    dni = input("Ingrese el DNI de la persona a eliminar: ")
-
+# Función para eliminar clientes
+def delcustomer(dni):
     # Eliminamos la persona con el DNI
     for persona in customer:
         if persona["dni"] == dni:
@@ -61,10 +46,11 @@ def delcustomer():
             return
     print("Persona no encontrada.")
 
+# Función para listar clientes
 def listcustomer():
     if not customer:
         print("No hay personas registradas.")
     else:
         for persona in customer:
-            print(f"Nombre y apellido: {persona['nombreapellido']} - DNI: {persona['dni']}")
+            print(f"ID: {persona['id']} - Nombre y apellido: {persona['nombre y apellido']} - DNI: {persona['dni']}")
 
