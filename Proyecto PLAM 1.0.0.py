@@ -2,8 +2,9 @@ import DiscosStock
 import prestamos
 import Personas
 import funcionesvarias
+import validaciones
 
-discos = {
+discos = [
     {'id':1,'nombre':'Disco 1','Artista':"A",'Genero':'Rock','cantidad':5},
     {'id':2,'nombre':'Disco 2','Artista':"B",'Genero':'Pop','cantidad':3},
     {'id':3,'nombre':'Disco 3','Artista':"C",'Genero':'Techno','cantidad':2},
@@ -14,7 +15,7 @@ discos = {
     {'id':8,'nombre':'Disco 8','Artista':"H",'Genero':'Cumbia','cantidad':2},
     {'id':9,'nombre':'Disco 9','Artista':"I",'Genero':'Indie','cantidad':8},
     {'id':10,'nombre':'Disco 10','Artista':"J",'Genero':'Clasica','cantidad':3}
-}
+]
 
 uso=0
 while uso==0:
@@ -57,7 +58,11 @@ while uso==0:
         menu = int(input('Ingrese una acción:' ))
         if menu==1:
             NroCliente=int(input("Ingrese el numero de cliente: "))
-            
+            verificacionuserod=validaciones.ValidUserid(NroCliente)
+            while verificacionuserod == False:
+                print("Nro de cliente no valido")
+                NroCliente=int(input("Ingrese un numero de cliente valido: "))
+                
             loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
             while loopfiltro == 0 : 
                 print('1 Id del disco ')
@@ -70,7 +75,7 @@ while uso==0:
                     print("Ingrese un numero valido")   
                 else:
                     loopfiltro=1
-            
+            print()
             valorabuscar=input("Ingrese el valor a buscar: ")
             idalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,discos)
             Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))

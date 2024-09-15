@@ -33,13 +33,6 @@ def crear_prestamos (NroCliente,album,DiasdePrestamo):
             print("El usuario no fue encontrado")
             print("Debe restrirar al usuario")
             estado=False
-        
-        """
-        Agregar:
-        Disponibilidad del album
-        """
-        
-            
     """
     Agregar:
     Calcular un precio base
@@ -134,5 +127,3 @@ def eliminar_prestamos():
     print(prestamos)
     
     return
-
-def devoliciones():

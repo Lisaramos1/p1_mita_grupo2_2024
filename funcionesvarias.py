@@ -1,24 +1,3 @@
-Personas=[
-     [5005, 'Juan Perez', 12345678],
-    [5006, 'Ana Gomez', 23456789],
-    [5007, 'Luis Martinez', 34567890],
-    [5008, 'Maria Lopez', 45678901],
-    [5009, 'Carlos Sanchez', 56789012]
-]
-
-#A BORRAR
-discos =[
-    {'Id':1,'nombre':'Disco 1','Artista':"A",'Genero':'Rock','Cantidad':1},
-    {'Id':2,'nombre':'Disco 2','Artista':"B",'Genero':'Pop','Cantidad':3},
-    {'Id':3,'nombre':'Disco 3','Artista':"C",'Genero':'Techno','Cantidad':2},
-    {'Id':4,'nombre':'Disco 4','Artista':"D",'Genero':'Dubstep','Cantidad':7},
-    {'Id':5,'nombre':'Disco 5','Artista':"E",'Genero':'Rock nacional','Cantidad':1},
-    {'Id':6,'nombre':'Disco 6','Artista':"F",'Genero':'Rock cristiano alternativo','Cantidad':4},
-    {'Id':7,'nombre':'Disco 7','Artista':"G",'Genero':'Trap','Cantidad':6},
-    {'Id':8,'nombre':'Disco 8','Artista':"H",'Genero':'Cumbia','Cantidad':2},
-    {'Id':9,'nombre':'Disco 9','Artista':"I",'Genero':'Indie','Cantidad':8},
-    {'Id':10,'nombre':'Disco 10','Artista':"J",'Genero':'rock','Cantidad':3}
-]
 
 def generadorid (matriz):
     """
@@ -46,34 +25,43 @@ def existenciaenmatrix(userid,matriz):
 def disponibilidadalbum(indicemenu,busqueda,listadiccionario):
     if indicemenu==1: #Busqueda por id 
         busqueda=int(busqueda)
-        lista=list(filter(lambda x: x.get("Id")==busqueda and x.get("cantidad".lower())!=0,discos))
+        lista=list(filter(lambda x: x.get("Id")==busqueda and x.get("cantidad".lower())!=0,listadiccionario))
     elif indicemenu==2: #Busqueda por nombre del disco 
         busqueda=busqueda.lower()
-        lista=list(filter(lambda x: x.get("Nombre","").lower()==busqueda and x.get("Cantidad".lower())!=0,discos))
+        lista=list(filter(lambda x: x.get("Nombre","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
     elif indicemenu==3: #Busqueda por artista
         busqueda=busqueda.lower() 
-        lista=list(filter(lambda x: x.get("Artista","").lower()==busqueda and x.get("Cantidad".lower())!=0,discos))
+        lista=list(filter(lambda x: x.get("Artista","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
     elif indicemenu==4: #Busqueda por genero
         busqueda=busqueda.lower() 
-        lista=list(filter(lambda x: x.get("Genero","").lower()==busqueda and x.get("Cantidad".lower())!=0,discos))
+        lista=list(filter(lambda x: x.get("Genero","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
     
-    if lista :    
+    if len(lista)>0 :    
         for i in lista :
             print(i)
     else:
         print('No se encontraron discos disponibles.')
         return 0
     
+    id_encontrado=False
     
-    id=int(input("Ingrese el id del disco que desea retirar"))
-    while not any(listadiccionario["id"]==id for dicionarios in listadiccionario ):
-        print("ID de usuario no encontrado, intentelo de nuevo.")
+    while not id_encontrado:
         id=int(input("Ingrese el id del disco que desea retirar"))
+        control=False
+        
+        for i in listadiccionario: #Busamos el id ingresado por el usuario dentro del stock 
+            if i["id"]==id:
+                diccionarioamodificar=listadiccionario[id-1]
+                diccionarioamodificar["cantidad"]-=1
+                print("stock actualizado")
+                control=True
+        
+        if control:
+            id_encontrado=True
+        else:        
+            print("ID de usuario no encontrado, intentelo de nuevo.")
+            id=int(input("Ingrese el id del disco que desea retirar"))
    
-    diccionarioamodificar=discos[id-1]
-    diccionarioamodificar["Cantidad" .lower()]-=1
-
-    print(discos)
-          
     
-disponibilidadalbum(4,"rock",discos)
+    print(f"Este es el nuevo stock del discio {diccionarioamodificar}")
+    print()

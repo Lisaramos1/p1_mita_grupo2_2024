@@ -1,4 +1,4 @@
-discos = {
+discos = [
     {'id':1,'nombre':'Disco 1','Artista':"A",'Genero':'Rock','cantidad':5},
     {'id':2,'nombre':'Disco 2','Artista':"B",'Genero':'Pop','cantidad':3},
     {'id':3,'nombre':'Disco 3','Artista':"C",'Genero':'Techno','cantidad':2},
@@ -9,7 +9,7 @@ discos = {
     {'id':8,'nombre':'Disco 8','Artista':"H",'Genero':'Cumbia','cantidad':2},
     {'id':9,'nombre':'Disco 9','Artista':"I",'Genero':'Indie','cantidad':8},
     {'id':10,'nombre':'Disco 10','Artista':"J",'Genero':'Clasica','cantidad':3}
-}
+]
 
 def menu():
     print('ingrese un numero del 0 al 4')
