@@ -45,3 +45,16 @@ def ValidUserid (userid):
     else : 
         return False
 
+def existenciadeuser(userid,matriz):
+    """
+    pre:Recibe el userid y la matriz
+    pos:Si se encuetra el userdi== True ,, si no lo encuentra==False
+    """
+    cont=0
+    
+    while cont<len(matriz): 
+        if matriz[cont][0] == userid:
+            return True
+        else:   
+            cont+=1
+    return False

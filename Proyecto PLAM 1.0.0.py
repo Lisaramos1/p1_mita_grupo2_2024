@@ -17,6 +17,13 @@ discos = [
     {'id':10,'nombre':'Disco 10','Artista':"J",'Genero':'Clasica','cantidad':3}
 ]
 
+Personas=[
+     [5005, 'Juan Perez', 12345678],
+    [5006, 'Ana Gomez', 23456789],
+    [5007, 'Luis Martinez', 34567890],
+    [5008, 'Maria Lopez', 45678901],
+    [5009, 'Carlos Sanchez', 56789012]
+]
 uso=0
 while uso==0:
     print('1 Discos')
@@ -57,29 +64,50 @@ while uso==0:
         print("0 volver")
         menu = int(input('Ingrese una acción:' ))
         if menu==1:
-            NroCliente=int(input("Ingrese el numero de cliente: "))
-            verificacionuserod=validaciones.ValidUserid(NroCliente)
-            while verificacionuserod == False:
-                print("Nro de cliente no valido")
-                NroCliente=int(input("Ingrese un numero de cliente valido: "))
+            
+            control=True #variable para controlar la carga del usuario
+            while control==True:
+                NroCliente=int(input("Ingrese el numero de cliente: "))
+                verificacionuserod=validaciones.ValidUserid(NroCliente) #Se verifica que el user cargado coincida con el parametro regex.
+                while verificacionuserod == False:
+                    print("Nro de cliente no valido")
+                    NroCliente=int(input("Ingrese un numero de cliente valido: "))
+                    verificacionuserod=validaciones.ValidUserid(NroCliente)
                 
-            loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
-            while loopfiltro == 0 : 
-                print('1 Id del disco ')
-                print('2 Nombre del disco ')
-                print('3 Nombre del artista ')
-                print('4 Genero del album ')
-                print()
-                indicefiltro=int(input("Ingrese como desea buscar el album: "))
-                if indicefiltro > 4 or indicefiltro< 1:
-                    print("Ingrese un numero valido")   
+                user=validaciones.existenciadeuser(NroCliente,Personas) #Validacion de existencia del usuario
+                if user == True:
+                    print("Cliente encontrado")
+            
                 else:
-                    loopfiltro=1
-            print()
-            valorabuscar=input("Ingrese el valor a buscar: ")
-            idalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,discos)
-            Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
-            prestamos.crear_prestamos(NroCliente,idalbum,Diasdeprestamos)
+                    print("El usuario no fue encontrado")  #Si el usuario no esta registrado regresa al menu principal 
+                    print("Debe restrirar al usuario")
+                    control=False
+                    break  
+                    
+                    
+                loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
+                print()
+                print("Busqueda de album")
+                while loopfiltro == 0 : 
+                    print('1 Id del disco ')
+                    print('2 Nombre del disco ')
+                    print('3 Nombre del artista ')
+                    print('4 Genero del album ')
+                    print()
+                    indicefiltro=int(input("Ingrese como desea buscar el album: "))
+                    if indicefiltro > 4 or indicefiltro< 1:
+                        print("Ingrese un numero valido")   
+                    else:
+                        loopfiltro=1
+                        
+                valorabuscar=input("Ingrese el valor a buscar: ")
+                nombredelalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,discos)
+                
+                Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
+                monto=int(input("Ingrese el monto total del prestamo: "))
+                prestamos.crear_prestamos(NroCliente,nombredelalbum,Diasdeprestamos,monto)
+                control=False
+                
         if menu==2:
             userid=int(input("Ingrese el id del usuario del registro a modificar: "))
             prestamos.modificar_prestamos(userid) 
@@ -96,8 +124,7 @@ while uso==0:
             
         if menu == 0:
             loop=1
-        else : 
-            print("Ingrese un numero valido")
+        
         
     else:
         uso=1

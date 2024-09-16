@@ -8,19 +8,7 @@ def generadorid (matriz):
     id=f"{len_lista:04}"
     return id 
 
-def existenciaenmatrix(userid,matriz):
-    """
-    pre:Recibe el userid y la matriz
-    pos:Si se encuetra el userdi== True ,, si no lo encuentra==False
-    """
-    cont=0
-    
-    while cont<len(matriz): 
-        if matriz[cont][0] == userid:
-            return True
-        else:   
-            cont+=1
-    return False
+
 
 def disponibilidadalbum(indicemenu,busqueda,listadiccionario):
     if indicemenu==1: #Busqueda por id 
@@ -46,7 +34,7 @@ def disponibilidadalbum(indicemenu,busqueda,listadiccionario):
     id_encontrado=False
     
     while not id_encontrado:
-        id=int(input("Ingrese el id del disco que desea retirar"))
+        id=int(input("Ingrese el id del disco que desea retirar: "))
         control=False
         
         for i in listadiccionario: #Busamos el id ingresado por el usuario dentro del stock 
@@ -58,10 +46,12 @@ def disponibilidadalbum(indicemenu,busqueda,listadiccionario):
         
         if control:
             id_encontrado=True
+            return diccionarioamodificar["nombre"]
+
         else:        
             print("ID de usuario no encontrado, intentelo de nuevo.")
             id=int(input("Ingrese el id del disco que desea retirar"))
    
     
     print(f"Este es el nuevo stock del discio {diccionarioamodificar}")
-    print()
+ 

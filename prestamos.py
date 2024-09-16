@@ -1,5 +1,6 @@
 import validaciones
 import Personas
+import funcionesvarias
 
 Personas=[
      [5005, 'Juan Perez', 12345678],
@@ -18,32 +19,17 @@ prestamos=[
 ]
 
 
-def crear_prestamos (NroCliente,album,DiasdePrestamo):
+def crear_prestamos (NroCliente,album,DiasdePrestamo,monto):
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz
     """
-    
-    estado=False
-    while estado == False: #While de validaciones
-        user=validaciones.existenciadeuser(NroCliente,Personas)
-        if user == True:
-            print("Existe el nro de cliente")
-    
-        else:
-            print("El usuario no fue encontrado")
-            print("Debe restrirar al usuario")
-            estado=False
-    """
-    Agregar:
-    Calcular un precio base
-    """
+   
     print("Creación de prestamos") 
     fechas=validaciones.SumadeDias(DiasdePrestamo)       #Se contabilizan las fechas de los dias del prestamos
     fecha_inicio,fecha_cierre=fechas                     # Se asignan las fechas
-    monto=int(input("Ingrese el monto total del prestamo: "))
     aux=[NroCliente,album,fecha_inicio,fecha_cierre,monto]
     prestamos.append(aux)
-    return True
+    return 
 
 
 def modificar_prestamos(pku):    
@@ -55,17 +41,17 @@ def modificar_prestamos(pku):
     """
 
     
-    apariciones=[prestamo for prestamo in prestamos if prestamo[0] == pku ]
+    # apariciones=[prestamo for prestamo in prestamos if prestamo[0] == pku]
     
     """
     Creación de listas por compresión 
     """     
     columnas=len(prestamos[0])-1
      
-    # for num in range (columnas):
-    #     if prestamos[num][0]==pku:
-    #         apariciones.append(prestamos[num])
-    #         indicedeprestamo.append(num)
+    for num in range (columnas):
+        if prestamos[num][0]==pku:
+            apariciones.append(prestamos[num])
+            indicedeprestamo.append(num)
     
             
     print()
