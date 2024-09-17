@@ -62,7 +62,7 @@ def agregar():  # agregar discos
 
 def modificar():  # función que modifica un disco
     mostrar()
-    print('Ingrese el número del disco que desee modificar, ponga 0 para volver')
+    print('Ingrese el número del disco que desee modificar, ingrese 0 para volver')
     nro = int(input())
     if nro == 0:
         return
