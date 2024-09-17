@@ -44,22 +44,27 @@ def str_a_fecha(strfecha):
     return aux
  
  #Existencias dentro de la primera columna de una matriz   
-def existenciadeuser(userid,matriz):
+def existenciadeuser(userid,diccionariosdeusers):
     """
-    pre:Recibe el userid y la matriz
+    pre:Recibe el userid y el diccionario
     pos:Si se encuetra el userdi== True ,, si no lo encuentra==False
     """
+    for i in diccionariosdeusers: #Busamos el id ingresado por el usuario dentro del stock 
+            if i["id"]==userid:
+              return True
+    else: 
+        return False
+
+def existenciaprestamo (userid,matrizprestamos):
     cont=0
-    
-    while cont<len(matriz): 
-        if matriz[cont][0] == userid:
+    while cont<len(matrizprestamos): 
+        if matrizprestamos[cont][0] == userid:
             return True
         else:   
             cont+=1
     return False
 
-
-#Validaciones regex
+#Validaciones regexwhile cont<len(matriz): 
 def validaciondefecha(fecha):
     """
     pre:recibe la fecha

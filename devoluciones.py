@@ -3,6 +3,7 @@ import validaciones
 
 def modicacion_de_estados(userid,nombrealbum,diccionariodiscos,matrizprestamos):
     cont=0
+    print("Modicicación de estados \n")
     
     while cont<len(matrizprestamos): 
         if matrizprestamos[cont][0] == userid and matrizprestamos[cont][-1]==False:
@@ -11,13 +12,14 @@ def modicacion_de_estados(userid,nombrealbum,diccionariodiscos,matrizprestamos):
             matrizprestamos[cont][-1]=True
             
             for disco in diccionariodiscos:
-                if nombrealbum == disco['nombre']:
+                if nombrealbum == disco['nombre'.lower()]:
                     disco['cantidad'] += 1  # Incrementar la cantidad del disco existente
-                    print(f"Disco actualizado: {disco} ")
-            print() 
-            return
-
-
+                    print(f"Stock actualizado: {disco} ")
+             
+            return ()
+        else :
+            cont+=1
+    print("carga terminada")
 
 
             

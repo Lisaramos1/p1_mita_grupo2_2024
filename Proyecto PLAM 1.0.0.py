@@ -19,12 +19,13 @@ discos = [
 ]
 
 Usuarios=[
-     ["5005", 'Juan Perez', 12345678],
-    ["5006", 'Ana Gomez', 23456789],
-    ["5007", 'Luis Martinez', 34567890],
-    ["5008", 'Maria Lopez', 45678901],
-    ["5009", 'Carlos Sanchez', 56789012]
+    {"id": "5005", "nombre": "Juan", "apellido": "Perez", "dni": 12345678},
+    {"id": "5006", "nombre": "Ana", "apellido": "Gomez", "dni": 23456789},
+    {"id": "5007", "nombre": "Luis", "apellido": "Martinez", "dni": 34567890},
+    {"id": "5008", "nombre": "Maria", "apellido": "Lopez", "dni": 45678901},
+    {"id": "5009", "nombre": "Carlos", "apellido": "Sanchez", "dni": 56789012}
 ]
+
 
 Prestamos=[
     ["5002", 'Lemonade', "2024-06-16", '2024-06-30', 400, False],
@@ -146,11 +147,11 @@ while uso==0:
         loop_devoluciones=0
         while loop_devoluciones==0:
             print('1 Devolver un disco ➕')
-            print('2 Modificar la devolucion ➖')
             print("0 volver")
             menu_devoluciones = int(input('Ingrese una acción:' ))
             
             if menu_devoluciones==1:
+            
                 print("Devolución de discos \n")
                 
                 control=False
@@ -162,7 +163,7 @@ while uso==0:
                         userid=(input("Ingrese un numero de cliente valido: "))
                         verificacionuserid=validaciones.ValidUserid(NroCliente)
                         
-                    user=validaciones.existenciadeuser(userid,Prestamos) #Validacion de existencia de prestamo a nombre del usuario
+                    user=validaciones.existenciaprestamo(userid,Prestamos) #Validacion de existencia de prestamo a nombre del usuario
                     if user == True:
                         print("Prestamo encontrado \n")
     
@@ -186,10 +187,13 @@ while uso==0:
                             
                     valorabuscar=input("Ingrese el valor a buscar: ")
                     funcionesvarias.filtros_busqueda(indicefiltro,valorabuscar,discos)
-                    nombredelalbum=funcionesvarias.retirar_Disco(id,discos)
-                    if nombredelalbum == 0 : 
-                        loopfiltro=1
-    
+                    nombredelalbum=input("Ingrese el nombre del album que busca: ").lower()
+                    devoluciones.modicacion_de_estados(user,nombredelalbum,discos,Prestamos)
+                    
+                    control=True
+                
+            elif menu_devoluciones==0:
+                loop_devoluciones=1
         
     else:
         uso=1

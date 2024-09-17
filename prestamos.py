@@ -25,7 +25,7 @@ def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,matrizprestamos):
     return 
 
 
-def modificar_prestamos(userid,matrizusuarios,matrizprestamos,diccionariodiscos):    
+def modificar_prestamos(userid,diccionariousers,matrizprestamos,diccionariodiscos):    
     apariciones,indicedeprestamo=[],[]
  
     verificacion=validaciones.ValidUserid(userid)
@@ -50,7 +50,7 @@ def modificar_prestamos(userid,matrizusuarios,matrizprestamos,diccionariodiscos)
         n_aparicion=int(input("Qué prestamo desea modificar? "))-1
         
         prestamoacambiar=apariciones[n_aparicion]
-        print(prestamoacambiar)
+        print(str(prestamoacambiar))
         print('1 Numero de cliente')
         print('2 Nombre del album')
         print('3 Fecha de prestamo')
@@ -71,7 +71,7 @@ def modificar_prestamos(userid,matrizusuarios,matrizprestamos,diccionariodiscos)
                 while caso1 == False:
                     print(f"El numero de usuario {idcliente} , no cumple con los parametros")
                     
-                caso2=validaciones.existenciadeuser(idcliente,matrizusuarios)
+                caso2=validaciones.existenciadeuser(idcliente,diccionariousers)
                 while verificacion==False:
                     print(f"El usuario {userid} , no esta registrado")
                     idcliente=input("Ingrese un Id registrado : ")
@@ -116,7 +116,7 @@ def modificar_prestamos(userid,matrizusuarios,matrizprestamos,diccionariodiscos)
                     caso1=validaciones.validaciondefecha(nuevafecha)
                 
                 aux=validaciones.str_a_fecha(nuevafecha)
-                prestamoacambiar[modificacion]=aux
+                prestamoacambiar[modificacion]=str(aux)
                         
             elif modificacion==3: #Cambio de fecha de devolución
                 fechaanterior=prestamoacambiar[modificacion] 
