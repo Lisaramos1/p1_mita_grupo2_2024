@@ -4,6 +4,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import date
 
+#Validaciones y transformaciones de formato fecha
 def SumadeDias(DiasdePrestamo):
     """
     pre: Se reciben los dias que se va a realizar el prestamo
@@ -17,7 +18,7 @@ def SumadeDias(DiasdePrestamo):
     
     return(dia1,dia2)
 
-def modificacióndedevolucion(fecha,cantdediasdeprestamo):
+def modificacionfechalimite(fecha,cantdediasdeprestamo):
     """
     pre: recibe la anterior fecha de devolición junto con la nueva cantidad de dias de prestamo
     pos: devulve la nueva fecha de devolución     
@@ -40,9 +41,25 @@ def str_a_fecha(strfecha):
     fecha_objeto = datetime.strptime(strfecha,formato)
     aux=fecha_objeto.date()
     
-    return str(aux)
+    return aux
+ 
+ #Existencias dentro de la primera columna de una matriz   
+def existenciadeuser(userid,matriz):
+    """
+    pre:Recibe el userid y la matriz
+    pos:Si se encuetra el userdi== True ,, si no lo encuentra==False
+    """
+    cont=0
     
+    while cont<len(matriz): 
+        if matriz[cont][0] == userid:
+            return True
+        else:   
+            cont+=1
+    return False
 
+
+#Validaciones regex
 def validaciondefecha(fecha):
     """
     pre:recibe la fecha
@@ -79,17 +96,3 @@ def ValidUserid (userid):
         return True
     else : 
         return False
-
-def existenciadeuser(userid,matriz):
-    """
-    pre:Recibe el userid y la matriz
-    pos:Si se encuetra el userdi== True ,, si no lo encuentra==False
-    """
-    cont=0
-    
-    while cont<len(matriz): 
-        if matriz[cont][0] == userid:
-            return True
-        else:   
-            cont+=1
-    return False

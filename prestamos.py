@@ -19,7 +19,7 @@ def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,matrizprestamos):
     print("Creación de prestamos") 
     fechas=validaciones.SumadeDias(DiasdePrestamo)       #Se contabilizan las fechas de los dias del prestamos
     fecha_inicio,fecha_cierre=fechas                     # Se asignan las fechas
-    aux=[NroCliente,album,fecha_inicio,fecha_cierre,monto]
+    aux=[NroCliente,album,fecha_inicio,fecha_cierre,monto,False]
     matrizprestamos.append(aux)
     print(f"El prestamo creado es: {aux}")
     return 
@@ -84,11 +84,7 @@ def modificar_prestamos(userid,matrizusuarios,matrizprestamos,diccionariodiscos)
                 print()
                 print("Busqueda de album")
                 while loopfiltro == 0 : 
-                    print('1 Id del disco ')
-                    print('2 Nombre del disco ')
-                    print('3 Nombre del artista ')
-                    print('4 Genero del album ')
-                    print()
+                    funcionesvarias.menu_busqueda_album()
                     indicefiltro=int(input("Ingrese como desea buscar el album: "))
                     if indicefiltro > 4 or indicefiltro< 1:
                         print("Ingrese un numero valido")   
@@ -96,7 +92,16 @@ def modificar_prestamos(userid,matrizusuarios,matrizprestamos,diccionariodiscos)
                         loopfiltro=1
                         
                 valorabuscar=input("Ingrese el valor a buscar: ")
-                nombredelalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,diccionariodiscos)
+                funcionesvarias.filtros_busqueda(indicefiltro,valorabuscar,diccionariodiscos)
+                
+                id=int(input("Ingrese el id del disco que desea retirar: "))
+                while id < 0 :
+                    id=int(input("Ingrese un numero de id valido: "))
+                    
+                aux=prestamoacambiar[modificacion]
+                nombrealbum=funcionesvarias.retirar_Disco(id,diccionariodiscos)
+                prestamoacambiar[modificacion]=nombrealbum
+                funcionesvarias.agregar_Disco(aux,diccionariodiscos)
                
                 
                 
@@ -116,12 +121,12 @@ def modificar_prestamos(userid,matrizusuarios,matrizprestamos,diccionariodiscos)
             elif modificacion==3: #Cambio de fecha de devolución
                 fechaanterior=prestamoacambiar[modificacion] 
                 cantdias=int(input("Ingrese la cantidad de días que se le van a sumar al prestamo: "))
-                nuevafecha=validaciones.modificacióndedevolucion(fechaanterior,cantdias)
+                nuevafecha=validaciones.modificacionfechalimite(fechaanterior,cantdias)
                 
                 while nuevafecha == False:
                     print("Cantidad de días no valida")
                     cantdias=int(input("Ingrese una cantidad de días mayor que cero: "))
-                    nuevafecha=validaciones.modificacióndedevolucion(fechaanterior,cantdias)
+                    nuevafecha=validaciones.modificacionfechalimite(fechaanterior,cantdias)
                 
                 prestamoacambiar[modificacion]=nuevafecha
                     
@@ -137,16 +142,14 @@ def modificar_prestamos(userid,matrizusuarios,matrizprestamos,diccionariodiscos)
         matrizprestamos.insert(indicedeprestamo[n_aparicion],prestamoacambiar)
         
         print()
-        for i in matrizprestamos:
-            print(i)    
+        funcionesvarias.imprimir_matriz(matrizprestamos) 
         
     else:
         print("No se encontro ningun prestamo con este numero de usuario")
     return       
             
 def mostrar_prestamos(matrizprestamos):
-    for i in matrizprestamos:
-        print(i) 
+    funcionesvarias.imprimir_matriz(matrizprestamos) 
     return    
 
 def eliminar_prestamos(matrizprestamos):
@@ -157,7 +160,16 @@ def eliminar_prestamos(matrizprestamos):
     print(f'el prestamo eliminado fue: {matrizprestamos[prestamo_a_eliminar]}')
     print()
     matrizprestamos.pop(prestamo_a_eliminar)
-    for i in matrizprestamos:
-        print(1)
+    funcionesvarias.imprimir_matriz(matrizprestamos)
     
     return
+
+# def prestamos_vencidos(fechafinalizacion,matrizprestamos):
+#     cont=0
+    
+#     fechafinalizacion=validaciones.str_a_fecha(fechafinalizacion)
+    
+#     while cont<len(matrizprestamos):
+#         if matrizprestamos[cont][-1]==False:
+#             fechaacomparar=validaciones.str_a_fecha(matrizprestamos[cont][-3]) #Transformamos la fecha en formato date
+#             aux=[agregado, for i in matrizprestamos

@@ -3,6 +3,7 @@ import prestamos
 import Personas
 import funcionesvarias
 import validaciones
+import devoluciones
 
 discos = [
     {'id':1,'nombre':'Disco 1','Artista':"A",'Genero':'Rock','cantidad':5},
@@ -17,7 +18,7 @@ discos = [
     {'id':10,'nombre':'Disco 10','Artista':"J",'Genero':'Clasica','cantidad':3}
 ]
 
-Personas=[
+Usuarios=[
      ["5005", 'Juan Perez', 12345678],
     ["5006", 'Ana Gomez', 23456789],
     ["5007", 'Luis Martinez', 34567890],
@@ -26,17 +27,17 @@ Personas=[
 ]
 
 Prestamos=[
-    ["5002",'Lemonade','12/5', '27/5',400,True],
-    ["5003",'Abbey Road','13/6','14/7',700,False],
-    ["5007",'Lemonade','14/6','16/8',1000,True],
-    ["5007",'Ok Computer','14/6','16/8',1000,True]
-    
+    ["5002", 'Lemonade', "2024-06-16", '2024-06-30', 400, False],
+    ["5003", 'Abbey Road', '2024-06-13', '2024-07-14', 700, False],
+    ["5007", 'Lemonade', '2024-06-14', '2024-08-16', 1000, True],
+    ["5007", 'Ok Computer', '2024-06-14', '2024-08-16', 1000, True]
 ]
 uso=0
 while uso==0:
     print('1 Discos')
     print('2 Usuarios')
     print('3 Prestamos')
+    print('4 Devoluciones')
     print('0 Salir')
     funcion = int(input())
     if funcion==1:
@@ -61,83 +62,134 @@ while uso==0:
                 loop=1
     elif funcion==2:
         Personas.menue()
-    if funcion==3:
-        loop=0
-    while loop == 0 :
-        print()
-        print('1 Crear prestamos ➕')
-        print('2 Modificar prestamos ➖')
-        print('3 Eliminar prestamo ⚙️')
-        print('4 Mostrar listado 👀')
-        print('5 Devoluciones')
-        print("0 volver")
-        menu = int(input('Ingrese una acción:' ))
-        if menu==1:
-            
-            control=True #variable para controlar la carga del usuario
-            while control==True:
-                NroCliente=(input("Ingrese el numero de cliente: "))
-                verificacionuserod=validaciones.ValidUserid(NroCliente) #Se verifica que el user cargado coincida con el parametro regex.
-                while verificacionuserod == False:
-                    print("Nro de cliente no valido")
-                    NroCliente=int(input("Ingrese un numero de cliente valido: "))
-                    verificacionuserod=validaciones.ValidUserid(NroCliente)
-                
-                user=validaciones.existenciadeuser(NroCliente,Personas) #Validacion de existencia del usuario
-                if user == True:
-                    print("Cliente encontrado")
-            
-                else:
-                    print("El usuario no fue encontrado")  #Si el usuario no esta registrado regresa al menu principal 
-                    print("Debe restrirar al usuario")
-                    control=False
-                    break  
-                    
-                    
-                loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
-                print()
-                print("Busqueda de album")
-                while loopfiltro == 0 : 
-                    print('1 Id del disco ')
-                    print('2 Nombre del disco ')
-                    print('3 Nombre del artista ')
-                    print('4 Genero del album ')
-                    print()
-                    indicefiltro=int(input("Ingrese como desea buscar el album: "))
-                    if indicefiltro > 4 or indicefiltro< 1:
-                        print("Ingrese un numero valido")   
-                    else:
-                        loopfiltro=1
-                        
-                valorabuscar=input("Ingrese el valor a buscar: ")
-                nombredelalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,discos)
-                if nombredelalbum == 0 : 
-                    break
-    
-                Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
-                monto=int(input("Ingrese el monto total del prestamo: "))
-                prestamos.crear_prestamos(NroCliente,nombredelalbum,Diasdeprestamos,monto,Prestamos)
-                control=False 
-                
-        if menu==2:
+    elif funcion==3:
+        loop_prestamos=0
+        while loop_prestamos== 0 :
             print()
-            print("Modificación de prestamos \n")
-            userid=(input("Ingrese el id del usuario del registro a modificar: "))
-            prestamos.modificar_prestamos(userid,Personas,Prestamos,discos)
-        if menu==3:
-            prestamos.eliminar_prestamos(Prestamos)
-        if menu==4:
-            prestamos.mostrar_prestamos(Prestamos)
-        if menu == 5:
+            print('1 Crear prestamos ➕')
+            print('2 Modificar prestamos ➖')
+            print('3 Eliminar prestamo ⚙️')
+            print('4 Mostrar listado 👀')
+            print('5 Prestamos por vencer')
+            print("0 volver")
+            menu_prestamos = int(input('Ingrese una acción:' ))
+            
+            if menu_prestamos==1:
+                
+                control=True #variable para controlar la carga del usuario
+                while control==True:
+                    NroCliente=(input("Ingrese el numero de cliente: "))
+                    verificacionuserid=validaciones.ValidUserid(NroCliente) #Se verifica que el user cargado coincida con el parametro regex.
+                    while verificacionuserid == False:
+                        print("Nro de cliente no valido")
+                        NroCliente=(input("Ingrese un numero de cliente valido: "))
+                        verificacionuserid=validaciones.ValidUserid(NroCliente)
+                    
+                    user=validaciones.existenciadeuser(NroCliente,Usuarios) #Validacion de existencia del usuario
+                    if user == True:
+                        print("Cliente encontrado")
+                
+                    else:
+                        print("El usuario no fue encontrado")  #Si el usuario no esta registrado regresa al menu principal 
+                        print("Debe restrirar al usuario")
+                        control=False
+                        break  
+                        
+                        
+                    loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
+                    print()
+                    funcionesvarias.menu_busqueda_album()
+                    print("Busqueda de album")
+                    while loopfiltro == 0 : 
+                        funcionesvarias.menu_busqueda_album
+                        indicefiltro=int(input("Ingrese como desea buscar el album: "))
+                        if indicefiltro > 4 or indicefiltro< 1:
+                            print("Ingrese un numero valido")   
+                        else:
+                            loopfiltro=1
+                            
+                    valorabuscar=input("Ingrese el valor a buscar: ")
+                    funcionesvarias.filtros_busqueda(indicefiltro,valorabuscar,discos)
+                    nombredelalbum=funcionesvarias.retirar_Disco(id,discos)
+                    if nombredelalbum == 0 : 
+                        break
+        
+                    Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
+                    monto=int(input("Ingrese el monto total del prestamo: "))
+                    prestamos.crear_prestamos(NroCliente,nombredelalbum,Diasdeprestamos,monto,Prestamos)
+                    control=False 
+                    
+            if menu_prestamos==2:
+                print()
+                print("Modificación de prestamos \n")
+                userid=(input("Ingrese el id del usuario del registro a modificar: "))
+                prestamos.modificar_prestamos(userid,Personas,Prestamos,discos)
+            if menu_prestamos==3:
+                prestamos.eliminar_prestamos(Prestamos)
+            if menu_prestamos==4:
+                prestamos.mostrar_prestamos(Prestamos)
+            if menu_prestamos==5:
+                fechalimite=input("Ingrese la fecha limite que desea filtrar: ")
+                caso1=validaciones.validaciondefecha(fechalimite)
+                while caso1== False: #Se evalua que sea correcto el formato de fecha
+                    print("El formato de fecha no es el correcto")
+                    print("xxxx-xx-xx")   
+                    fechalimite=input()
+                    caso1=validaciones.validaciondefecha(fechalimite)
+                
+                
+                
+            if menu_prestamos == 0:
+                loop_prestamos=1
+    
+    elif funcion==4:
+        loop_devoluciones=0
+        while loop_devoluciones==0:
             print('1 Devolver un disco ➕')
             print('2 Modificar la devolucion ➖')
-            print('4 Mostrar estados de los prestamos 👀')
-            print('5 Devoluciones')
             print("0 volver")
+            menu_devoluciones = int(input('Ingrese una acción:' ))
             
-        if menu == 0:
-            loop=1
-        
+            if menu_devoluciones==1:
+                print("Devolución de discos \n")
+                
+                control=False
+                while control==False:
+                    userid=input("Ingrese el id del usuario: ")
+                    verificacionuserid=validaciones.ValidUserid(userid) #Se verifica que el user cargado coincida con el parametro regex.
+                    while verificacionuserid == False:
+                        print("Nro de cliente no valido")
+                        userid=(input("Ingrese un numero de cliente valido: "))
+                        verificacionuserid=validaciones.ValidUserid(NroCliente)
+                        
+                    user=validaciones.existenciadeuser(userid,Prestamos) #Validacion de existencia de prestamo a nombre del usuario
+                    if user == True:
+                        print("Prestamo encontrado \n")
+    
+                
+                    else:
+                        print("El prestamo no fue encontrado \n")  #Si el usuario no esta registrado regresa al menu principal
+                        break
+                    
+                   
+                    
+                    
+                    loopfiltro=0  
+                    print("Busqueda de album")
+                    while loopfiltro == 0 : 
+                        funcionesvarias.menu_busqueda_album()
+                        indicefiltro=int(input("Ingrese como desea buscar el album: "))
+                        if indicefiltro > 4 or indicefiltro< 1:
+                            print("Ingrese un numero valido")   
+                        else:
+                            loopfiltro=1
+                            
+                    valorabuscar=input("Ingrese el valor a buscar: ")
+                    funcionesvarias.filtros_busqueda(indicefiltro,valorabuscar,discos)
+                    nombredelalbum=funcionesvarias.retirar_Disco(id,discos)
+                    if nombredelalbum == 0 : 
+                        loopfiltro=1
+    
         
     else:
         uso=1

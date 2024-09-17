@@ -6,11 +6,24 @@ def generadorid (matriz):
     """
     len_lista=len(matriz)+1
     id=f"{len_lista:04}"
-    return id 
+    return id
+
+def imprimir_matriz(matriz):
+    print()
+    for fila in matriz:
+        print("||".join(map(str,fila)))
 
 
 
-def disponibilidadalbum(indicemenu,busqueda,listadiccionario):
+#busquedas de albums
+def menu_busqueda_album():
+    print('1 Id del disco ')
+    print('2 Nombre del disco ')
+    print('3 Nombre del artista ')
+    print('4 Genero del album ')
+    print()
+
+def filtros_busqueda(indicemenu,busqueda,listadiccionario): #uso de funciones lambda y metodos de strings
     if indicemenu==1: #Busqueda por id 
         busqueda=int(busqueda)
         lista=list(filter(lambda x: x.get("id")==busqueda and x.get("cantidad".lower())!=0,listadiccionario))
@@ -25,21 +38,22 @@ def disponibilidadalbum(indicemenu,busqueda,listadiccionario):
         lista=list(filter(lambda x: x.get("Genero","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
     
     if len(lista)>0 :    
-        for i in lista :
-            print(i)
+        for disco in lista:
+            print(f"ID: {disco['id']}, Nombre: {disco['nombre']}, Artista: {disco['Artista']}, Género: {disco['Genero']}, Cantidad: {disco['cantidad']}")
+        
     else:
         print('No se encontraron discos disponibles.')
         return 0
     
+def retirar_Disco(idaretirar,diccionariodiscos):
     id_encontrado=False
-    
     while not id_encontrado:
-        id=int(input("Ingrese el id del disco que desea retirar: "))
+        
         control=False
         
-        for i in listadiccionario: #Busamos el id ingresado por el usuario dentro del stock 
-            if i["id"]==id:
-                diccionarioamodificar=listadiccionario[id-1]
+        for i in diccionariodiscos: #Busamos el id ingresado por el usuario dentro del stock 
+            if i["id"]==idaretirar:
+                diccionarioamodificar=diccionariodiscos[idaretirar-1]
                 diccionarioamodificar["cantidad"]-=1
                 print("stock actualizado")
                 control=True
@@ -49,12 +63,14 @@ def disponibilidadalbum(indicemenu,busqueda,listadiccionario):
             return diccionarioamodificar["nombre"]
 
         else:        
-            print("ID de usuario no encontrado, intentelo de nuevo.")
-            id=int(input("Ingrese el id del disco que desea retirar"))
+            idaretirar=int(input("Ingrese el id del disco que desea retirar"))
    
     
     print(f"Este es el nuevo stock del disco {diccionarioamodificar}")
 
-
+def agregar_Disco(nombrealbum,diccionariodiscos):
+    for disco in diccionariodiscos:
+        if nombrealbum== disco['nombre']:
+            disco['cantidad'] += 1
 
  

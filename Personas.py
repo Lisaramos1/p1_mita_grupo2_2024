@@ -1,5 +1,4 @@
 import re 
-
 # Función para validar DNI 
 def validar_dni(dni):
     return re.fullmatch('\\d{7,8}', dni) is not None
