@@ -10,16 +10,8 @@ Personas=[
     [5009, 'Carlos Sanchez', 56789012]
 ]
 
-prestamos=[
-    [5002,'Lemonade','12/5', '27/5',400,True],
-    [5003,'Abbey Road','13/6','14/7',700,False],
-    [5007,'Lemonade','14/6','16/8',1000,True],
-    [5007,'Ok Computer','14/6','16/8',1000,True]
-    
-]
 
-
-def crear_prestamos (NroCliente,album,DiasdePrestamo,monto):
+def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,matrizprestamos):
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz
     """
@@ -28,29 +20,24 @@ def crear_prestamos (NroCliente,album,DiasdePrestamo,monto):
     fechas=validaciones.SumadeDias(DiasdePrestamo)       #Se contabilizan las fechas de los dias del prestamos
     fecha_inicio,fecha_cierre=fechas                     # Se asignan las fechas
     aux=[NroCliente,album,fecha_inicio,fecha_cierre,monto]
-    prestamos.append(aux)
+    matrizprestamos.append(aux)
+    print(f"El prestamo creado es: {aux}")
     return 
 
 
-def modificar_prestamos(pku):    
+def modificar_prestamos(userid,matrizusuarios,matrizprestamos,diccionariodiscos):    
     apariciones,indicedeprestamo=[],[]
-  
-    """
-    AGREGAR:
-    Seleccionar por cual filtro se desea realizar la busqueda 
-    """
+ 
+    verificacion=validaciones.ValidUserid(userid)
+    if verificacion==False:
+        print(f"El numero de usuario {userid} , no es valido")
+        return
 
-    
-    # apariciones=[prestamo for prestamo in prestamos if prestamo[0] == pku]
-    
-    """
-    Creación de listas por compresión 
-    """     
-    columnas=len(prestamos[0])-1
+    filas=len(matrizprestamos)
      
-    for num in range (columnas):
-        if prestamos[num][0]==pku:
-            apariciones.append(prestamos[num])
+    for num in range (filas):
+        if matrizprestamos[num][0]==userid:
+            apariciones.append(matrizprestamos[num])
             indicedeprestamo.append(num)
     
             
@@ -75,41 +62,102 @@ def modificar_prestamos(pku):
         modificacion=int(input("Que valor desea modificar?: "))-1
         
         while modificacion!=-2:
-            if modificacion >= len(prestamoacambiar):
+            if modificacion >= len(prestamoacambiar): #Aseguramos que este dentro del rango el indice 
                 print('No es un rango disponible')
             
-            else:    
-                nuevo_valor=input("Ingrese un nuevo valor: ")
+            if modificacion==0:#Modificación de numero de cliente
+                idcliente=input("Ingrese el nuevo id de cliente")
+                caso1=validaciones.ValidUserid(idcliente)
+                while caso1 == False:
+                    print(f"El numero de usuario {idcliente} , no cumple con los parametros")
+                    
+                caso2=validaciones.existenciadeuser(idcliente,matrizusuarios)
+                while verificacion==False:
+                    print(f"El usuario {userid} , no esta registrado")
+                    idcliente=input("Ingrese un Id registrado : ")
+                    
+                   
+                prestamoacambiar[modificacion]=idcliente
+            
+            elif modificacion == 1 :
+                loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
+                print()
+                print("Busqueda de album")
+                while loopfiltro == 0 : 
+                    print('1 Id del disco ')
+                    print('2 Nombre del disco ')
+                    print('3 Nombre del artista ')
+                    print('4 Genero del album ')
+                    print()
+                    indicefiltro=int(input("Ingrese como desea buscar el album: "))
+                    if indicefiltro > 4 or indicefiltro< 1:
+                        print("Ingrese un numero valido")   
+                    else:
+                        loopfiltro=1
+                        
+                valorabuscar=input("Ingrese el valor a buscar: ")
+                nombredelalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,diccionariodiscos)
+               
+                
+                
+            elif modificacion == 2: #Cambio de fecha de inicio de prestamo
+                print("Ingrese la nueva fecha con el siguiente formato: año-mes-dia")
+                nuevafecha=input()
+                caso1=validaciones.validaciondefecha(nuevafecha)
+                while caso1== False:
+                    print("El formato de fecha no es el correcto")
+                    print("xxxx-xx-xx")   
+                    nuevafecha=input()
+                    caso1=validaciones.validaciondefecha(nuevafecha)
+                
+                aux=validaciones.str_a_fecha(nuevafecha)
+                prestamoacambiar[modificacion]=aux
+                        
+            elif modificacion==3: #Cambio de fecha de devolución
+                fechaanterior=prestamoacambiar[modificacion] 
+                cantdias=int(input("Ingrese la cantidad de días que se le van a sumar al prestamo: "))
+                nuevafecha=validaciones.modificacióndedevolucion(fechaanterior,cantdias)
+                
+                while nuevafecha == False:
+                    print("Cantidad de días no valida")
+                    cantdias=int(input("Ingrese una cantidad de días mayor que cero: "))
+                    nuevafecha=validaciones.modificacióndedevolucion(fechaanterior,cantdias)
+                
+                prestamoacambiar[modificacion]=nuevafecha
+                    
+            elif modificacion==4:#Modificar el monto del prestamo
+                nuevo_valor=int(input("Ingrese el nuevo monto del prestamo"))
                 prestamoacambiar[modificacion]=nuevo_valor
             
             print(f"listado actualizado {prestamoacambiar}")
             
             modificacion=int(input("Que valor desea modificar? Si ya finalizo todas las modificaciones ingrese -1: "))-1
         
-        prestamos.pop(indicedeprestamo[n_aparicion])     
-        prestamos.insert(indicedeprestamo[n_aparicion],prestamoacambiar)
+        matrizprestamos.pop(indicedeprestamo[n_aparicion])    #listas avanzadas
+        matrizprestamos.insert(indicedeprestamo[n_aparicion],prestamoacambiar)
         
         print()
-        for i in prestamos:
+        for i in matrizprestamos:
             print(i)    
         
     else:
-        print("No se encontro ningun prestamo")
+        print("No se encontro ningun prestamo con este numero de usuario")
     return       
             
-def mostrar_prestamos():
-    for i in prestamos:
+def mostrar_prestamos(matrizprestamos):
+    for i in matrizprestamos:
         print(i) 
     return    
 
-def eliminar_prestamos():
-    for i in range (len(prestamos)): #Se imprimen los prestamos con un indice para poder identificarlos
-        print(f'{i+1}- {"%3s" % prestamos[i]}') 
+def eliminar_prestamos(matrizprestamos):
+    for i in range (len(matrizprestamos)): #Se imprimen los prestamos con un indice para poder identificarlos
+        print(f'{i+1}- {"%3s" % matrizprestamos[i]}') 
     
     prestamo_a_eliminar=int(input("Que listado desea elimiar? "))-1
-    print(f'el prestamo eliminado fue: {prestamos[prestamo_a_eliminar]}')
+    print(f'el prestamo eliminado fue: {matrizprestamos[prestamo_a_eliminar]}')
     print()
-    prestamos.pop(prestamo_a_eliminar)
-    print(prestamos)
+    matrizprestamos.pop(prestamo_a_eliminar)
+    for i in matrizprestamos:
+        print(1)
     
     return

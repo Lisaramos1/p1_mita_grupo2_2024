@@ -12,17 +12,17 @@ discos = [
 ]
 
 def menu():
-    print('ingrese un numero del 0 al 4')
+    print('Ingrese un número del 0 al 4')
     print('1: Agregar Discos ➕')
     print('2: Modificar Discos ⚙')
     print('3: Eliminar Discos ✖')
     print('4: Ver Stock 👀')
     print('0: Volver')
 
-def limpiar(): #posible funcion futura para que limpie la terminal
+def limpiar():  # posible función futura para que limpie la terminal
     print()
 
-def agregar(): #agregar discos 
+def agregar():  # agregar discos 
     print('Ingrese el nombre del disco, ingrese 0 para volver')
     nombre = input()
     if nombre == '0':  # verifica la excepción
@@ -30,10 +30,10 @@ def agregar(): #agregar discos
         return
     
     # Verificar si el disco ya existe para actualizar la cantidad
-    for numero, datos in discos.items():  
-        if nombre == datos['nombre']:
-            discos[numero]['cantidad'] += 1  # Incrementar la cantidad del disco existente
-            print(f"Disco actualizado: {discos[numero]}")
+    for disco in discos:
+        if nombre == disco['nombre']:
+            disco['cantidad'] += 1  # Incrementar la cantidad del disco existente
+            print(f"Disco actualizado: {disco}")
             print()
             return
 
@@ -43,70 +43,86 @@ def agregar(): #agregar discos
     
     print('Ingrese el género del disco:')
     genero = input()
+
+    nuevo_id = len(discos) + 1
     
     # Crear un nuevo disco
-    nuevo_id = len(discos) + 1
-    discos[nuevo_id] = {
+    nuevo_disco = {
         'id': nuevo_id,
         'nombre': nombre,
-        'artista': artista,
-        'genero': genero,
+        'Artista': artista,
+        'Genero': genero,
         'cantidad': 1
     }
     
-    print(f"Disco agregado: {discos[nuevo_id]}")
+    discos.append(nuevo_disco)
+    print(f"Disco agregado: {nuevo_disco}")
     print()
 
 
-
-def modificar(): #funcion que modifica un disco
-    print('Ingrese el número del disco que desee modificar, ingrese 0 para volver')
-    print(discos)
+def modificar():  # función que modifica un disco
+    mostrar()
+    print('Ingrese el número del disco que desee modificar, ponga 0 para volver')
     nro = int(input())
     if nro == 0:
         return
-    if nro in discos:
-        print(f'El disco que será modificado es {discos[nro]}')
-        # Modificar el nombre
-        print('Ingrese el nuevo nombre del disco, o presione Enter para no modificar:')
-        nuevo_nombre = input()
-        if nuevo_nombre != '':
-            discos[nro]['nombre'] = nuevo_nombre
-        # Modificar el artista
-        print('Ingrese el nuevo artista del disco, o presione Enter para no modificar:')
-        nuevo_artista = input()
-        if nuevo_artista != '':
-            discos[nro]['artista'] = nuevo_artista
-        # Modificar el género
-        print('Ingrese el nuevo género del disco, o presione Enter para no modificar:')
-        nuevo_genero = input()
-        if nuevo_genero != '':
-            discos[nro]['genero'] = nuevo_genero
-        print(f"Disco modificado: {discos[nro]}")
-    else:
-        print(f'\033[31mDisco no encontrado\033[0m')
 
-def eliminar():#funcion que elimina un dato de la tabla discos
+    for disco in discos:
+        if disco['id'] == nro:
+            print(f'El disco que será modificado es {disco}')
+            
+            # Modificar el nombre
+            print('Ingrese el nuevo nombre del disco, o presione Enter para no modificar:')
+            nuevo_nombre = input()
+            if nuevo_nombre:
+                disco['nombre'] = nuevo_nombre
+
+            # Modificar el artista
+            print('Ingrese el nuevo artista del disco, o presione Enter para no modificar:')
+            nuevo_artista = input()
+            if nuevo_artista:
+                disco['Artista'] = nuevo_artista
+
+            # Modificar el género
+            print('Ingrese el nuevo género del disco, o presione Enter para no modificar:')
+            nuevo_genero = input()
+            if nuevo_genero:
+                disco['Genero'] = nuevo_genero
+
+            print(f"Disco modificado: {disco}")
+            return
+    
+    print(f'\033[31mDisco no encontrado\033[0m')
+
+
+def eliminar():  # función que elimina un dato de la tabla discos
+    mostrar()
     print('Ingrese el número del disco que desee eliminar, ingrese 0 para volver')
-    print(discos)
     nro = int(input())
     if nro == 0:
         return
-    if nro in discos:
-        print(f'El disco que será eliminado es {discos[nro]}')
-        print('Ingrese 1 para confirmar, o ingrese 0 para cancelar')
-        confirmacion = input()
-        if confirmacion == '1':
-            discos.pop(nro)
-            print(f"Disco {nro} eliminado.")
-        else:
-            print("Eliminación cancelada.")
-    else:
-        print(f'\033[31mDisco no encontrado\033[0m')
+    
+    for i, disco in enumerate(discos):
+        if disco['id'] == nro:
+            print(f'El disco que será eliminado es {disco}')
+            print('Ingrese 1 para confirmar, o ingrese 0 para cancelar')
+            confirmacion = input()
+            if confirmacion == '1':
+                discos.pop(i)
+                print(f"Disco {nro} eliminado.")
+                return
+            else:
+                print("Eliminación cancelada.")
+                return
+    
+    print(f'\033[31mDisco no encontrado\033[0m')
 
 
-def mostrar():
-    for numero, datos in discos.items():
-        print(f"ID: {datos['id']}, Nombre: {datos['nombre']}, Artista: {datos['artista']}, Género: {datos['genero']}, Cantidad: {datos['cantidad']}")
+def  mostrar():
+    if not discos:
+        print("No hay discos en la lista.")
+        return
+
+    for disco in discos:
+        print(f"ID: {disco['id']}, Nombre: {disco['nombre']}, Artista: {disco['Artista']}, Género: {disco['Genero']}, Cantidad: {disco['cantidad']}")
     print()
-    return

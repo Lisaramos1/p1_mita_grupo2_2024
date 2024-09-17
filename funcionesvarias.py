@@ -13,7 +13,7 @@ def generadorid (matriz):
 def disponibilidadalbum(indicemenu,busqueda,listadiccionario):
     if indicemenu==1: #Busqueda por id 
         busqueda=int(busqueda)
-        lista=list(filter(lambda x: x.get("Id")==busqueda and x.get("cantidad".lower())!=0,listadiccionario))
+        lista=list(filter(lambda x: x.get("id")==busqueda and x.get("cantidad".lower())!=0,listadiccionario))
     elif indicemenu==2: #Busqueda por nombre del disco 
         busqueda=busqueda.lower()
         lista=list(filter(lambda x: x.get("Nombre","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
@@ -53,5 +53,8 @@ def disponibilidadalbum(indicemenu,busqueda,listadiccionario):
             id=int(input("Ingrese el id del disco que desea retirar"))
    
     
-    print(f"Este es el nuevo stock del discio {diccionarioamodificar}")
+    print(f"Este es el nuevo stock del disco {diccionarioamodificar}")
+
+
+
  

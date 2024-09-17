@@ -18,11 +18,19 @@ discos = [
 ]
 
 Personas=[
-     [5005, 'Juan Perez', 12345678],
-    [5006, 'Ana Gomez', 23456789],
-    [5007, 'Luis Martinez', 34567890],
-    [5008, 'Maria Lopez', 45678901],
-    [5009, 'Carlos Sanchez', 56789012]
+     ["5005", 'Juan Perez', 12345678],
+    ["5006", 'Ana Gomez', 23456789],
+    ["5007", 'Luis Martinez', 34567890],
+    ["5008", 'Maria Lopez', 45678901],
+    ["5009", 'Carlos Sanchez', 56789012]
+]
+
+Prestamos=[
+    ["5002",'Lemonade','12/5', '27/5',400,True],
+    ["5003",'Abbey Road','13/6','14/7',700,False],
+    ["5007",'Lemonade','14/6','16/8',1000,True],
+    ["5007",'Ok Computer','14/6','16/8',1000,True]
+    
 ]
 uso=0
 while uso==0:
@@ -56,6 +64,7 @@ while uso==0:
     if funcion==3:
         loop=0
     while loop == 0 :
+        print()
         print('1 Crear prestamos ➕')
         print('2 Modificar prestamos ➖')
         print('3 Eliminar prestamo ⚙️')
@@ -67,7 +76,7 @@ while uso==0:
             
             control=True #variable para controlar la carga del usuario
             while control==True:
-                NroCliente=int(input("Ingrese el numero de cliente: "))
+                NroCliente=(input("Ingrese el numero de cliente: "))
                 verificacionuserod=validaciones.ValidUserid(NroCliente) #Se verifica que el user cargado coincida con el parametro regex.
                 while verificacionuserod == False:
                     print("Nro de cliente no valido")
@@ -102,19 +111,23 @@ while uso==0:
                         
                 valorabuscar=input("Ingrese el valor a buscar: ")
                 nombredelalbum=funcionesvarias.disponibilidadalbum(indicefiltro,valorabuscar,discos)
-                
+                if nombredelalbum == 0 : 
+                    break
+    
                 Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
                 monto=int(input("Ingrese el monto total del prestamo: "))
-                prestamos.crear_prestamos(NroCliente,nombredelalbum,Diasdeprestamos,monto)
-                control=False
+                prestamos.crear_prestamos(NroCliente,nombredelalbum,Diasdeprestamos,monto,Prestamos)
+                control=False 
                 
         if menu==2:
-            userid=int(input("Ingrese el id del usuario del registro a modificar: "))
-            prestamos.modificar_prestamos(userid) 
+            print()
+            print("Modificación de prestamos \n")
+            userid=(input("Ingrese el id del usuario del registro a modificar: "))
+            prestamos.modificar_prestamos(userid,Personas,Prestamos,discos)
         if menu==3:
-            prestamos.eliminar_prestamos()
+            prestamos.eliminar_prestamos(Prestamos)
         if menu==4:
-            prestamos.mostrar_prestamos()
+            prestamos.mostrar_prestamos(Prestamos)
         if menu == 5:
             print('1 Devolver un disco ➕')
             print('2 Modificar la devolucion ➖')
