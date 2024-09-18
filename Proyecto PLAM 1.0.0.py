@@ -62,7 +62,7 @@ while uso==0:
             elif menu==0:
                 loop=1
     elif funcion==2:
-        Personas.menue()
+        Personas.menue(Usuarios)
     elif funcion==3:
         loop_prestamos=0
         while loop_prestamos== 0 :

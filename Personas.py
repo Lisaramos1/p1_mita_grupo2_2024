@@ -1,13 +1,13 @@
 import re 
+import funcionesvarias
 # Función para validar DNI 
 def validar_dni(dni):
     return re.fullmatch('\\d{7,8}', dni) is not None
 
 # Lista de los clientes
-customer = []
 
 # Función para agregar clientes
-def addcustomer():
+def addcustomer(diccionariousers):
     nombre = input("Ingrese el nombre: ").capitalize()  # Capitaliza el nombre
     apellido = input("Ingrese el apellido: ").capitalize()
     dni = input("Ingrese el DNI sin puntos ni espacios: ")
@@ -17,44 +17,45 @@ def addcustomer():
         print("DNI inválido. Debe contener entre 7 y 8 dígitos sin puntos ni espacios.")
         return
     
-    newcustomer = {"nombre": nombre, "apellido": apellido, "dni": dni}
-    customer.append(newcustomer)
+    userid=funcionesvarias.generadorid(diccionariousers)
+    newcustomer = {"id":userid,"nombre": nombre, "apellido": apellido, "dni": dni}
+    diccionariousers.append(newcustomer)
     print(f"Cliente {nombre} {apellido} agregado exitosamente.")
     
-def modcustomer():
+def modcustomer(diccionariousers):
     dni = input("Ingrese el DNI de la persona a modificar: ")
     
     # Búsqueda del cliente con el DNI
-    for persona in customer:
+    for persona in diccionariousers:
         if persona["dni"] == dni:
-            nuevo_nombre = input("Ingrese el nuevo nombre: ").capitalize()
-            nuevo_apellido = input("Ingrese el nuevo apellido: ").capitalize()
+            nuevo_nombre = input("Ingrese el nuevo nombre: ")
+            nuevo_apellido = input("Ingrese el nuevo apellido: ")
             persona["nombre"] = nuevo_nombre
             persona["apellido"] = nuevo_apellido
             print("Datos actualizados.")
             return
     print("Persona no encontrada.")
 
-def delcustomer():
+def delcustomer(diccionariousers):
     dni = input("Ingrese el DNI de la persona a eliminar: ")
 
     # Eliminamos la persona con el DNI
-    for persona in customer:
+    for persona in diccionariousers:
         if persona["dni"] == dni:
-            customer.remove(persona)
+            diccionariousers.remove(persona)
             print("Persona eliminada.")
             return
     print("Persona no encontrada.")
 
-def listcustomer():
-    if not customer:
+def listcustomer(dicionariousers):
+    if not dicionariousers:
         print("No hay personas registradas.")
     else:
-        for persona in customer:
-            print(f"Nombre: {persona['nombre']} - Apellido: {persona['apellido']} - DNI: {persona['dni']}")
+        for persona in dicionariousers:
+            print(f"Id:-{persona["id"]} Nombre: {persona['nombre']} - Apellido: {persona['apellido']} - DNI: {persona['dni']}")
 
 # Función principal del menú
-def menue():
+def menue(diccionariousers):
     while True:
         print('1 Agregar persona')
         print('2 Modificar persona')
@@ -64,13 +65,13 @@ def menue():
         menu = input('¿Qué desea hacer?: ')
 
         if menu == '1':
-            addcustomer()
+            addcustomer(diccionariousers)
         elif menu == '2':
-            modcustomer()
+            modcustomer(diccionariousers)
         elif menu == '3':
-            delcustomer()
+            delcustomer(diccionariousers)
         elif menu == '4':
-            listcustomer()
+            listcustomer(diccionariousers)
         elif menu == '0':
             print("Volviendo al menú principal.")
             return
