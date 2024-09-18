@@ -11,7 +11,7 @@ def addcustomer(diccionariousers):
     nombre = input("Ingrese el nombre: ").capitalize()  # Capitaliza el nombre
     apellido = input("Ingrese el apellido: ").capitalize()
     dni = input("Ingrese el DNI sin puntos ni espacios: ")
-
+    
     # Validación del DNI
     if not validar_dni(dni):
         print("DNI inválido. Debe contener entre 7 y 8 dígitos sin puntos ni espacios.")

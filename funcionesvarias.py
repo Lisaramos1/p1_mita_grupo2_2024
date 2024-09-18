@@ -26,34 +26,42 @@ def menu_busqueda_album():
 def filtros_busqueda(indicemenu,busqueda,listadiccionario): #uso de funciones lambda y metodos de strings
     if indicemenu==1: #Busqueda por id 
         busqueda=int(busqueda)
-        lista=list(filter(lambda x: x.get("id")==busqueda and x.get("cantidad".lower())!=0,listadiccionario))
+        for disco in listadiccionario:
+            if disco['id'] == busqueda:
+                lista=list(filter(lambda x: x.get("id")==busqueda and x.get("cantidad".lower())!=0,listadiccionario))
     elif indicemenu==2: #Busqueda por nombre del disco 
         busqueda=busqueda.lower()
-        lista=list(filter(lambda x: x.get("Nombre","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
+        for disco in listadiccionario:
+            if disco['nombre'].lower() == busqueda:
+                lista=list(filter(lambda x: x.get("nombre","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
     elif indicemenu==3: #Busqueda por artista
         busqueda=busqueda.lower() 
-        lista=list(filter(lambda x: x.get("Artista","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
+        for disco in listadiccionario:
+            if disco['Artista'].lower() == busqueda:
+                lista=list(filter(lambda x: x.get("Artista","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
     elif indicemenu==4: #Busqueda por genero
         busqueda=busqueda.lower() 
-        lista=list(filter(lambda x: x.get("Genero","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
+        for disco in listadiccionario:
+            if disco['Genero'].lower() == busqueda:
+                lista=list(filter(lambda x: x.get("Genero","").lower()==busqueda and x.get("Cantidad".lower())!=0,listadiccionario))
     
     if len(lista)>0 :    
         for disco in lista:
-            print(f"ID: {disco['id']}, Nombre: {disco['nombre']}, Artista: {disco['Artista']}, Género: {disco['Genero']}, Cantidad: {disco['cantidad']}")
+            print(f"ID: {disco['id']}, nombre: {disco['nombre']}, Artista: {disco['Artista']}, Género: {disco['Genero']}, Cantidad: {disco['cantidad']}")
         
     else:
-        print('No se encontraron discos disponibles.')
+        print('No se encontraron  disponibles.')
         return 0
     
-def retirar_Disco(idaretirar,diccionariodiscos):
+def retirar_Disco(idaretirar,diccionario):
     id_encontrado=False
     while not id_encontrado:
         
         control=False
         
-        for i in diccionariodiscos: #Busamos el id ingresado por el usuario dentro del stock 
+        for i in diccionario: #Busamos el id ingresado por el usuario dentro del stock 
             if i["id"]==idaretirar:
-                diccionarioamodificar=diccionariodiscos[idaretirar-1]
+                diccionarioamodificar=diccionario[idaretirar-1]
                 diccionarioamodificar["cantidad"]-=1
                 print("stock actualizado")
                 control=True
@@ -68,8 +76,8 @@ def retirar_Disco(idaretirar,diccionariodiscos):
     
     print(f"Este es el nuevo stock del disco {diccionarioamodificar}")
 
-def agregar_Disco(nombrealbum,diccionariodiscos):
-    for disco in diccionariodiscos:
+def agregar_Disco(nombrealbum,diccionario):
+    for disco in diccionario:
         if nombrealbum== disco['nombre']:
             disco['cantidad'] += 1
 

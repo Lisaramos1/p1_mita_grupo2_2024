@@ -19,11 +19,11 @@ discos = [
 ]
 
 Usuarios=[
-    {"id": "5005", "nombre": "Juan", "apellido": "Perez", "dni": 12345678},
-    {"id": "5006", "nombre": "Ana", "apellido": "Gomez", "dni": 23456789},
-    {"id": "5007", "nombre": "Luis", "apellido": "Martinez", "dni": 34567890},
-    {"id": "5008", "nombre": "Maria", "apellido": "Lopez", "dni": 45678901},
-    {"id": "5009", "nombre": "Carlos", "apellido": "Sanchez", "dni": 56789012}
+    {"id": "0001", "nombre": "Juan", "apellido": "Perez", "dni": 12345678},
+    {"id": "0002", "nombre": "Ana", "apellido": "Gomez", "dni": 23456789},
+    {"id": "0003", "nombre": "Luis", "apellido": "Martinez", "dni": 34567890},
+    {"id": "0004", "nombre": "Maria", "apellido": "Lopez", "dni": 45678901},
+    {"id": "0005", "nombre": "Carlos", "apellido": "Sanchez", "dni": 56789012}
 ]
 
 
@@ -52,15 +52,17 @@ while uso==0:
             print('0: Volver')
             menu = int(input())
             if menu==1:
-                DiscosStock.agregar()
+                discos = DiscosStock.agregar(discos)
             elif menu==2:
-                DiscosStock.modificar()
+                discos = DiscosStock.modificar(discos)
             elif menu==3:
-                DiscosStock.eliminar()
+                discos = DiscosStock.eliminar(discos)
             elif menu==4:
-                DiscosStock.mostrar()
+                discos = DiscosStock.mostrar(discos)
             elif menu==0:
                 loop=1
+            else:
+                print('Opcion no valida')
     elif funcion==2:
         Personas.menue(Usuarios)
     elif funcion==3:
@@ -196,5 +198,7 @@ while uso==0:
             elif menu_devoluciones==0:
                 loop_devoluciones=1
         
-    else:
+    elif funcion ==0 :
         uso=1
+    else:
+        print('Numero no valido')
