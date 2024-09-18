@@ -7,7 +7,7 @@ def modicacion_de_estados(userid,nombrealbum,diccionariodiscos,matrizprestamos):
     
     while cont<len(matrizprestamos): 
         if matrizprestamos[cont][0] == userid and matrizprestamos[cont][-1]==False: #Verificamos que el usuario tengo algun prestamo activo
-            print(f"Fichero encontrado: {matrizprestamos[cont]},")
+            print(f"Fichero encontrado: {matrizprestamos[cont]},")                  #subindice-slicing lista 
             print('Modificando estados... \n')
             matrizprestamos[cont][-1]=True
             

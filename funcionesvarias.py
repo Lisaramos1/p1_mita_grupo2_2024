@@ -11,7 +11,7 @@ def generadorid (matriz):
 def imprimir_matriz(matriz):
     print()
     for fila in matriz:
-        print("||".join(map(str,fila)))
+        print("||".join(map(str,fila))) #funciones de str
 
 
 
@@ -28,7 +28,7 @@ def filtros_busqueda(indicemenu,busqueda,listadiccionario): #uso de funciones la
         busqueda=int(busqueda)
         for disco in listadiccionario:
             if disco['id'] == busqueda:
-                lista=list(filter(lambda x: x.get("id")==busqueda and x.get("cantidad".lower())!=0,listadiccionario))
+                lista=list(filter(lambda x: x.get("id")==busqueda and x.get("cantidad".lower())!=0,listadiccionario))#metodos de diccionarios 
     elif indicemenu==2: #Busqueda por nombre del disco 
         busqueda=busqueda.lower()
         for disco in listadiccionario:
@@ -54,6 +54,7 @@ def filtros_busqueda(indicemenu,busqueda,listadiccionario): #uso de funciones la
         return 0
     
 def retirar_Disco(idaretirar,diccionario):
+    print()
     id_encontrado=False
     while not id_encontrado:
         
@@ -71,7 +72,7 @@ def retirar_Disco(idaretirar,diccionario):
             return diccionarioamodificar["nombre"]
 
         else:        
-            idaretirar=int(input("Ingrese el id del disco que desea retirar"))
+            idaretirar=int(input("Ingrese el *ID* del disco que desea retirar"))
    
     
     print(f"Este es el nuevo stock del disco {diccionarioamodificar}")

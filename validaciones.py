@@ -64,7 +64,7 @@ def existenciaprestamo (userid,matrizprestamos):
             cont+=1
     return False
 
-#Validaciones regexwhile cont<len(matriz): 
+#Validaciones regex
 def validaciondefecha(fecha):
     """
     pre:recibe la fecha

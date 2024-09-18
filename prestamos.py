@@ -22,14 +22,14 @@ def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,matrizprestamos):
 def modificar_prestamos(userid,diccionariousers,matrizprestamos,diccionariodiscos):    
     apariciones,indicedeprestamo=[],[]
  
-    verificacion=validaciones.ValidUserid(userid)
+    verificacion=validaciones.ValidUserid(userid) #Se verifica que el id sea valido
     if verificacion==False:
         print(f"El numero de usuario {userid} , no es valido")
         return
 
     filas=len(matrizprestamos)
      
-    for num in range (filas):
+    for num in range (filas): # Se verifica que el usuario tenga un prestamo 
         if matrizprestamos[num][0]==userid:
             apariciones.append(matrizprestamos[num])
             indicedeprestamo.append(num)
@@ -38,7 +38,7 @@ def modificar_prestamos(userid,diccionariousers,matrizprestamos,diccionariodisco
     print()
     if len(apariciones)!=0:
         for i in range (len(apariciones)): #Se imprimen las apareciones dentro de prestamos
-            print(f'{i+1}- {"%3s" % apariciones[i][1:7]}')
+            print(f'{i+1}- {"%3s" % apariciones[i][1:7]}') #slicing
 
                   
         n_aparicion=int(input("Qué prestamo desea modificar? "))-1

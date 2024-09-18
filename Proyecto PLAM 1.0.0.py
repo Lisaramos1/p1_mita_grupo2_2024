@@ -26,7 +26,7 @@ Usuarios=[
     {"id": "0005", "nombre": "Carlos", "apellido": "Sanchez", "dni": 56789012}
 ]
 
-
+#Matrices
 Prestamos=[
     ["5002", 'Lemonade', "2024-06-16", '2024-06-30', 400, False],
     ["5003", 'Abbey Road', '2024-06-13', '2024-07-14', 700, False],
@@ -40,7 +40,7 @@ while uso==0:
     print('3 Prestamos')
     print('4 Devoluciones')
     print('0 Salir')
-    funcion = int(input())
+    funcion = int(input("Ingrese que función quiere realizar: "))
     if funcion==1:
         loop=0
         while loop==0:
