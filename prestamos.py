@@ -1,14 +1,8 @@
 import validaciones
 import Personas
 import funcionesvarias
+from datetime  import datetime
 
-Personas=[
-     [5005, 'Juan Perez', 12345678],
-    [5006, 'Ana Gomez', 23456789],
-    [5007, 'Luis Martinez', 34567890],
-    [5008, 'Maria Lopez', 45678901],
-    [5009, 'Carlos Sanchez', 56789012]
-]
 
 
 def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,matrizprestamos):
@@ -164,12 +158,13 @@ def eliminar_prestamos(matrizprestamos):
     
     return
 
-# def prestamos_vencidos(fechafinalizacion,matrizprestamos):
-#     cont=0
+def prestamos_vencidos(fechalimite,matrizprestamos): #Listas por comprensión 
+    print("Filtrando\n")
+    fechalimite_date = datetime.strptime(fechalimite, "%Y-%m-%d")
     
-#     fechafinalizacion=validaciones.str_a_fecha(fechafinalizacion)
+    # Crear la lista auxiliar filtrada
+    prestamos_vencidos = [
+        prestamo for prestamo in matrizprestamos if not prestamo[-1] and datetime.strptime(prestamo[3], "%Y-%m-%d") < fechalimite_date
+    ]
     
-#     while cont<len(matrizprestamos):
-#         if matrizprestamos[cont][-1]==False:
-#             fechaacomparar=validaciones.str_a_fecha(matrizprestamos[cont][-3]) #Transformamos la fecha en formato date
-#             aux=[agregado, for i in matrizprestamos
+    funcionesvarias.imprimir_matriz(prestamos_vencidos)

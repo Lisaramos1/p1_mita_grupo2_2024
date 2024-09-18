@@ -137,6 +137,7 @@ while uso==0:
                     print("xxxx-xx-xx")   
                     fechalimite=input()
                     caso1=validaciones.validaciondefecha(fechalimite)
+                prestamos.prestamos_vencidos(fechalimite,Prestamos)
                 
                 
                 
@@ -161,7 +162,7 @@ while uso==0:
                     while verificacionuserid == False:
                         print("Nro de cliente no valido")
                         userid=(input("Ingrese un numero de cliente valido: "))
-                        verificacionuserid=validaciones.ValidUserid(NroCliente)
+                        verificacionuserid=validaciones.ValidUserid(userid)
                         
                     user=validaciones.existenciaprestamo(userid,Prestamos) #Validacion de existencia de prestamo a nombre del usuario
                     if user == True:
@@ -187,8 +188,8 @@ while uso==0:
                             
                     valorabuscar=input("Ingrese el valor a buscar: ")
                     funcionesvarias.filtros_busqueda(indicefiltro,valorabuscar,discos)
-                    nombredelalbum=input("Ingrese el nombre del album que busca: ").lower()
-                    devoluciones.modicacion_de_estados(user,nombredelalbum,discos,Prestamos)
+                    nombredelalbum=input("Ingrese el nombre del album que busca: ")
+                    devoluciones.modicacion_de_estados(userid,nombredelalbum,discos,Prestamos)
                     
                     control=True
                 
