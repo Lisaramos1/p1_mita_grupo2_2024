@@ -107,7 +107,7 @@ while uso==0:
                         funcionesvarias.menu_busqueda_album
                         indicefiltro=int(input("Ingrese como desea buscar el album: "))
                         if indicefiltro > 4 or indicefiltro< 1:
-                            print("Ingrese un numero valido")   
+                            0("Ingrese un numero valido")   
                         else:
                             loopfiltro=1
                             
