@@ -5,26 +5,26 @@ import funcionesvarias
 import validaciones
 import devoluciones
 
-discos = [
-    {'id':1,'nombre':'Disco 1','Artista':"A",'Genero':'Rock','cantidad':5},
-    {'id':2,'nombre':'Disco 2','Artista':"B",'Genero':'Pop','cantidad':3},
-    {'id':3,'nombre':'Disco 3','Artista':"C",'Genero':'Techno','cantidad':2},
-    {'id':4,'nombre':'Disco 4','Artista':"D",'Genero':'Dubstep','cantidad':7},
-    {'id':5,'nombre':'Disco 5','Artista':"E",'Genero':'Rock nacional','cantidad':1},
-    {'id':6,'nombre':'Disco 6','Artista':"F",'Genero':'Rock cristiano alternativo','cantidad':4},
-    {'id':7,'nombre':'Disco 7','Artista':"G",'Genero':'Trap','cantidad':6},
-    {'id':8,'nombre':'Disco 8','Artista':"H",'Genero':'Cumbia','cantidad':2},
-    {'id':9,'nombre':'Disco 9','Artista':"I",'Genero':'Indie','cantidad':8},
-    {'id':10,'nombre':'Disco 10','Artista':"J",'Genero':'Clasica','cantidad':3}
-]
+discos = {
+    1:{'nombre':'Disco 1','Artista':"A",'Genero':'Rock','cantidad':5},
+    2:{'nombre':'Disco 2','Artista':"B",'Genero':'Pop','cantidad':3},
+    3:{'nombre':'Disco 3','Artista':"C",'Genero':'Techno','cantidad':2},
+    4:{'nombre':'Disco 4','Artista':"D",'Genero':'Dubstep','cantidad':7},
+    5:{'nombre':'Disco 5','Artista':"E",'Genero':'Rock nacional','cantidad':1},
+    6:{'nombre':'Disco 6','Artista':"F",'Genero':'Rock cristiano alternativo','cantidad':4},
+    7:{'nombre':'Disco 7','Artista':"G",'Genero':'Trap','cantidad':6},
+    8:{'nombre':'Disco 8','Artista':"H",'Genero':'Cumbia','cantidad':2},
+    9:{'nombre':'Disco 9','Artista':"I",'Genero':'Indie','cantidad':8},
+    10:{'nombre':'Disco 10','Artista':"J",'Genero':'Clasica','cantidad':3}
+}
 
-Usuarios=[
-    {"id": "0001", "nombre": "Juan", "apellido": "Perez", "dni": 12345678},
-    {"id": "0002", "nombre": "Ana", "apellido": "Gomez", "dni": 23456789},
-    {"id": "0003", "nombre": "Luis", "apellido": "Martinez", "dni": 34567890},
-    {"id": "0004", "nombre": "Maria", "apellido": "Lopez", "dni": 45678901},
-    {"id": "0005", "nombre": "Carlos", "apellido": "Sanchez", "dni": 56789012}
-]
+Usuarios={
+    "0001":{"nombre": "Juan", "apellido": "Perez", "dni": 12345678},
+    "0002":{"nombre": "Ana", "apellido": "Gomez", "dni": 23456789},
+    "0003":{"nombre": "Luis", "apellido": "Martinez", "dni": 34567890},
+    "0004":{"nombre": "Maria", "apellido": "Lopez", "dni": 45678901},
+    "0005":{"nombre": "Carlos", "apellido": "Sanchez", "dni": 56789012}
+}
 
 #Matrices
 Prestamos=[
