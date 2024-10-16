@@ -18,8 +18,8 @@ def addcustomer(diccionariousers):
         return
     
     userid=funcionesvarias.generadorid(diccionariousers)
-    newcustomer = {"id":userid,"nombre": nombre, "apellido": apellido, "dni": dni}
-    diccionariousers.append(newcustomer)
+    newcustomer = {"nombre": nombre, "apellido": apellido, "dni": dni}
+    diccionariousers[userid]=(newcustomer)
     print(f"Cliente {nombre} {apellido} agregado exitosamente.")
     
 def modcustomer(diccionariousers):
@@ -37,11 +37,17 @@ def modcustomer(diccionariousers):
     print("Persona no encontrada.")
 
 def delcustomer(diccionariousers):
-    dni = input("Ingrese el DNI de la persona a eliminar: ")
+    while True:
+        try: id_a_buscar = int(input("Ingrese el id de la persona a eliminar: "))
+        except TypeError:
+            print("El valor debe ser un numero")
+        else:
+            break
+        
 
     # Eliminamos la persona con el DNI
     for persona in diccionariousers:
-        if persona["dni"] == dni:
+        if persona["dni"] == id:
             diccionariousers.remove(persona)
             print("Persona eliminada.")
             return
@@ -51,8 +57,7 @@ def listcustomer(dicionariousers):
     if not dicionariousers:
         print("No hay personas registradas.")
     else:
-        for persona in dicionariousers:
-            print(f"Id:-{persona["id"]} Nombre: {persona['nombre']} - Apellido: {persona['apellido']} - DNI: {persona['dni']}")
+       print(dicionariousers)
 
 # Función principal del menú
 def menue(diccionariousers):
