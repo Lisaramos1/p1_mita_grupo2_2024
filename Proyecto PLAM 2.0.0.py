@@ -6,18 +6,52 @@ import validaciones
 import devoluciones
 
 discos = {
-    1:{'nombre':'Disco 1','Artista':"A",'Genero':'Rock','cantidad':5},
-    2:{'nombre':'Disco 2','Artista':"B",'Genero':'Pop','cantidad':3},
-    3:{'nombre':'Disco 3','Artista':"C",'Genero':'Techno','cantidad':2},
-    4:{'nombre':'Disco 4','Artista':"D",'Genero':'Dubstep','cantidad':7},
-    5:{'nombre':'Disco 5','Artista':"E",'Genero':'Rock nacional','cantidad':1},
-    6:{'nombre':'Disco 6','Artista':"F",'Genero':'Rock cristiano alternativo','cantidad':4},
-    7:{'nombre':'Disco 7','Artista':"G",'Genero':'Trap','cantidad':6},
-    8:{'nombre':'Disco 8','Artista':"H",'Genero':'Cumbia','cantidad':2},
-    9:{'nombre':'Disco 9','Artista':"I",'Genero':'Indie','cantidad':8},
-    10:{'nombre':'Disco 10','Artista':"J",'Genero':'Clasica','cantidad':3}
+    1: {'nombre': 'Thriller', 'Artista': "Michael Jackson", 'Genero': 'Pop', 'cantidad': 5},
+    2: {'nombre': 'Thriller', 'Artista': "The Weeknd", 'Genero': 'R&B', 'cantidad': 3}, 
+    3: {'nombre': 'Discovery', 'Artista': "Daft Punk", 'Genero': 'Techno', 'cantidad': 2},
+    4: {'nombre': 'Bad', 'Artista': "Michael Jackson", 'Genero': 'Pop', 'cantidad': 7},
+    5: {'nombre': 'Abbey Road', 'Artista': "The Beatles", 'Genero': 'Rock', 'cantidad': 1},
+    6: {'nombre': 'Abbey Road', 'Artista': "Red Hot Chili Peppers", 'Genero': 'Rock', 'cantidad': 4},  
+    7: {'nombre': 'Bad', 'Artista': "U2", 'Genero': 'Rock', 'cantidad': 6},  
+    8: {'nombre': 'Cómo te voy a olvidar', 'Artista': "Los Ángeles Azules", 'Genero': 'Cumbia', 'cantidad': 2},
+    9: {'nombre': 'Currents', 'Artista': "Tame Impala", 'Genero': 'Indie', 'cantidad': 8},
+    10: {'nombre': 'The Four Seasons', 'Artista': "Antonio Vivaldi", 'Genero': 'Clásica', 'cantidad': 3},
+    11: {'nombre': 'Discovery', 'Artista': "Coldplay", 'Genero': 'Pop', 'cantidad': 2}  , 
+}
+nombrealbum = {
+    "thriller": {1, 2},  
+    "discovery": {3, 11},  
+    "bad": {4, 7},  
+    "abbey road": {5, 6},  
+    "cómo te voy a olvidar": {8},
+    "currents": {9},
+    "the four seasons": {10}
 }
 
+generos = {
+    "pop": {1, 2, 11},
+    "r&b": {2},
+    "techno": {3},
+    "rock": {5, 6, 7},
+    "cumbia": {8},
+    "indie": {9},
+    "clasica": {10}
+}
+
+artistas = {
+    "michael jackson": {1, 4},
+    "the weeknd": {2},
+    "daft punk": {3},
+    "the beatles": {5},
+    "red hot chili peppers": {6},
+    "u2": {7},
+    "los ángeles azules": {8},
+    "tame impala": {9},
+    "antonio vivaldi": {10},
+    "coldplay": {11}
+}
+
+tupladiccionarios=(nombrealbum,artistas,generos)
 Usuarios={
     "0001":{"nombre": "Juan", "apellido": "Perez", "dni": "12345678"},
     "0002":{"nombre": "Ana", "apellido": "Gomez", "dni": "23456789"},
@@ -77,72 +111,70 @@ while uso==0:
             print("0 volver")
             menu_prestamos = int(input('Ingrese una acción:' ))
             
-            if menu_prestamos==1:
+            match menu_prestamos :
                 
-                control=True #variable para controlar la carga del usuario
-                while control==True:
-                    NroCliente=(input("Ingrese el numero de cliente: "))
-                    verificacionuserid=validaciones.ValidUserid(NroCliente) #Se verifica que el user cargado coincida con el parametro regex.
-                    while verificacionuserid == False:
-                        print("Nro de cliente no valido")
-                        NroCliente=(input("Ingrese un numero de cliente valido: "))
-                        verificacionuserid=validaciones.ValidUserid(NroCliente)
+                case 1: 
+                    control=True #variable para controlar la carga del usuario
+                    while control==True:
+                        NroCliente=(input("Ingrese el numero de cliente: "))
+                        verificacionuserid=validaciones.ValidUserid(NroCliente) #Se verifica que el user cargado coincida con el parametro regex.
+                        while verificacionuserid == False:
+                            print("Nro de cliente no valido")
+                            NroCliente=(input("Ingrese un numero de cliente valido: "))
+                            verificacionuserid=validaciones.ValidUserid(NroCliente)
+                        
+                        user=validaciones.existenciadeuser(NroCliente,Usuarios) #Validacion de existencia del usuario
+                        if user == True:
+                            print("Cliente encontrado")
                     
-                    user=validaciones.existenciadeuser(NroCliente,Usuarios) #Validacion de existencia del usuario
-                    if user == True:
-                        print("Cliente encontrado")
-                
-                    else:
-                        print("El usuario no fue encontrado")  #Si el usuario no esta registrado regresa al menu principal 
-                        print("Debe restrirar al usuario")
-                        control=False
-                        break  
-                        
-                        
-                    loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
-                    print()
-                    funcionesvarias.menu_busqueda_album()
-                    print("Busqueda de album")
-                    while loopfiltro == 0 : 
-                        funcionesvarias.menu_busqueda_album
-                        indicefiltro=int(input("Ingrese como desea buscar el album: "))
-                        if indicefiltro > 4 or indicefiltro< 1:
-                            0("Ingrese un numero valido")   
                         else:
-                            loopfiltro=1
+                            print("El usuario no fue encontrado")  #Si el usuario no esta registrado regresa al menu principal 
+                            print("Debe registrar al usuario")
+                            control=False
+                            break  
                             
-                    valorabuscar=input("Ingrese el valor a buscar: ")
-                    funcionesvarias.filtros_busqueda(indicefiltro,valorabuscar,discos)
-                    nombredelalbum=funcionesvarias.retirar_Disco(id,discos)
-                    if nombredelalbum == 0 : 
-                        break
-        
-                    Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
-                    monto=int(input("Ingrese el monto total del prestamo: "))
-                    prestamos.crear_prestamos(NroCliente,nombredelalbum,Diasdeprestamos,monto,Prestamos)
-                    control=False 
-                    
-            if menu_prestamos==2:
-                print()
-                print("Modificación de prestamos \n")
-                userid=(input("Ingrese el id del usuario del registro a modificar: "))
-                prestamos.modificar_prestamos(userid,Personas,Prestamos,discos)
-            if menu_prestamos==3:
-                prestamos.eliminar_prestamos(Prestamos)
-            if menu_prestamos==4:
-                prestamos.mostrar_prestamos(Prestamos)
-            if menu_prestamos==5:
-                fechalimite=input("Ingrese la fecha limite que desea filtrar: ")
-                caso1=validaciones.validaciondefecha(fechalimite)
-                while caso1== False: #Se evalua que sea correcto el formato de fecha
-                    print("El formato de fecha no es el correcto")
-                    print("xxxx-xx-xx")   
-                    fechalimite=input()
+                            
+                        loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
+                        print()
+                        print("Busqueda de album") #REVISAR
+                        funcionesvarias.menu_busqueda_album(discos,tupladiccionarios)
+                        while True:
+                            try:idelegido=int(input("Ingrese id que desea retirar:"))
+                            except ValueError:
+                                print("El valor debe ser un numero")
+                                continue
+                            if idelegido < 0 :
+                                print("El valor debe ser positivo")
+                                continue
+                            else:
+                                break
+                        nombredelalbum=funcionesvarias.retirar_Disco(id,discos)
+                        if nombredelalbum == 0 : 
+                            break
+            
+                        Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
+                        monto=int(input("Ingrese el monto total del prestamo: "))
+                        prestamos.crear_prestamos(NroCliente,nombredelalbum,Diasdeprestamos,monto,Prestamos)
+                        control=False                 
+                case 2 :
+                        print()
+                        print("Modificación de prestamos \n")
+                        userid=(input("Ingrese el id del usuario del registro a modificar: "))
+                        prestamos.modificar_prestamos(userid,Personas,Prestamos,discos)
+                case 3 :
+                    prestamos.eliminar_prestamos(Prestamos)
+                case 4 :
+                    prestamos.mostrar_prestamos(Prestamos)
+                case 5:
+                    fechalimite=input("Ingrese la fecha limite que desea filtrar: ")
                     caso1=validaciones.validaciondefecha(fechalimite)
-                prestamos.prestamos_vencidos(fechalimite,Prestamos)
-                
-                
-                
+                    while caso1== False: #Se evalua que sea correcto el formato de fecha
+                        print("El formato de fecha no es el correcto")
+                        print("xxxx-xx-xx")   
+                        fechalimite=input()
+                        caso1=validaciones.validaciondefecha(fechalimite)
+                    prestamos.prestamos_vencidos(fechalimite,Prestamos)
+                   
             if menu_prestamos == 0:
                 loop_prestamos=1
     
