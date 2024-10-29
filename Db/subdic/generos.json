@@ -1,0 +1,11 @@
+{
+    "generos": {
+      "pop": [1, 2, 11],
+      "r&b": [2],
+      "techno": [3],
+      "rock": [5, 6, 7],
+      "cumbia": [8],
+      "indie": [9],
+      "clasica": [10]
+    }
+  }

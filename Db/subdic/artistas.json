@@ -1,0 +1,14 @@
+{
+"artistas" : {
+    "michael jackson": [1, 4],
+    "the weeknd": [2],
+    "daft punk": [3],
+    "the beatles": [5],
+    "red hot chili peppers": [6],
+    "u2": [7],
+    "los ángeles azules": [8],
+    "tame impala": [9],
+    "antonio vivaldi": [10],
+    "coldplay": [11]
+    }
+}

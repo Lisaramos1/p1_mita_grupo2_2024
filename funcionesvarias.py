@@ -47,7 +47,7 @@ def menu_busqueda_album(diccionario, tupladediccionarios):
     while True:
         match indice:
             case 1 :
-                busqueda=(int(input("Ingrese el id que desea buscar: ")))
+                busqueda=((input("Ingrese el id que desea buscar: ")))
                 valores=busquedaporvalores(diccionario,None,busqueda)
             case 2:
                 busqueda=(input("Ingrese el nombre del disco que desea buscar: "))
@@ -58,7 +58,7 @@ def menu_busqueda_album(diccionario, tupladediccionarios):
             case 4:
                 busqueda=(input("Ingrese el genero del disco que desea buscar: "))
                 valores=busquedaporvalores(diccionario,tupladediccionarios[2],busqueda) #Llamada de la funcion dentro de otra funcción
-        if valores:
+        if valores==False:
             continue
         else :
             break
@@ -71,13 +71,16 @@ def busquedaporvalores(diccionario,subdiccionario, valorbuscar):
     if subdiccionario==None: #Se concoce el id del disco por lo cual la busqueda es directa al dic. principal
         if valorbuscar in diccionario:
             print(f"{valorbuscar}{diccionario.get(valorbuscar)}")
+            return True
         else:
-            print("El disco no fue encontrado")    
+            print("El disco no fue encontrado")
+            return False    
    
     else :
         iddiscosabuscar=subdiccionario.get(valorbuscar.lower(),None)
         if iddiscosabuscar!=None:
-            print([(album_id,diccionario[album_id]) for album_id in iddiscosabuscar]) #Se itera dentro del conjunto con los id de los discos , y se agregan a la nueva lista con los valores completos del dict. principal
+            aux=([(album_id,diccionario[album_id]) for album_id in iddiscosabuscar]) #Se itera dentro del conjunto con los id de los discos , y se agregan a la nueva lista con los valores completos del dict. principal
+            imprimir_matriz(aux)
             return True
         else:
             print("La caracteristica no fue encontrada")
@@ -93,12 +96,12 @@ def retirar_Disco(idaretirar,diccionariodiscos):
             assert KeyError,("El disco no fue encontrado")
         
         if idaretirar in diccionariodiscos:
-          #  diccionariodiscos.get(idaretirar["cantidad"])-=1
+            idaretirar["cantidad"]-=1
             print("Stock actulizado \n")
             print(diccionariodiscos.values(idaretirar))
             control=True
             
-        elif idaretirar["cantidad".lower]==0:
+        elif idaretirar["cantidad"]==0:
             print("El disco no se encuentra disponible")
 
 def agregar_Disco(nombrealbum,diccionariodiscos):
