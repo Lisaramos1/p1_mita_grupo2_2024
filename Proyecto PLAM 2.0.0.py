@@ -2,7 +2,7 @@ import DiscosStock
 import prestamos
 import Personas
 import funcionesvarias
-import validaciones
+import validaciones 
 import devoluciones
 
 discos = {
@@ -136,8 +136,9 @@ while uso==0:
                             
                         loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
                         print()
+                        
                         print("Busqueda de album") #REVISAR
-                        funcionesvarias.menu_busqueda_album(discos,tupladiccionarios)
+                        funcionesvarias.menu_busqueda_album("discos.json")
                         while True:
                             try:idelegido=int(input("Ingrese id que desea retirar:"))
                             except ValueError:
@@ -213,7 +214,7 @@ while uso==0:
                     loopfiltro=0  
                     print("Busqueda de album")
                     while loopfiltro == 0 : 
-                        funcionesvarias.menu_busqueda_album()
+                        funcionesvarias.menu_busqueda_album("discos.json")
                         indicefiltro=int(input("Ingrese como desea buscar el album: "))
                         if indicefiltro > 4 or indicefiltro< 1:
                             print("Ingrese un numero valido")   

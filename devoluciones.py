@@ -1,5 +1,5 @@
 import funcionesvarias
-import validaciones
+import validaciones 
 
 def modicacion_de_estados(userid,nombrealbum,diccionariodiscos,matrizprestamos):
     cont=0

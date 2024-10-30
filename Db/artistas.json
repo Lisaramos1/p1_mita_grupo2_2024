@@ -1,7 +1,6 @@
 {
-"artistas" : {
     "michael jackson": [1, 4],
-    "the weeknd": [2],
+    "the weekend": [2],
     "daft punk": [3],
     "the beatles": [5],
     "red hot chili peppers": [6],
@@ -11,4 +10,3 @@
     "antonio vivaldi": [10],
     "coldplay": [11]
     }
-}

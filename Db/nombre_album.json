@@ -1,5 +1,5 @@
+
 {
-    "nombrealbum" : {
     "thriller": [1, 2],  
     "discovery": [3, 11],  
     "bad": [4, 7],  
@@ -7,5 +7,5 @@
     "cómo te voy a olvidar": [8],
     "currents": [9],
     "the four seasons": [10]
-    }
 }
+

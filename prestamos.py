@@ -1,4 +1,4 @@
-import validaciones
+import validaciones 
 import Personas
 import funcionesvarias
 from datetime  import datetime
