@@ -5,12 +5,11 @@ from datetime  import datetime
 
 
 
-def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,matrizprestamos):
+
+def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,Db_prestamos):
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz
     """
-   
-    print("Creación de prestamos") 
     fechas=validaciones.SumadeDias(DiasdePrestamo)       #Se contabilizan las fechas de los dias del prestamos
     fecha_inicio,fecha_cierre=fechas                     # Se asignan las fechas
     aux=[NroCliente,album,fecha_inicio,fecha_cierre,monto,False]

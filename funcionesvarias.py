@@ -61,6 +61,8 @@ def menu_busqueda_album(db_discos):
             case 1 :
                 busqueda=((input("Ingrese el id que desea buscar: ")))
                 valores=busquedaporvalores(diccionario,None,busqueda)
+            
+            #Busqueda por por indice invertido , se llama a la funcion para cargar el subddicionario para la busqueda
             case 2:
                 busqueda=(input("Ingrese el nombre del disco que desea buscar: "))
                 valores = cargar_y_buscar("Db/nombre_album.json",diccionario,busqueda)
@@ -81,7 +83,7 @@ def menu_busqueda_album(db_discos):
 
 def cargar_y_buscar(nombre_archivo,diccionario,busqueda):
     """
-     el subddiccionario elegido en una variable 
+     pre :se serializa el subddiccionario elegido en una variable 
      pos : se hace el llamado a la busqueda en el diccionario principal ya cargado
     """
     try:
@@ -110,9 +112,7 @@ def busquedaporvalores(diccionario,subdiccionario, valorbuscar):
 
     else:
         print(f"**SUBDICCIONARIO**\n")
-        for dato in subdiccionario :
-            print("-",dato)
-        print()
+        imprimir_diccionario(subdiccionario)
         
         
         iddiscosabuscar = subdiccionario.get(valorbuscar.lower(), None)
@@ -147,8 +147,8 @@ def retirar_Disco(db_discos,idaretirar):
     else:    
         if idaretirar in diccionario:
             diccionario[idaretirar]["cantidad"]-=1
-            print("Stock actulizado \n")
-            print(f"La nueva cantidad de discos es de {diccionario[idaretirar]["cantidad"]} ")
+            print("Stock actulizado")
+            print(f"La nueva cantidad de discos es de {diccionario[idaretirar]["cantidad"]} \n ")
             
         
         
@@ -156,8 +156,8 @@ def retirar_Disco(db_discos,idaretirar):
             print("El disco no se encuentra disponible")
     
     try : 
-        with open(db_discos , "w" , encoding="UTF-8")as archivo:
-            json.dump(diccionario,archivo,ensure_ascii=False,indent=4) #Se cargan los cambios a la db json   
+        with open(db_discos , "w" , encoding="UTF-8")as archivo: #Se cargan los cambios a la db json  
+            json.dump(diccionario,archivo,ensure_ascii=False,indent=4)  
     except :
         print("No se pududieron guardar las modificaciónes")
     

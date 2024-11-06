@@ -113,29 +113,31 @@ while uso==0:
             
             match menu_prestamos :
                 
-                case 1: # Creación
-                    control=True #variable para controlar la carga del usuario
-                    while control==True:
+                case 1: # Creación (Falta carga a db.txt)
+                    Verfificar_información=True 
+                    while Verfificar_información==True:
                         NroCliente=(input("Ingrese el numero de cliente: "))
-                        verificacionuserid=validaciones.ValidUserid(NroCliente) #Se verifica que el user cargado coincida con el parametro regex.
+                        NroCliente=(f"{NroCliente:0>4}")
+                        verificacionuserid=validaciones.ValidUserid((f"{NroCliente:04}")) #Se verifica que el user cargado coincida con el parametro regex.
                         while verificacionuserid == False:
                             print("Nro de cliente no valido")
-                            NroCliente=(input("Ingrese un numero de cliente valido: "))
+                            NroCliente=("Ingrese un numero de cliente valido: ")
+                            NroCliente=(f"{NroCliente:0>4}")
                             verificacionuserid=validaciones.ValidUserid(NroCliente)
                         
-                        user=validaciones.existenciadeuser(NroCliente,Usuarios) #Validacion de existencia del usuario
+                        user=validaciones.existenciadeuser((f"{NroCliente:0>4}"),Usuarios) #Validacion de existencia del usuario
                         if user == True:
                             print("Cliente encontrado")
                     
                         else:
                             print("El usuario no fue encontrado")  #Si el usuario no esta registrado regresa al menu principal 
                             print("Debe registrar al usuario")
-                            control=False
+                            Verfificar_información=False
                             break  
-                            
-                            
-                        loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album                       
-                        print("\nBusqueda de album") 
+                                
+                        print("\nBusqueda de album")
+                         
+                        #Se llama a la funcion para verificar la disponibilidad del album                       
                         diccionarios_elegidos=funcionesvarias.menu_busqueda_album("Db\discos.json")
                         
                         if len(diccionarios_elegidos)>1: #En caso de que se haya encontrado más de una coincidencia
@@ -157,8 +159,14 @@ while uso==0:
                         funcionesvarias.retirar_Disco("Db/discos.json",idelegido)
                         diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
                         monto=int(input("Ingrese el monto total del prestamo: "))
-                        prestamos.crear_prestamos(NroCliente,nombredelalbum,diasdeprestamos,monto,Prestamos)
-                        control=False                 
+                        prestamos.crear_prestamos(NroCliente, nombredelalbum,diasdeprestamos,monto ,"Db/prestamos")
+                        Verfificar_información=False
+                        
+                        
+                                          
+                
+                         
+                                  
                 case 2 :# Modicación 
                         print()
                         print("Modificación de prestamos \n")
@@ -166,9 +174,9 @@ while uso==0:
                         prestamos.modificar_prestamos(userid,Personas,Prestamos,discos)
                 case 3 :# Eliminación
                     prestamos.eliminar_prestamos(Prestamos)
-                case 4 :
+                case 4 :# Mostrar
                     prestamos.mostrar_prestamos(Prestamos)
-                case 5:
+                case 5: #Filtro de busqueda por fechas 
                     fechalimite=input("Ingrese la fecha limite que desea filtrar: ")
                     caso1=validaciones.validaciondefecha(fechalimite)
                     while caso1== False: #Se evalua que sea correcto el formato de fecha
