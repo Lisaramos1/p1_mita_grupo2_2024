@@ -10,12 +10,20 @@ def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,Db_prestamos):
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz
     """
+   
     fechas=validaciones.SumadeDias(DiasdePrestamo)       #Se contabilizan las fechas de los dias del prestamos
     fecha_inicio,fecha_cierre=fechas                     # Se asignan las fechas
-    aux=[NroCliente,album,fecha_inicio,fecha_cierre,monto,False]
-    matrizprestamos.append(aux)
+    aux=f"{NroCliente},{album},{fecha_inicio},{fecha_cierre},{monto},{"False"}"
     print(f"El prestamo creado es: {aux}")
-    return 
+    
+    try :
+        with open (Db_prestamos,"a",encoding="utf-8") as ultima_linea:
+            ultima_linea.write(aux+ "\n")
+    except FileNotFoundError:
+        print(f"no se pudo abrir el archivo {Db_prestamos}")
+    else:
+        print("Base de datos actualizada...") 
+    
 
 
 def modificar_prestamos(userid,diccionariousers,matrizprestamos,diccionariodiscos):    

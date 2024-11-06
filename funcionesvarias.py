@@ -119,7 +119,7 @@ def busquedaporvalores(diccionario,subdiccionario, valorbuscar):
         
         if iddiscosabuscar is not None:
             print("imprimiendo resultados encontrados...")
-            aux ={album_id: diccionario[album_id] for album_id in iddiscosabuscar if album_id in diccionario}
+            aux ={album_id: diccionario[album_id] for album_id in iddiscosabuscar if album_id in diccionario and diccionario[album_id]["cantidad"]>0}
             imprimir_diccionario(aux)
             return aux
             

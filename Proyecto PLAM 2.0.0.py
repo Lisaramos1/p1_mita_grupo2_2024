@@ -159,7 +159,7 @@ while uso==0:
                         funcionesvarias.retirar_Disco("Db/discos.json",idelegido)
                         diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
                         monto=int(input("Ingrese el monto total del prestamo: "))
-                        prestamos.crear_prestamos(NroCliente, nombredelalbum,diasdeprestamos,monto ,"Db/prestamos")
+                        prestamos.crear_prestamos(NroCliente, nombredelalbum,diasdeprestamos,monto ,"Db/prestamos_db.txt")
                         Verfificar_información=False
                         
                         

@@ -9,7 +9,7 @@
         "nombre": "Thriller",
         "Artista": "The Weeknd",
         "Genero": "R&B",
-        "cantidad": 3
+        "cantidad": 2
     },
     "3": {
         "nombre": "Discovery",
@@ -27,25 +27,25 @@
         "nombre": "Abbey Road",
         "Artista": "The Beatles",
         "Genero": "Rock",
-        "cantidad": 0
+        "cantidad": -1
     },
     "6": {
         "nombre": "Abbey Road",
         "Artista": "Red Hot Chili Peppers",
         "Genero": "Rock",
-        "cantidad": 4
+        "cantidad": 3
     },
     "7": {
         "nombre": "Bad",
         "Artista": "U2",
         "Genero": "Rock",
-        "cantidad": 5
+        "cantidad": 1
     },
     "8": {
         "nombre": "Cómo te voy a olvidar",
         "Artista": "Los Ángeles Azules",
         "Genero": "Cumbia",
-        "cantidad": 1
+        "cantidad": 0
     },
     "9": {
         "nombre": "Currents",
@@ -63,6 +63,6 @@
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
-        "cantidad": 1
+        "cantidad": 0
     }
 }
