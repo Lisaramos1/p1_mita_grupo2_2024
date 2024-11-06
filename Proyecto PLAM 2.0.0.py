@@ -4,20 +4,21 @@ import Personas
 import funcionesvarias
 import validaciones 
 import devoluciones
-
-discos = {
-    1: {'nombre': 'Thriller', 'Artista': "Michael Jackson", 'Genero': 'Pop', 'cantidad': 5},
-    2: {'nombre': 'Thriller', 'Artista': "The Weeknd", 'Genero': 'R&B', 'cantidad': 3}, 
-    3: {'nombre': 'Discovery', 'Artista': "Daft Punk", 'Genero': 'Techno', 'cantidad': 2},
-    4: {'nombre': 'Bad', 'Artista': "Michael Jackson", 'Genero': 'Pop', 'cantidad': 7},
-    5: {'nombre': 'Abbey Road', 'Artista': "The Beatles", 'Genero': 'Rock', 'cantidad': 1},
-    6: {'nombre': 'Abbey Road', 'Artista': "Red Hot Chili Peppers", 'Genero': 'Rock', 'cantidad': 4},  
-    7: {'nombre': 'Bad', 'Artista': "U2", 'Genero': 'Rock', 'cantidad': 6},  
-    8: {'nombre': 'Cómo te voy a olvidar', 'Artista': "Los Ángeles Azules", 'Genero': 'Cumbia', 'cantidad': 2},
-    9: {'nombre': 'Currents', 'Artista': "Tame Impala", 'Genero': 'Indie', 'cantidad': 8},
-    10: {'nombre': 'The Four Seasons', 'Artista': "Antonio Vivaldi", 'Genero': 'Clásica', 'cantidad': 3},
-    11: {'nombre': 'Discovery', 'Artista': "Coldplay", 'Genero': 'Pop', 'cantidad': 2}  , 
+import json
+discos={
+    "1": {"nombre": "Thriller", "Artista": "Michael Jackson", "Genero": "Pop", "cantidad": 5},
+    "2": {"nombre": "Thriller", "Artista": "The Weeknd", "Genero": "R&B", "cantidad": 3},
+    "3": {"nombre": "Discovery", "Artista": "Daft Punk", "Genero": "Techno", "cantidad": 2},
+    "4": {"nombre": "Bad", "Artista": "Michael Jackson", "Genero": "Pop", "cantidad": 7},
+    "5": {"nombre": "Abbey Road", "Artista": "The Beatles", "Genero": "Rock", "cantidad": 1},
+    "6": {"nombre": "Abbey Road", "Artista": "Red Hot Chili Peppers", "Genero": "Rock", "cantidad": 4},
+    "7": {"nombre": "Bad", "Artista": "U2", "Genero": "Rock", "cantidad": 6},
+    "8": {"nombre": "Cómo te voy a olvidar", "Artista": "Los Ángeles Azules", "Genero": "Cumbia", "cantidad": 2},
+    "9": {"nombre": "Currents", "Artista": "Tame Impala", "Genero": "Indie", "cantidad": 8},
+    "10": {"nombre": "The Four Seasons", "Artista": "Antonio Vivaldi", "Genero": "Clásica", "cantidad": 3},
+    "11": {"nombre": "Discovery", "Artista": "Coldplay", "Genero": "Pop", "cantidad": 2}
 }
+
 nombrealbum = {
     "thriller": {1, 2},  
     "discovery": {3, 11},  
@@ -113,7 +114,7 @@ while uso==0:
             
             match menu_prestamos :
                 
-                case 1: 
+                case 1: # Creación
                     control=True #variable para controlar la carga del usuario
                     while control==True:
                         NroCliente=(input("Ingrese el numero de cliente: "))
@@ -137,10 +138,11 @@ while uso==0:
                         loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
                         print()
                         
-                        print("Busqueda de album") #REVISAR
-                        funcionesvarias.menu_busqueda_album("discos.json")
+                        print("Busqueda de album") 
+                        funcionesvarias.menu_busqueda_album("Db/discos.json")
                         while True:
-                            try:idelegido=int(input("Ingrese id que desea retirar:"))
+                            try:    
+                                idelegido=int(input("Ingrese id que desea retirar:"))
                             except ValueError:
                                 print("El valor debe ser un numero")
                                 continue
@@ -149,20 +151,20 @@ while uso==0:
                                 continue
                             else:
                                 break
-                        nombredelalbum=funcionesvarias.retirar_Disco(id,discos)
+                        nombredelalbum=funcionesvarias.retirar_Disco("Db/discos.json",idelegido)
                         if nombredelalbum == 0 : 
                             break
             
-                        Diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
+                        diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
                         monto=int(input("Ingrese el monto total del prestamo: "))
-                        prestamos.crear_prestamos(NroCliente,nombredelalbum,Diasdeprestamos,monto,Prestamos)
+                        prestamos.crear_prestamos(NroCliente,nombredelalbum,diasdeprestamos,monto,Prestamos)
                         control=False                 
-                case 2 :
+                case 2 :# Modicación
                         print()
                         print("Modificación de prestamos \n")
                         userid=(input("Ingrese el id del usuario del registro a modificar: "))
                         prestamos.modificar_prestamos(userid,Personas,Prestamos,discos)
-                case 3 :
+                case 3 :# Eliminación
                     prestamos.eliminar_prestamos(Prestamos)
                 case 4 :
                     prestamos.mostrar_prestamos(Prestamos)
@@ -214,7 +216,7 @@ while uso==0:
                     loopfiltro=0  
                     print("Busqueda de album")
                     while loopfiltro == 0 : 
-                        funcionesvarias.menu_busqueda_album("discos.json")
+                        funcionesvarias.menu_busqueda_album("Db/discos.json")
                         indicefiltro=int(input("Ingrese como desea buscar el album: "))
                         if indicefiltro > 4 or indicefiltro< 1:
                             print("Ingrese un numero valido")   
@@ -235,3 +237,4 @@ while uso==0:
         uso=1
     else:
         print('Numero no valido')
+

@@ -1,11 +1,10 @@
-
 {
-    "thriller": [1, 2],  
-    "discovery": [3, 11],  
-    "bad": [4, 7],  
-    "abbey road": [5, 6],  
-    "cómo te voy a olvidar": [8],
-    "currents": [9],
-    "the four seasons": [10]
+    "thriller": ["1", "2"],  
+    "discovery": ["3", "11"],  
+    "bad": ["4", "7"],  
+    "abbey road": ["5", "6"],  
+    "cómo te voy a olvidar": ["8"],
+    "currents": ["9"],
+    "the four seasons": ["10"]
 }
 

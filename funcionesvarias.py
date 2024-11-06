@@ -20,7 +20,7 @@ def modificaralbum(diccionario,tupladediccionario,nuevovalor):
 
 #busquedas de albums
 def menu_busqueda_album(db_discos):
-    
+
     """
     Se inician los filtros de busqueda , se envian los parametros para realizar la busqueda de albums
     estructura de la tupla:(nombre_disco,nombre_artista,genero)
@@ -47,10 +47,11 @@ def menu_busqueda_album(db_discos):
     
     #apertura del archivo con todos los discos    
     try: 
-        with open(db_discos,"r",encoding="UFT-8") as datos:
+        with open(db_discos,"r",encoding="UTF-8") as datos:
             diccionario=json.load(datos)
     except:
         print("No se pudo abrir el archivo")
+    
         
     while True:
        
@@ -60,84 +61,106 @@ def menu_busqueda_album(db_discos):
                 valores=busquedaporvalores(diccionario,None,busqueda)
             case 2:
                 busqueda=(input("Ingrese el nombre del disco que desea buscar: "))
-                try :
-                    archivo=open("nombre_album.json","r")
-                except :
-                    print("No se puede abrir el archivo")
-                else:
-                    nombres_album=json.load(archivo)
-                    valores=busquedaporvalores(diccionario,nombres_album,busqueda)
-                finally:
-                    archivo.close()
+                valores = cargar_y_buscar("Db/nombre_album.json",diccionario,busqueda)
             case 3:
                 busqueda=(input("Ingrese el nombre del artista del disco que desea buscar: "))
-                try :
-                    archivo=open("artistas.json","r")
-                except :
-                    print("No se puede abrir el archivo")
-                else:
-                    artistas=json.load(archivo)
-                    valores=busquedaporvalores(diccionario,artistas,busqueda)
-                finally:
-                    archivo.close()
+                valores = cargar_y_buscar("Db/artistas.json",diccionario,busqueda)
+                
             case 4:
                 busqueda=(input("Ingrese el genero del disco que desea buscar: "))
-                try :
-                    archivo=open("generos.json","r")
-                except :
-                    print("No se puede abrir el archivo")
-                else:
-                    generos=json.load(archivo)
-                    valores=busquedaporvalores(diccionario,generos,busqueda)
-                finally:
-                    archivo.close()  #Llamada de la funcion dentro de otra funcción
+                valores = cargar_y_buscar("Db/generos.json",diccionario,busqueda)
+                 
+                    
         if valores==False:
-            continue
+            continue #Continuamos haciendo el llamado hasta encontrar el valor buscado
         else :
-            break
+            break  #Fin de la busqueda
+
+def cargar_y_buscar(nombre_archivo,diccionario,busqueda):
+    """
+     el subddiccionario elegido en una variable 
+     pos : se hace el llamado a la busqueda en el diccionario principal ya cargado
+    """
+    try:
+        with open(nombre_archivo,"r",encoding="UTF-8") as archivo:
+            subdiccionario=json.load(archivo)
+            return busquedaporvalores(diccionario,subdiccionario,busqueda)
+    except:
+        print(f"No se pudo abrir el archivo {nombre_archivo}")
+        return False
         
 def busquedaporvalores(diccionario,subdiccionario, valorbuscar):
+    
     """
     Se realiza la busqueda por albums , dentro de los subdiccionarios de ids
     """
     
     
-    if subdiccionario==None: #Se concoce el id del disco por lo cual la busqueda es directa al dic. principal
+    if subdiccionario==None:    #Se concoce el id del disco por lo cual la busqueda es directa al dic. principal
         if valorbuscar in diccionario:
             print(f"{valorbuscar}{diccionario.get(valorbuscar)}")
             return True
         else:
             print("El disco no fue encontrado")
             return False    
-   
-    else :
-        print(subdiccionario)
-        iddiscosabuscar=subdiccionario.get(valorbuscar.lower(),None)
-        if iddiscosabuscar!=None:
-            aux=([(album_id,diccionario[album_id]) for album_id in iddiscosabuscar]) #Se itera dentro del conjunto con los id de los discos , y se agregan a la nueva lista con los valores completos del dict. principal
+
+    else:
+        print(f"**SUBDICCIONARIO**\n")
+        for dato in subdiccionario :
+            print("-",dato)
+        print()
+        
+        
+        iddiscosabuscar = subdiccionario.get(valorbuscar.lower(), None)
+        
+        if iddiscosabuscar is not None:
+            print("imprimiendo resultados")
+            aux =[(album_id, diccionario[album_id]) for album_id in iddiscosabuscar if album_id in diccionario]
             imprimir_matriz(aux)
             return True
+            
         else:
-            print("La caracteristica no fue encontrada")
+            print(f"La característica '{valorbuscar}' no fue encontrada")
             return False
 
-def retirar_Disco(idaretirar,diccionariodiscos):
+def retirar_Disco(db_discos,idaretirar):
     
-    if idaretirar not in diccionariodiscos:
+    try: 
+        with open(db_discos,"r",encoding="UTF-8") as datos:
+            diccionario=json.load(datos)
+            
+        with open("Db/discos_backup.json", "w", encoding="UTF-8") as backup:
+            json.dump(diccionario, backup,ensure_ascii=False,indent=4) #Creacion del backup
+            
+            
+    except:
+        print("No se pudo abrir el archivo")
+    
+        
+    if idaretirar not in diccionario:
         assert KeyError,("El disco no fue encontrado")
     
+    else:    
+        if idaretirar in diccionario:
+            idaretirar["cantidad"]-=1
+            print("Stock actulizado \n")
+            print(diccionario.values(idaretirar))
         
-    elif idaretirar in diccionariodiscos:
-        idaretirar["cantidad"]-=1
-        print("Stock actulizado \n")
-        print(diccionariodiscos.values(idaretirar))
         
-        
-    elif idaretirar["cantidad"]==0:
-        print("El disco no se encuentra disponible")
-        
+        elif idaretirar["cantidad"]==0:
+            print("El disco no se encuentra disponible")
     
-
+    try :
+        archivo=open(db_discos , "w")
+    except :
+        print("No se pududieron guardar las modificaciónes")
+    
+    else:
+        json.dump(diccionario,archivo,ensure_ascii=False,indent=4)
+    finally:
+        archivo.close()       
+    
+ 
 def agregar_Disco(nombrealbum,diccionariodiscos):
     for disco in diccionariodiscos:
         if nombrealbum== disco['nombre']:
