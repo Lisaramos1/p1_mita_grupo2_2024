@@ -97,9 +97,9 @@ while uso==0:
                 loop=1
             else:
                 print('Opcion no valida')
-                
+
     elif funcion == 2:
-        personas_list = Personas.cargar_personas()  # Cargar personas al iniciar
+        Usuarios = Personas.cargar_personas()  
         while True:
             print("\nMenu de Personas:")
             print("1. Agregar persona")
@@ -113,29 +113,41 @@ while uso==0:
                 dni = input("Ingrese el DNI de la persona: ")  
                 nombre = input("Ingrese el nombre de la persona: ")
                 apellido = input("Ingrese el apellido de la persona: ")  
-                Personas.agregar_persona(personas_list, dni, nombre, apellido)  
+                Personas.agregar_persona(Usuarios, dni, nombre, apellido)  
+            
             elif opcion == '2':
-                Personas.mostrar_personas(personas_list)
+                Personas.mostrar_personas(Usuarios)
+            
             elif opcion == '3':
-                Personas.mostrar_personas(personas_list)
-                nro = int(input("Ingrese el número de la persona que desea modificar: ")) - 1
-                nuevo_dni = input("Ingrese el nuevo DNI (deje en blanco para no modificar): ")
-                nuevo_nombre = input("Ingrese el nuevo nombre (deje en blanco para no modificar): ")
-                nuevo_apellido = input("Ingrese el nuevo apellido (deje en blanco para no modificar): ")
+                Personas.mostrar_personas(Usuarios)
+                id_persona = input("Ingrese el ID de la persona que desea modificar: ")
+                
+                if id_persona in Usuarios:
+                    nuevo_dni = input("Ingrese el nuevo DNI (deje en blanco para no modificar): ")
+                    nuevo_nombre = input("Ingrese el nuevo nombre (deje en blanco para no modificar): ")
+                    nuevo_apellido = input("Ingrese el nuevo apellido (deje en blanco para no modificar): ")
 
-                # Verificar si se deben modificar los valores
-                Personas.modificar_persona(personas_list, nro, 
-                    nuevo_dni if nuevo_dni else None, 
-                    nuevo_nombre if nuevo_nombre else None, 
-                    nuevo_apellido if nuevo_apellido else None)
+                    # Verificar si se deben modificar los valores
+                    Personas.modificar_persona(Usuarios, id_persona, 
+                        nuevo_dni if nuevo_dni else None, 
+                        nuevo_nombre if nuevo_nombre else None, 
+                        nuevo_apellido if nuevo_apellido else None)
+                else:
+                    print("ID no encontrado. Intente de nuevo.")
+            
             elif opcion == '4':
-                Personas.mostrar_personas(personas_list)
-                nro = int(input("Ingrese el número de la persona que desea eliminar: ")) - 1
-                Personas.eliminar_persona(personas_list, nro)
+                Personas.mostrar_personas(Usuarios)
+                id_persona = input("Ingrese el ID de la persona que desea eliminar: ")
+                
+                if id_persona in Usuarios:
+                    Personas.eliminar_persona(Usuarios, id_persona)
+                else:
+                    print("ID no encontrado. Intente de nuevo.")
+            
             elif opcion == '5':
                 break
             else:
-                print("Opción no válida. Intente de nuevo.")
+             print("Opción no válida. Intente de nuevo.")
     
     elif funcion==3:
         loop_prestamos=0
