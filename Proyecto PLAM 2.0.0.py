@@ -52,7 +52,6 @@ artistas = {
     "coldplay": {11}
 }
 
-tupladiccionarios=(nombrealbum,artistas,generos)
 Usuarios={
     "0001":{"nombre": "Juan", "apellido": "Perez", "dni": "12345678"},
     "0002":{"nombre": "Ana", "apellido": "Gomez", "dni": "23456789"},
@@ -135,31 +134,32 @@ while uso==0:
                             break  
                             
                             
-                        loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album
-                        print()
+                        loopfiltro=0  #Se llama a la funcion para verificar la disponibilidad del album                       
+                        print("\nBusqueda de album") 
+                        diccionarios_elegidos=funcionesvarias.menu_busqueda_album("Db\discos.json")
                         
-                        print("Busqueda de album") 
-                        funcionesvarias.menu_busqueda_album("Db/discos.json")
-                        while True:
-                            try:    
-                                idelegido=int(input("Ingrese id que desea retirar:"))
-                            except ValueError:
-                                print("El valor debe ser un numero")
-                                continue
-                            if idelegido < 0 :
-                                print("El valor debe ser positivo")
-                                continue
-                            else:
-                                break
-                        nombredelalbum=funcionesvarias.retirar_Disco("Db/discos.json",idelegido)
-                        if nombredelalbum == 0 : 
-                            break
-            
+                        if len(diccionarios_elegidos)>1: #En caso de que se haya encontrado más de una coincidencia
+                            while True:
+                                try:    
+                                    idelegido=int(input("Ingrese id que desea retirar:"))
+                                except ValueError:
+                                    print("El valor debe ser un numero")
+                                    continue
+                                if idelegido < 0 :
+                                    print("El valor debe ser positivo")
+                                    continue
+                                else:
+                                    break
+                        else: 
+                            idelegido = list(diccionarios_elegidos.keys())[0] #Almaceno la unica key devulta
+                            
+                        nombredelalbum=diccionarios_elegidos[str(idelegido)]["nombre"]
+                        funcionesvarias.retirar_Disco("Db/discos.json",idelegido)
                         diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
                         monto=int(input("Ingrese el monto total del prestamo: "))
                         prestamos.crear_prestamos(NroCliente,nombredelalbum,diasdeprestamos,monto,Prestamos)
                         control=False                 
-                case 2 :# Modicación
+                case 2 :# Modicación 
                         print()
                         print("Modificación de prestamos \n")
                         userid=(input("Ingrese el id del usuario del registro a modificar: "))

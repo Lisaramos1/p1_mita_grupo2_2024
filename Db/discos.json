@@ -42,8 +42,8 @@
         "cantidad": 6
     },
     "8": {
-        "nombre": "CÛmo te voy a olvidar",
-        "Artista": "Los ¡ngeles Azules",
+        "nombre": "C√≥mo te voy a olvidar",
+        "Artista": "Los √Ångeles Azules",
         "Genero": "Cumbia",
         "cantidad": 2
     },
@@ -56,13 +56,13 @@
     "10": {
         "nombre": "The Four Seasons",
         "Artista": "Antonio Vivaldi",
-        "Genero": "Cl·sica",
+        "Genero": "Cl√°sica",
         "cantidad": 3
     },
     "11": {
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
-        "cantidad": 2
+        "cantidad": 1
     }
 }
