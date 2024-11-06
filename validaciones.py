@@ -101,3 +101,17 @@ def ValidUserid (userid):
         return True
     else : 
         return False
+
+def Valdni(dni, Usuarios):
+    # Verificar que el DNI solo contenga números y tenga 7 u 8 caracteres
+    if not dni.isdigit() or not (7 <= len(dni) <= 8):
+        print("El DNI debe contener solo números y tener 7 u 8 caracteres.")
+        return False
+
+    # Verificar que el DNI no exista ya en el diccionario
+    for persona_id, persona in Usuarios.items():  
+        if persona['dni'] == dni:  
+            print("El DNI ya existe.")
+            return False
+    
+    return True  # Si el DNI no se encuentra, se considera válido

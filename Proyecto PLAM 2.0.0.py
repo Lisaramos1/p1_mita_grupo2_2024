@@ -97,8 +97,46 @@ while uso==0:
                 loop=1
             else:
                 print('Opcion no valida')
-    elif funcion==2:
-        Personas.menue(Usuarios)
+                
+    elif funcion == 2:
+        personas_list = Personas.cargar_personas()  # Cargar personas al iniciar
+        while True:
+            print("\nMenu de Personas:")
+            print("1. Agregar persona")
+            print("2. Mostrar personas")
+            print("3. Modificar persona")
+            print("4. Eliminar persona")
+            print("5. Volver")
+            opcion = input("Seleccione una opción: ")
+
+            if opcion == '1':
+                dni = input("Ingrese el DNI de la persona: ")  
+                nombre = input("Ingrese el nombre de la persona: ")
+                apellido = input("Ingrese el apellido de la persona: ")  
+                Personas.agregar_persona(personas_list, dni, nombre, apellido)  
+            elif opcion == '2':
+                Personas.mostrar_personas(personas_list)
+            elif opcion == '3':
+                Personas.mostrar_personas(personas_list)
+                nro = int(input("Ingrese el número de la persona que desea modificar: ")) - 1
+                nuevo_dni = input("Ingrese el nuevo DNI (deje en blanco para no modificar): ")
+                nuevo_nombre = input("Ingrese el nuevo nombre (deje en blanco para no modificar): ")
+                nuevo_apellido = input("Ingrese el nuevo apellido (deje en blanco para no modificar): ")
+
+                # Verificar si se deben modificar los valores
+                Personas.modificar_persona(personas_list, nro, 
+                    nuevo_dni if nuevo_dni else None, 
+                    nuevo_nombre if nuevo_nombre else None, 
+                    nuevo_apellido if nuevo_apellido else None)
+            elif opcion == '4':
+                Personas.mostrar_personas(personas_list)
+                nro = int(input("Ingrese el número de la persona que desea eliminar: ")) - 1
+                Personas.eliminar_persona(personas_list, nro)
+            elif opcion == '5':
+                break
+            else:
+                print("Opción no válida. Intente de nuevo.")
+    
     elif funcion==3:
         loop_prestamos=0
         while loop_prestamos== 0 :

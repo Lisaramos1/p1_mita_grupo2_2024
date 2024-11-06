@@ -1,85 +1,94 @@
-import re 
-import funcionesvarias
-# Función para validar DNI 
-def validar_dni(dni):
-    return re.fullmatch('\\d{7,8}', dni) is not None
+import json
+from funcionesvarias import generadorid  
+from validaciones import Valdni, ValidUsername
 
-# Lista de los clientes
+route = "Db/personas.json"
+backup_route = "Db/personas_backup.json"
 
-# Función para agregar clientes
-def addcustomer(diccionariousers):
-    nombre = input("Ingrese el nombre: ").capitalize()  # Capitaliza el nombre
-    apellido = input("Ingrese el apellido: ").capitalize()
-    dni = input("Ingrese el DNI sin puntos ni espacios: ")
-    
-    # Validación del DNI
-    if not validar_dni(dni):
-        print("DNI inválido. Debe contener entre 7 y 8 dígitos sin puntos ni espacios.")
+def cargar_personas():
+    try:
+        with open(route, 'r') as file:
+            Usuarios = json.load(file)
+        return Usuarios  
+    except FileNotFoundError:
+        with open(route, 'w') as file:
+            json.dump({}, file)  
+        print(f'El archivo {route} no se encontró. Se ha creado uno nuevo.')
+        return {}  
+    except PermissionError:
+        print(f'Error de permisos al intentar abrir {route}.')
+        return {}
+    except json.JSONDecodeError:
+        print(f'Error al decodificar el JSON en {route}.')
+        return {}
+
+def guardar_personas(Usuarios):
+    with open(route, 'w') as file:
+        json.dump(Usuarios, file, indent=4)  
+
+def backup_personas(Usuarios):
+    with open(backup_route, 'w') as backup_file:
+        json.dump(Usuarios, backup_file, indent=4)
+    print(f"Backup realizado en {backup_route}")
+
+def agregar_persona(Usuarios, dni, nombre, apellido):
+    # Validar el DNI
+    if not Valdni(dni, Usuarios):
         return
     
-    userid=funcionesvarias.generadorid(diccionariousers)
-    newcustomer = {"nombre": nombre, "apellido": apellido, "dni": dni}
-    diccionariousers[userid]=(newcustomer)
-    print(f"Cliente {nombre} {apellido} agregado exitosamente.")
+    # Validar el nombre y apellido
+    if not ValidUsername(nombre):
+        print("El nombre contiene caracteres inválidos.")
+        return  
+
+    if not ValidUsername(apellido):
+        print("El apellido contiene caracteres inválidos.")
+        return 
+
     
-def modcustomer(diccionariousers):
-    dni = input("Ingrese el DNI de la persona a modificar: ")
-    
-    # Búsqueda del cliente con el DNI
-    for persona in diccionariousers:
-        if persona["dni"] == dni:
-            nuevo_nombre = input("Ingrese el nuevo nombre: ")
-            nuevo_apellido = input("Ingrese el nuevo apellido: ")
-            persona["nombre"] = nuevo_nombre
-            persona["apellido"] = nuevo_apellido
-            print("Datos actualizados.")
-            return
-    print("Persona no encontrada.")
+    nuevo_id = generadorid(Usuarios)  
+    Usuarios[nuevo_id] = {
+        'nombre': nombre,
+        'apellido': apellido,
+        'dni': dni
+    }
 
-def delcustomer(diccionariousers):
-    while True:
-        try: id_a_buscar = int(input("Ingrese el id de la persona a eliminar: "))
-        except TypeError:
-            print("El valor debe ser un numero")
-        else:
-            break
-        
+    guardar_personas(Usuarios) 
+    backup_personas(Usuarios)  
+    print(f"Persona agregada exitosamente: {nombre} {apellido} (DNI: {dni}, ID: {nuevo_id})")
 
-    # Eliminamos la persona con el DNI
-    for persona in diccionariousers:
-        if persona["dni"] == id:
-            diccionariousers.remove(persona)
-            print("Persona eliminada.")
-            return
-    print("Persona no encontrada.")
-
-def listcustomer(dicionariousers):
-    if not dicionariousers:
+def mostrar_personas(Usuarios):
+    if not Usuarios:
         print("No hay personas registradas.")
     else:
-       print(dicionariousers)
+        for id_persona, datos in Usuarios.items():
+            print(f"ID: {id_persona}, DNI: {datos['dni']}, Nombre: {datos['nombre']}, Apellido: {datos['apellido']}")
 
-# Función principal del menú
-def menue(diccionariousers):
-    while True:
-        print('1 Agregar persona')
-        print('2 Modificar persona')
-        print('3 Eliminar persona')
-        print('4 Mostrar la lista de personas')
-        print('0 Volver')
-        menu = input('¿Qué desea hacer?: ')
+def modificar_persona(Usuarios, id_persona, nuevo_dni=None, nuevo_nombre=None, nuevo_apellido=None):
+    if id_persona in Usuarios:
+        if nuevo_dni:
+            Usuarios[id_persona]['dni'] = nuevo_dni
+        if nuevo_nombre:
+            Usuarios[id_persona]['nombre'] = nuevo_nombre
+        if nuevo_apellido:
+            Usuarios[id_persona]['apellido'] = nuevo_apellido
+        print(f"Persona modificada: {Usuarios[id_persona]}")
+        guardar_personas(Usuarios)  # Guarda el diccionario actualizado
+        backup_personas(Usuarios) # Guarda actualizado en el backup
+    else:
+        print("ID no válido.")
 
-        if menu == '1':
-            addcustomer(diccionariousers)
-        elif menu == '2':
-            modcustomer(diccionariousers)
-        elif menu == '3':
-            delcustomer(diccionariousers)
-        elif menu == '4':
-            listcustomer(diccionariousers)
-        elif menu == '0':
-            print("Volviendo al menú principal.")
-            return
-        else:
-            print("Opción no válida.")
-        menu = 0  # Para mantener el ciclo activo hasta que decidan volver
+def eliminar_persona(Usuarios, id_persona):
+    if id_persona in Usuarios:
+        removed_person = Usuarios.pop(id_persona)
+        print(f"Persona eliminada: {removed_person}")
+        guardar_personas(Usuarios)  # Guarda el diccionario actualizado
+    else:
+        print("ID no válido.")
+
+# función para hacer backup de los datos
+def backup_personas(Usuarios):
+    backup_route = "Db/personas_backup.json"
+    with open(backup_route, 'w') as backup_file:
+        json.dump(Usuarios, backup_file, indent=4)
+    print(f"Backup realizado en {backup_route}")
