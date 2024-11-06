@@ -113,7 +113,7 @@ while uso==0:
             
             match menu_prestamos :
                 
-                case 1: # Creación (Falta carga a db.txt)
+                case 1: # Creación 
                     Verfificar_información=True 
                     while Verfificar_información==True:
                         NroCliente=(input("Ingrese el numero de cliente: "))
@@ -160,13 +160,7 @@ while uso==0:
                         diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
                         monto=int(input("Ingrese el monto total del prestamo: "))
                         prestamos.crear_prestamos(NroCliente, nombredelalbum,diasdeprestamos,monto ,"Db/prestamos_db.txt")
-                        Verfificar_información=False
-                        
-                        
-                                          
-                
-                         
-                                  
+                        Verfificar_información=False        
                 case 2 :# Modicación 
                         print()
                         print("Modificación de prestamos \n")
