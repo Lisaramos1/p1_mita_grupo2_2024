@@ -9,14 +9,14 @@ def generadorid (matriz):
     id=f"{len_lista:04}"
     return id
 
-def imprimir_matriz(matriz):
+def imprimir_matriz(matriz,encabezados,longituddeseparadores):
     print()
     for fila in matriz:
         print("||".join(map(str,fila)))
 
 def imprimir_diccionario(diccionario):
     for key, value in diccionario.items():
-        print(f"{key}-{value}")
+        print(f"{key}||{value}")
 
 #busquedas de albums
 def menu_busqueda_album(db_discos):
@@ -105,7 +105,14 @@ def busquedaporvalores(diccionario,subdiccionario, valorbuscar):
         if valorbuscar in diccionario:
             print(f"{valorbuscar}-{diccionario.get(valorbuscar)}")
             aux={valorbuscar:diccionario.get(valorbuscar)}
+            
+            
+            if aux[valorbuscar]["Cantidad".lower()]<=0:
+                print ("No hay disponibilidad del disco solicitado")
+                return False    
+        
             return aux
+            
         else:
             print("El disco no fue encontrado")
             return False    

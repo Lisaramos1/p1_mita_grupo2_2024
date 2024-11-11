@@ -5,7 +5,7 @@ import funcionesvarias
 import validaciones 
 import devoluciones
 import json
-discos={
+"""discos={
     "1": {"nombre": "Thriller", "Artista": "Michael Jackson", "Genero": "Pop", "cantidad": 5},
     "2": {"nombre": "Thriller", "Artista": "The Weeknd", "Genero": "R&B", "cantidad": 3},
     "3": {"nombre": "Discovery", "Artista": "Daft Punk", "Genero": "Techno", "cantidad": 2},
@@ -50,23 +50,23 @@ artistas = {
     "tame impala": {9},
     "antonio vivaldi": {10},
     "coldplay": {11}
-}
+}"""
 
-Usuarios={
+"""Usuarios={
     "0001":{"nombre": "Juan", "apellido": "Perez", "dni": "12345678"},
     "0002":{"nombre": "Ana", "apellido": "Gomez", "dni": "23456789"},
     "0003":{"nombre": "Luis", "apellido": "Martinez", "dni": "34567890"},
     "0004":{"nombre": "Maria", "apellido": "Lopez", "dni": "45678901"},
     "0005":{"nombre": "Carlos", "apellido": "Sanchez", "dni": "56789012"}
-}
+}"""
 
 #Matrices
-Prestamos=[
+"""Prestamos=[
     ["0001", 'Disco 1', "2024-06-16", '2024-06-30', 400, False],
     ["0001", 'Disco 4', '2024-06-13', '2024-07-14', 700, False],
     ["0004", 'Disco 6', '2024-06-14', '2024-08-16', 1000, True],
     ["0005", 'Disco 4', '2024-06-14', '2024-08-16', 1000, True]
-]
+]"""
 uso=0
 while uso==0:
     print('1 Discos')
@@ -163,7 +163,7 @@ while uso==0:
                             NroCliente=(f"{NroCliente:0>4}")
                             verificacionuserid=validaciones.ValidUserid(NroCliente)
                         
-                        user=validaciones.existenciadeuser((f"{NroCliente:0>4}"),Usuarios) #Validacion de existencia del usuario
+                        user=validaciones.existenciadeuser((f"{NroCliente:0>4}"),"Db/personas.json") #Validacion de existencia del usuario
                         if user == True:
                             print("Cliente encontrado")
                     
@@ -197,17 +197,17 @@ while uso==0:
                         funcionesvarias.retirar_Disco("Db/discos.json",idelegido)
                         diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
                         monto=int(input("Ingrese el monto total del prestamo: "))
-                        prestamos.crear_prestamos(NroCliente, nombredelalbum,diasdeprestamos,monto ,"Db/prestamos_db.txt")
+                        prestamos.crear_prestamos(NroCliente, nombredelalbum,diasdeprestamos,monto ,"Db\prestamos_db.txt")
                         Verfificar_información=False        
                 case 2 :# Modicación 
                         print()
                         print("Modificación de prestamos \n")
                         userid=(input("Ingrese el id del usuario del registro a modificar: "))
-                        prestamos.modificar_prestamos(userid,Personas,Prestamos,discos)
+                        prestamos.modificar_prestamos(userid,"Db/personas.json","Db/prestamos_db.txt","Db/discos.json")
                 case 3 :# Eliminación
                     prestamos.eliminar_prestamos(Prestamos)
                 case 4 :# Mostrar
-                    prestamos.mostrar_prestamos(Prestamos)
+                    prestamos.mostrar_prestamos("Db/prestamos_db.txt")
                 case 5: #Filtro de busqueda por fechas 
                     fechalimite=input("Ingrese la fecha limite que desea filtrar: ")
                     caso1=validaciones.validaciondefecha(fechalimite)

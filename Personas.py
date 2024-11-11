@@ -7,7 +7,7 @@ backup_route = "Db/personas_backup.json"
 
 def cargar_personas():
     try:
-        with open(route, 'r') as file:
+        with open(route, 'r',encoding="utf-8") as file:
             Usuarios = json.load(file)
         return Usuarios  
     except FileNotFoundError:
@@ -23,11 +23,11 @@ def cargar_personas():
         return {}
 
 def guardar_personas(Usuarios):
-    with open(route, 'w') as file:
+    with open(route, 'w' ,encoding="UTF-8") as file:
         json.dump(Usuarios, file, indent=4)  
 
 def backup_personas(Usuarios):
-    with open(backup_route, 'w') as backup_file:
+    with open(backup_route, 'w',encoding="UTF-8") as backup_file:
         json.dump(Usuarios, backup_file, indent=4)
     print(f"Backup realizado en {backup_route}")
 
@@ -89,6 +89,6 @@ def eliminar_persona(Usuarios, id_persona):
 # función para hacer backup de los datos
 def backup_personas(Usuarios):
     backup_route = "Db/personas_backup.json"
-    with open(backup_route, 'w') as backup_file:
+    with open(backup_route, 'w',encoding="utf-8") as backup_file:
         json.dump(Usuarios, backup_file, indent=4)
     print(f"Backup realizado en {backup_route}")

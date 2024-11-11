@@ -3,6 +3,7 @@ import re
 from datetime import datetime
 from datetime import timedelta
 from datetime import date
+import json
 
 #Validaciones y transformaciones de formato fecha
 def SumadeDias(DiasdePrestamo):
@@ -43,13 +44,19 @@ def str_a_fecha(strfecha):
     
     return aux
  
-def existenciadeuser(userid,diccionariosdeusers):
+def existenciadeuser(userid,db_usuarios):
     """
     pre:Recibe el userid y el diccionario
     pos:Si se encuetra el userdi== True , si no lo encuentra==False
-    """
-    if userid not in diccionariosdeusers:
-        raise KeyError ("El usuario no fue registrado")
+    """    
+    try: 
+        with open(db_usuarios,"r",encoding="UTF-8") as datos:
+            diccionario=json.load(datos)
+    except:
+        return print(f"No se pudo abrir el archivo {db_usuarios}")
+    
+    if userid not in diccionario:
+        print ("El usuario no fue registrado")
         return False
     else:
         return True

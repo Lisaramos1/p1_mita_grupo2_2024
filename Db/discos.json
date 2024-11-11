@@ -21,31 +21,31 @@
         "nombre": "Bad",
         "Artista": "Michael Jackson",
         "Genero": "Pop",
-        "cantidad": 7
+        "cantidad": 5
     },
     "5": {
         "nombre": "Abbey Road",
         "Artista": "The Beatles",
         "Genero": "Rock",
-        "cantidad": -1
+        "cantidad": 35
     },
     "6": {
         "nombre": "Abbey Road",
         "Artista": "Red Hot Chili Peppers",
         "Genero": "Rock",
-        "cantidad": 3
+        "cantidad": 2
     },
     "7": {
         "nombre": "Bad",
         "Artista": "U2",
         "Genero": "Rock",
-        "cantidad": 0
+        "cantidad": 40
     },
     "8": {
         "nombre": "Cómo te voy a olvidar",
         "Artista": "Los Ángeles Azules",
         "Genero": "Cumbia",
-        "cantidad": 0
+        "cantidad": 38
     },
     "9": {
         "nombre": "Currents",
@@ -63,6 +63,6 @@
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
-        "cantidad": 0
+        "cantidad": 34
     }
 }
