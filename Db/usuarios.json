@@ -1,8 +1,0 @@
-
-{
-    "0001":{"nombre": "Juan", "apellido": "Perez", "dni": "12345678"},
-    "0002":{"nombre": "Ana", "apellido": "Gomez", "dni": "23456789"},
-    "0003":{"nombre": "Luis", "apellido": "Martinez", "dni": "34567890"},
-    "0004":{"nombre": "Maria", "apellido": "Lopez", "dni": "45678901"},
-    "0005":{"nombre": "Carlos", "apellido": "Sanchez", "dni": "56789012"}
-    }

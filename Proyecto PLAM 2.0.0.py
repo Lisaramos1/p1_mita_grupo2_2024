@@ -69,6 +69,7 @@ artistas = {
 ]"""
 uso=0
 while uso==0:
+    print()
     print('1 Discos')
     print('2 Usuarios')
     print('3 Prestamos')
@@ -152,30 +153,40 @@ while uso==0:
     elif funcion==3:
         loop_prestamos=0
         while loop_prestamos== 0 :
-            print()
+            print("\nMenu")
             print('1 Crear prestamos ➕')
             print('2 Modificar prestamos ➖')
             print('3 Eliminar prestamo ⚙️')
             print('4 Mostrar listado 👀')
             print('5 Prestamos por vencer')
             print("0 volver")
-            menu_prestamos = int(input('Ingrese una acción:' ))
+            while True :
+                try:
+                    menu_prestamos=int(input("Ingrese que función desea realizar:"))
+                except ValueError:
+                    print("El valor debe ser un número\n")
+                    continue
+                if menu_prestamos >=6 or menu_prestamos<0:
+                    print("El valor ingresado no es correcto\n")
+                else :
+                    break
             
             match menu_prestamos :
                 
                 case 1: # Creación 
+                    print("\n Creación de prestamo ")
                     Verfificar_información=True 
                     while Verfificar_información==True:
-                        NroCliente=(input("Ingrese el numero de cliente: "))
-                        NroCliente=(f"{NroCliente:0>4}")
-                        verificacionuserid=validaciones.ValidUserid((f"{NroCliente:04}")) #Se verifica que el user cargado coincida con el parametro regex.
+                        nrocliente=(input("Ingrese el numero de cliente: "))
+                        nrocliente=(f"{nrocliente:0>4}")
+                        verificacionuserid=validaciones.ValidUserid(nrocliente) #Se verifica que el user cargado coincida con el parametro regex.
                         while verificacionuserid == False:
                             print("Nro de cliente no valido")
-                            NroCliente=("Ingrese un numero de cliente valido: ")
-                            NroCliente=(f"{NroCliente:0>4}")
-                            verificacionuserid=validaciones.ValidUserid(NroCliente)
+                            nrocliente=("Ingrese un numero de cliente valido: ")
+                            nrocliente=(f"{nrocliente:0>4}")
+                            verificacionuserid=validaciones.ValidUserid(nrocliente)
                         
-                        user=validaciones.existenciadeuser((f"{NroCliente:0>4}"),"Db/personas.json") #Validacion de existencia del usuario
+                        user=validaciones.existenciadeuser((f"{nrocliente:0>4}"),"Db/personas.json") #Validacion de existencia del usuario
                         if user == True:
                             print("Cliente encontrado")
                     
@@ -188,7 +199,7 @@ while uso==0:
                         print("\nBusqueda de album")
                          
                         #Se llama a la funcion para verificar la disponibilidad del album                       
-                        diccionarios_elegidos=funcionesvarias.menu_busqueda_album("Db\discos.json")
+                        diccionarios_elegidos=funcionesvarias.menu_busqueda_album(r"Db\discos.json")
                         
                         if len(diccionarios_elegidos)>1: #En caso de que se haya encontrado más de una coincidencia
                             while True:
@@ -209,15 +220,55 @@ while uso==0:
                         funcionesvarias.retirar_Disco("Db/discos.json",idelegido)
                         diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
                         monto=int(input("Ingrese el monto total del prestamo: "))
-                        prestamos.crear_prestamos(NroCliente, nombredelalbum,diasdeprestamos,monto ,"Db\prestamos_db.txt")
+                        prestamos.crear_prestamos(nrocliente, nombredelalbum,diasdeprestamos,monto ,r"Db\prestamos_db.txt")
                         Verfificar_información=False        
                 case 2 :# Modicación 
-                        print()
                         print("Modificación de prestamos \n")
                         userid=(input("Ingrese el id del usuario del registro a modificar: "))
+                        userid=(f"{userid:0>4}")
+                    
+                        verificacionuserid=validaciones.ValidUserid(userid) #Se verifica que el user cargado coincida con el parametro regex.
+                        while verificacionuserid == False:
+                            print("Nro de cliente no valido")
+                            userid=("Ingrese un numero de cliente valido: ")
+                            userid=(f"{userid:0>4}")
+                            verificacionuserid=validaciones.ValidUserid(userid)
+                        
+                        user=validaciones.existenciadeuser((f"{userid:0>4}"),"Db/personas.json") #Validacion de existencia del usuario
+                        if user == True:
+                            print("Cliente encontrado")
+                    
+                        else:
+                            print("El usuario no fue encontrado")  #Si el usuario no esta registrado regresa al menu principal 
+                            print("Debe registrar al usuario")
+                            Verfificar_información=False
+                            break  
+                                
+                        existencia=validaciones.existenciadeuser(userid,"Db/personas.json")
+                            
                         prestamos.modificar_prestamos(userid,"Db/personas.json","Db/prestamos_db.txt","Db/discos.json")
                 case 3 :# Eliminación
-                    prestamos.eliminar_prestamos(Prestamos)
+                    print("\n Eliminación de prestamos")
+                    userid=(input("Ingrese el id del usuario del registro a modificar: "))
+                    userid=(f"{userid:0>4}")
+                    verificacionuserid=validaciones.ValidUserid(userid) #Se verifica que el user cargado coincida con el parametro regex.
+                    while verificacionuserid == False:
+                        print("Nro de cliente no valido")
+                        userid=("Ingrese un numero de cliente valido: ")
+                        userid=(f"{userid:0>4}")
+                        verificacionuserid=validaciones.ValidUserid(userid)
+                    
+                    user=validaciones.existenciadeuser((f"{userid:0>4}"),"Db/personas.json") #Validacion de existencia del usuario
+                    if user == True:
+                        print("Cliente encontrado")
+                
+                    else:
+                        print("El usuario no fue encontrado")  #Si el usuario no esta registrado regresa al menu principal 
+                        print("Debe registrar al usuario")
+                        Verfificar_información=False
+                        break  
+                    
+                    prestamos.eliminar_prestamos(userid,"Db/prestamos_db.txt")
                 case 4 :# Mostrar
                     prestamos.mostrar_prestamos("Db/prestamos_db.txt")
                 case 5: #Filtro de busqueda por fechas 
@@ -253,9 +304,6 @@ while uso==0:
                         userid=(input("Ingrese un numero de cliente valido: "))
                         verificacionuserid=validaciones.ValidUserid(userid)
                         
-                    user=validaciones.existenciaprestamo(userid,Prestamos) #Validacion de existencia de prestamo a nombre del usuario
-                    if user == True:
-                        print("Prestamo encontrado \n")
     
                 
                     else:

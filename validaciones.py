@@ -62,14 +62,7 @@ def existenciadeuser(userid,db_usuarios):
         return True
     
 
-def existenciaprestamo (userid,matrizprestamos):
-    cont=0
-    while cont<len(matrizprestamos): 
-        if matrizprestamos[cont][0] == userid:
-            return True
-        else:   
-            cont+=1
-    return False
+
 
 #Validaciones regex
 def validaciondefecha(fecha):

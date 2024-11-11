@@ -16,7 +16,7 @@ def imprimir_matriz(matriz,encabezados,longituddeseparadores):
 
 def imprimir_diccionario(diccionario):
     for key, value in diccionario.items():
-        print(f"{key}||{value}")
+        print(f"{key:<4}-{value}")
 
 #busquedas de albums
 def menu_busqueda_album(db_discos):
@@ -118,14 +118,14 @@ def busquedaporvalores(diccionario,subdiccionario, valorbuscar):
             return False    
 
     else:
-        print(f"**SUBDICCIONARIO**\n")
+        print(f"\n**SUBDICCIONARIO**\n")
         imprimir_diccionario(subdiccionario)
         
         
         iddiscosabuscar = subdiccionario.get(valorbuscar.lower(), None)
         
         if iddiscosabuscar is not None:
-            print("imprimiendo resultados encontrados...")
+            print("imprimiendo resultados encontrados...\n")
             aux ={album_id: diccionario[album_id] for album_id in iddiscosabuscar if album_id in diccionario and diccionario[album_id]["cantidad"]>0}
             imprimir_diccionario(aux)
             return aux

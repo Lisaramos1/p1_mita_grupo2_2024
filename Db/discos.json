@@ -27,7 +27,7 @@
         "nombre": "Abbey Road",
         "Artista": "The Beatles",
         "Genero": "Rock",
-        "cantidad": 35
+        "cantidad": 34
     },
     "6": {
         "nombre": "Abbey Road",
@@ -63,6 +63,6 @@
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
-        "cantidad": 34
+        "cantidad": 32
     }
 }
