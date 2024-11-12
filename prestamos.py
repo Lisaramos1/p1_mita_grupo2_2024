@@ -203,7 +203,7 @@ def modificar_prestamos(userid,usersjson,prestamostxt,discosjson):
                 nuevo_valor=int(input("Ingrese el nuevo monto del prestamo"))
                 prestamoacambiar[modificacion]=str(nuevo_valor)
 
-        print(f"listado actualizado {prestamoacambiar}")   
+        print(f"listado actualizado {prestamoacambiar}" )   
         modificacion=int(input("Que valor desea modificar? Si ya finalizo todas las modificaciones ingrese -1: "))-1
         if modificacion == -2:
             control=False

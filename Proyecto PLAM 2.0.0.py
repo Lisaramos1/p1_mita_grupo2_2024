@@ -159,6 +159,7 @@ while uso==0:
             print('3 Eliminar prestamo ⚙️')
             print('4 Mostrar listado 👀')
             print('5 Prestamos por vencer')
+            print('6 Cantidad de discos disponibles')
             print("0 volver")
             while True :
                 try:
@@ -166,7 +167,7 @@ while uso==0:
                 except ValueError:
                     print("El valor debe ser un número\n")
                     continue
-                if menu_prestamos >=6 or menu_prestamos<0:
+                if menu_prestamos >=7 or menu_prestamos<0:
                     print("El valor ingresado no es correcto\n")
                 else :
                     break
@@ -279,7 +280,14 @@ while uso==0:
                         print("xxxx-xx-xx")   
                         fechalimite=input()
                         caso1=validaciones.validaciondefecha(fechalimite)
-                    prestamos.prestamos_vencidos(fechalimite,Prestamos)
+                        prestamos.prestamos_vencidos(fechalimite,Prestamos)
+                
+                case 6: #Sumatoria de prestamos
+                    with open (r"Db/discos.ndjson","r",encoding="utf-8") as archivo: 
+                        total=funcionesvarias.suma_cantidad_discos(archivo)
+                    print(f"\n El total de discos disponibles es de {total}")
+                    
+                    
                    
             if menu_prestamos == 0:
                 loop_prestamos=1
@@ -329,7 +337,7 @@ while uso==0:
                     devoluciones.modicacion_de_estados(userid,nombredelalbum,discos,Prestamos)
                     
                     control=True
-                
+    
             elif menu_devoluciones==0:
                 loop_devoluciones=1
         

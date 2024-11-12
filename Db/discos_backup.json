@@ -21,13 +21,13 @@
         "nombre": "Bad",
         "Artista": "Michael Jackson",
         "Genero": "Pop",
-        "cantidad": 5
+        "cantidad": 4
     },
     "5": {
         "nombre": "Abbey Road",
         "Artista": "The Beatles",
         "Genero": "Rock",
-        "cantidad": 34
+        "cantidad": 33
     },
     "6": {
         "nombre": "Abbey Road",
@@ -39,7 +39,7 @@
         "nombre": "Bad",
         "Artista": "U2",
         "Genero": "Rock",
-        "cantidad": 40
+        "cantidad": 39
     },
     "8": {
         "nombre": "Cómo te voy a olvidar",
@@ -63,6 +63,6 @@
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
-        "cantidad": 33
+        "cantidad": 32
     }
 }
