@@ -75,7 +75,11 @@ while uso==0:
     print('3 Prestamos')
     print('4 Devoluciones')
     print('0 Salir')
-    funcion = int(input("Ingrese que función quiere realizar: "))
+    try:
+        funcion = int(input("Ingrese que funcion quiere realizar: "))
+    except ValueError:
+        print("Por favor, ingrese un número válido.")
+        continue  # Regresa al inicio del bucle si hay un error de entrada
     if funcion==1:
         loop=0
         while loop==0:
@@ -85,15 +89,19 @@ while uso==0:
             print('3: Eliminar Discos ✖')
             print('4: Ver Stock 👀')
             print('0: Volver')
-            menu = int(input())
+            try:
+                menu = int(input())
+            except ValueError:
+                print("Por favor, ingrese un número válido.")
+                continue  # Regresa al inicio del bucle si hay un error de entrada
             if menu==1:
-                discos = DiscosStock.agregar(discos)
+                DiscosStock.agregar()
             elif menu==2:
-                discos = DiscosStock.modificar(discos)
+                DiscosStock.modificar()
             elif menu==3:
-                discos = DiscosStock.eliminar(discos)
+                DiscosStock.eliminar()
             elif menu==4:
-                discos = DiscosStock.mostrar(discos)
+                DiscosStock.mostrar()
             elif menu==0:
                 loop=1
             else:
