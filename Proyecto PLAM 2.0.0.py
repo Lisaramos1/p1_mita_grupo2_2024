@@ -237,10 +237,11 @@ while uso==0:
                             idelegido = list(diccionarios_elegidos.keys())[0] #Almaceno la unica key devulta
                             
                         nombredelalbum=diccionarios_elegidos[str(idelegido)]["nombre"]
+                        iddisco=str(idelegido)
                         funcionesvarias.retirar_Disco("Db/discos.json",idelegido)
                         diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
                         monto=int(input("Ingrese el monto total del prestamo: "))
-                        prestamos.crear_prestamos(nrocliente, nombredelalbum,diasdeprestamos,monto ,r"Db\prestamos_db.txt")
+                        prestamos.crear_prestamos(nrocliente, nombredelalbum,iddisco,diasdeprestamos,monto ,r"Db\prestamos_db.txt")
                         Verfificar_información=False        
                 case 2 :# Modicación 
                         print("Modificación de prestamos \n")

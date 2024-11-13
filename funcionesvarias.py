@@ -15,13 +15,13 @@ def imprimir_matriz(matriz):
         for i in matriz:
             matriz[i]=matriz[i].strip()
         print(matriz)
-    else:
-        for fila in matriz:
-            print("||".join(map(str,fila)))
+    
+    for fila in matriz:
+        print("||".join(map(str,fila)))
 
 def imprimir_diccionario(diccionario):
     for key, value in diccionario.items():
-        value = [v.strip() for v in value]
+        #value = [v.strip() for v in value]
         print(f"{key:<4}-{value}")
 
 #busquedas de albums

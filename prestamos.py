@@ -7,14 +7,14 @@ import json
 
 
 
-def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,Db_prestamos):
+def crear_prestamos (NroCliente,album,iddisco,DiasdePrestamo,monto,Db_prestamos):
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz
     """
    
     fechas=validaciones.SumadeDias(DiasdePrestamo)       #Se contabilizan las fechas de los dias del prestamos
     fecha_inicio,fecha_cierre=fechas                     # Se asignan las fechas
-    aux=f"{NroCliente},{album},{fecha_inicio},{fecha_cierre},{monto},{"False"}"
+    aux=f"{NroCliente},{album},{iddisco},{fecha_inicio},{fecha_cierre},{monto},{"False"}"
     print(f"El prestamo creado es: {aux}")
     
     try :
@@ -26,8 +26,8 @@ def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,Db_prestamos):
         print("Base de datos actualizada...") 
 
 def mostrar_prestamos(Prestamos_db):
-    encabezado=["userid","disco","inicio","cierre","monto","estado"]
-    espacios=[10,15,15,15,15,7]
+    encabezado=["userid","disco","discoid","inicio","cierre","monto","estado"]
+    espacios=[10,10,15,15,15,15,7]
     fila=""
     for i , valor in enumerate(encabezado):
         fila += f"{valor:<{espacios[i]}}"
@@ -88,7 +88,7 @@ def busqueda_prestamos(userid,prestamostxt,estadoprestamo):
         arch=open (prestamostxt , "r", encoding="utf-8")
         linea=arch.readline()
         while linea:
-            listavalores=user,disco,fechaini,fechedevo,monto,estado=linea.split(",")
+            listavalores=user,nombredisco,nombreartista,fechaini,fechedevo,monto,estado=linea.split(",")
             
             if (user)==userid and estadoprestamo==False and estado==False: #Solo filtra por los prestamos que no han sido devueltos
                 apariciones.setdefault(str(nro_linea),listavalores)
@@ -210,6 +210,8 @@ def modificar_prestamos(userid,usersjson,prestamostxt,discosjson):
             case 4:#Modificar el monto del prestamo
                 nuevo_valor=int(input("Ingrese el nuevo monto del prestamo"))
                 prestamoacambiar[modificacion]=str(nuevo_valor)
+            
+        
 
         print(f"listado actualizado {prestamoacambiar}" )   
         modificacion=int(input("Que valor desea modificar? Si ya finalizo todas las modificaciones ingrese -1: "))-1
@@ -257,17 +259,22 @@ def prestamos_vencidos(fechalimite,prestamostxt): #Listas por comprensión
             while linea:
                 prestamo=linea.strip().split(",")
                 if prestamo[-1]=='False':
-                    prestamo[2]=validaciones.str_a_fecha(prestamo[2])
-                    prestamo[3]=validaciones.str_a_fecha(prestamo[3])
+                    prestamo[4]=validaciones.str_a_fecha(prestamo[3])
                     prestamos_activos.append(prestamo)
                     
                     
                     
                 linea=archivo.readline() 
                 
-        listadeprestamosv = [prestamo for prestamo in prestamos_activos if prestamo[3] > fechalimite]
+        listadeprestamosv = [prestamo for prestamo in prestamos_activos if prestamo[4] > fechalimite]
         print(listadeprestamosv)
+    
         
-    except FileExistsError:
+    except:
         print("Ha ocurrido un error")
         
+
+    """ if len(listadeprestamosv)!=0:
+        
+        formatostr=list(map(lambda prestamo : prestamo[3]=date  ,))
+        """

@@ -21,13 +21,13 @@
         "nombre": "Bad",
         "Artista": "Michael Jackson",
         "Genero": "Pop",
-        "cantidad": 4
+        "cantidad": 3
     },
     "5": {
         "nombre": "Abbey Road",
         "Artista": "The Beatles",
         "Genero": "Rock",
-        "cantidad": 32
+        "cantidad": 31
     },
     "6": {
         "nombre": "Abbey Road",
@@ -63,6 +63,6 @@
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
-        "cantidad": 31
+        "cantidad": 30
     }
 }
