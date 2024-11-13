@@ -340,12 +340,12 @@ while uso==0:
                     else:
                         n_aparicion=input("Qué prestamo desea culminar? ")
                         aparaiciones[n_aparicion][-1]='True'
+                        posicion=aparaiciones[n_aparicion][2]
                         prestamo_actualizado=",".join(aparaiciones[n_aparicion])
                         prestamos.actualizar_txt(r"Db/prestamos_db.txt",prestamo_actualizado,n_aparicion,True)
-                        discos=DiscosStock.cargar_disco()
-                        
-                        break
-                    
+                        disco=DiscosStock.cargar_disco()
+                        disco[str(posicion)]['cantidad']+=1
+                        DiscosStock.guardar_disco(disco)
                     control=True
     
             elif menu_devoluciones==0:

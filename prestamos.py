@@ -88,7 +88,7 @@ def busqueda_prestamos(userid,prestamostxt,estadoprestamo):
         arch=open (prestamostxt , "r", encoding="utf-8")
         linea=arch.readline()
         while linea:
-            listavalores=user,disco,fechaini,fechedevo,monto,estado=linea.split(",")
+            listavalores=user,disco,iddisco,fechaini,fechedevo,monto,estado=linea.strip().split(",")
             
             if (user)==userid and estadoprestamo=='False' and estado=="False": #Solo filtra por los prestamos que no han sido devueltos
                 apariciones.setdefault(str(nro_linea),listavalores)
