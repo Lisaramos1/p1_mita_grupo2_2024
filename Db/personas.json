@@ -8,5 +8,10 @@
         "nombre": "Andr\u00e9s",
         "apellido": "Cede\u00f1o",
         "dni": "95805128"
+    },
+    "0003": {
+        "nombre": "Carlos",
+        "apellido": "Perez",
+        "dni": "87452145"
     }
 }

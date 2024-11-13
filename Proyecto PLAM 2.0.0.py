@@ -259,7 +259,7 @@ while uso==0:
                         userid=(f"{userid:0>4}")
                         verificacionuserid=validaciones.ValidUserid(userid)
                     
-                    user=validaciones.existenciadeuser((f"{userid:0>4}"),"Db/personas.json") #Validacion de existencia del usuario
+                    user=validaciones.existenciadeuser(userid,"Db/personas.json") #Validacion de existencia del usuario
                     if user == True:
                         print("Cliente encontrado")
                 
@@ -282,7 +282,7 @@ while uso==0:
                         caso1=validaciones.validaciondefecha(fechalimite)
                         prestamos.prestamos_vencidos(fechalimite,Prestamos)
                 
-                case 6: #Sumatoria de prestamos
+                case 6: #Sumatoria de cantidad de discos disponibles
                     with open (r"Db/discos.ndjson","r",encoding="utf-8") as archivo: 
                         total=funcionesvarias.suma_cantidad_discos(archivo)
                     print(f"\n El total de discos disponibles es de {total}")
@@ -301,40 +301,34 @@ while uso==0:
             
             if menu_devoluciones==1:
             
-                print("Devolución de discos \n")
+                print("\n Devolución de discos ")
                 
                 control=False
                 while control==False:
                     userid=input("Ingrese el id del usuario: ")
+                    userid=f"{userid:<4}"
                     verificacionuserid=validaciones.ValidUserid(userid) #Se verifica que el user cargado coincida con el parametro regex.
                     while verificacionuserid == False:
                         print("Nro de cliente no valido")
                         userid=(input("Ingrese un numero de cliente valido: "))
+                        userid=f"{userid:<4}"
                         verificacionuserid=validaciones.ValidUserid(userid)
+                    
+                    aparaiciones=prestamos.busqueda_prestamos(userid,r"Db/prestamos.txt",False)
+                    
+                    if len(aparaiciones)>0:
+                        funcionesvarias.imprimir_diccionario(aparaiciones)
+                        n_aparicion=(input("Qué prestamo desea culminar? "))
+                        aparaiciones[n_aparicion]["estado"]=True
+                        prestamo_actualizado=f"{aparaiciones[n_aparicion]}"
                         
-    
+                        prestamos.actualizar_txt(r"Db/prestamos.txt",prestamo_actualizado,n_aparicion,True)
+                        #Agregar disco con la información del nombre actualizar el disco
+                        
                 
                     else:
                         print("El prestamo no fue encontrado \n")  #Si el usuario no esta registrado regresa al menu principal
                         break
-                    
-                   
-                    
-                    
-                    loopfiltro=0  
-                    print("Busqueda de album")
-                    while loopfiltro == 0 : 
-                        funcionesvarias.menu_busqueda_album("Db/discos.json")
-                        indicefiltro=int(input("Ingrese como desea buscar el album: "))
-                        if indicefiltro > 4 or indicefiltro< 1:
-                            print("Ingrese un numero valido")   
-                        else:
-                            loopfiltro=1
-                            
-                    valorabuscar=input("Ingrese el valor a buscar: ")
-                    funcionesvarias.filtros_busqueda(indicefiltro,valorabuscar,discos)
-                    nombredelalbum=input("Ingrese el nombre del album que busca: ")
-                    devoluciones.modicacion_de_estados(userid,nombredelalbum,discos,Prestamos)
                     
                     control=True
     

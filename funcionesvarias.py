@@ -9,7 +9,7 @@ def generadorid (matriz):
     id=f"{len_lista:04}"
     return id
 
-def imprimir_matriz(matriz,encabezados,longituddeseparadores):
+def imprimir_matriz(matriz):
     print()
     for fila in matriz:
         print("||".join(map(str,fila)))

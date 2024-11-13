@@ -77,7 +77,7 @@ def actualizar_txt(prestamostxt,prestamoamodificar,n_aparicion,modificacion):
     print(f"\n Listado actulizado... \n")
     
 
-def busqueda_prestamos(userid,prestamostxt):
+def busqueda_prestamos(userid,prestamostxt,estadoprestamo):
     """
     pre:Recibe el id a buscar y el archico donde se encuentran los prestamos
     pos:Regresa un diccionario con las apariciones de los prestamos, con indice de la matrix de prestamos
@@ -89,7 +89,11 @@ def busqueda_prestamos(userid,prestamostxt):
         linea=arch.readline()
         while linea:
             listavalores=user,disco,fechaini,fechedevo,monto,estado=linea.split(",")
-            if (user)==userid:
+            
+            if (user)==userid and estadoprestamo==False and estado==False: #Solo filtra por los prestamos que no han sido devueltos
+                apariciones.setdefault(str(nro_linea),listavalores)
+                
+            elif (user)==userid:  
                 apariciones.setdefault(str(nro_linea),listavalores)
             linea=arch.readline()
             nro_linea+=1
@@ -111,7 +115,7 @@ def busqueda_prestamos(userid,prestamostxt):
 def modificar_prestamos(userid,usersjson,prestamostxt,discosjson):
         
               
-    apariciones=busqueda_prestamos(userid,prestamostxt)
+    apariciones=busqueda_prestamos(userid,prestamostxt,True)
             
     print()
               
@@ -220,7 +224,7 @@ def modificar_prestamos(userid,usersjson,prestamostxt,discosjson):
 
 def eliminar_prestamos(userid,prestamostxt):
     print("\n Eliminación de prestamos")
-    apariciones=busqueda_prestamos(userid,prestamostxt)
+    apariciones=busqueda_prestamos(userid,prestamostxt,True)
 
     if apariciones== False:
         return
@@ -232,13 +236,36 @@ def eliminar_prestamos(userid,prestamostxt):
         formatostr=",".join(prestamo_a_eliminar)
         actualizar_txt(prestamostxt," ",n_aparicion,True)
 
-def prestamos_vencidos(fechalimite,matrizprestamos): #Listas por comprensión 
+def prestamos_vencidos(fechalimite,prestamostxt): #Listas por comprensión
+    """
+    pre:Recibe la fecha por la cual se quiere filtrar y la matriz de prestamos.
+    fecha limite:str
+    prestamostxt:str
+    
+    
+    """ 
     print("Filtrando\n")
-    fechalimite_date = datetime.strptime(fechalimite, "%Y-%m-%d")
+    prestamos_activos=[]
+    try:  
+        with open(prestamostxt,"r",encoding="utf-8") as archivo:
+            linea=archivo.readline() 
+            fechalimite=validaciones.str_a_fecha(fechalimite)
+            while linea:
+                prestamo=linea.strip().split(",")
+                if prestamo[-1]=='False':
+                    prestamo[2]=validaciones.str_a_fecha(prestamo[2])
+                    prestamo[3]=validaciones.str_a_fecha(prestamo[3])
+                    prestamos_activos.append(prestamo)
+                    
+                    
+                    
+                linea=archivo.readline() 
+                
+        listadeprestamosv = [prestamo for prestamo in prestamos_activos if prestamo[3] > fechalimite]
+        print(listadeprestamosv)
+        
+    except FileExistsError:
+        print("Ha ocurrido un error")
+        
     
-    # Crear la lista auxiliar filtrada
-    prestamos_vencidos = [
-        prestamo for prestamo in matrizprestamos if not prestamo[-1] and datetime.strptime(prestamo[3], "%Y-%m-%d") < fechalimite_date
-    ]
-    
-    funcionesvarias.imprimir_matriz(prestamos_vencidos)
+prestamos_vencidos("2024-09-20","Db/prestamos_db.txt")

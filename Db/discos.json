@@ -39,7 +39,7 @@
         "nombre": "Bad",
         "Artista": "U2",
         "Genero": "Rock",
-        "cantidad": 39
+        "cantidad": 38
     },
     "8": {
         "nombre": "Cómo te voy a olvidar",
@@ -63,6 +63,6 @@
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
-        "cantidad": 32
+        "cantidad": 31
     }
 }
