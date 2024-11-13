@@ -334,20 +334,16 @@ while uso==0:
                         userid=f"{userid:<4}"
                         verificacionuserid=validaciones.ValidUserid(userid)
                     
-                    aparaiciones=prestamos.busqueda_prestamos(userid,r"Db/prestamos.txt",False)
-                    
-                    if len(aparaiciones)>0:
-                        funcionesvarias.imprimir_diccionario(aparaiciones)
-                        n_aparicion=input("Qué prestamo desea culminar? ")
-                        aparaiciones[n_aparicion]["estado"]=True
-                        prestamo_actualizado=f"{aparaiciones[n_aparicion]}"
-                        
-                        prestamos.actualizar_txt(r"Db/prestamos.txt",prestamo_actualizado,n_aparicion,True)
-                        #Agregar disco con la información del nombre actualizar el disco
-                        
-                
-                    else:
+                    aparaiciones=prestamos.busqueda_prestamos(userid,r"Db/prestamos_db.txt","False")
+                    if aparaiciones==False:
                         print("El prestamo no fue encontrado \n")  #Si el usuario no esta registrado regresa al menu principal
+                    else:
+                        n_aparicion=input("Qué prestamo desea culminar? ")
+                        aparaiciones[n_aparicion][-1]='True'
+                        prestamo_actualizado=",".join(aparaiciones[n_aparicion])
+                        prestamos.actualizar_txt(r"Db/prestamos_db.txt",prestamo_actualizado,n_aparicion,True)
+                        discos=DiscosStock.cargar_disco()
+                        
                         break
                     
                     control=True
