@@ -39,7 +39,7 @@
         "nombre": "Bad",
         "Artista": "U2",
         "Genero": "Rock",
-        "cantidad": 38
+        "cantidad": 37
     },
     "8": {
         "nombre": "Cómo te voy a olvidar",
@@ -57,7 +57,7 @@
         "nombre": "The Four Seasons",
         "Artista": "Antonio Vivaldi",
         "Genero": "Clásica",
-        "cantidad": 3
+        "cantidad": 2
     },
     "11": {
         "nombre": "Discovery",
