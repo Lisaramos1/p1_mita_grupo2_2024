@@ -15,13 +15,13 @@
         "nombre": "Discovery",
         "Artista": "Daft Punk",
         "Genero": "Techno",
-        "cantidad": 3
+        "cantidad": 1
     },
     "4": {
         "nombre": "Bad",
         "Artista": "Michael Jackson",
         "Genero": "Pop",
-        "cantidad": 3
+        "cantidad": 2
     },
     "5": {
         "nombre": "Abbey Road",
@@ -39,30 +39,30 @@
         "nombre": "Bad",
         "Artista": "U2",
         "Genero": "Rock",
-        "cantidad": 37
+        "cantidad": 35
     },
     "8": {
-        "nombre": "C\u00f3mo te voy a olvidar",
-        "Artista": "Los \u00c1ngeles Azules",
+        "nombre": "Cómo te voy a olvidar",
+        "Artista": "Los Ángeles Azules",
         "Genero": "Cumbia",
-        "cantidad": 38
+        "cantidad": 37
     },
     "9": {
         "nombre": "Currents",
         "Artista": "Tame Impala",
         "Genero": "Indie",
-        "cantidad": 7
+        "cantidad": 6
     },
     "10": {
         "nombre": "The Four Seasons",
         "Artista": "Antonio Vivaldi",
-        "Genero": "Cl\u00e1sica",
+        "Genero": "Clásica",
         "cantidad": 2
     },
     "11": {
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
-        "cantidad": 30
+        "cantidad": 29
     }
 }

@@ -204,9 +204,12 @@ def suma_cantidad_discos(ndjson):
     Ndjson-->str//direccion del archivo
     Se llama a la funcion recursiva de sumatoria
     """
-    with open(ndjson, 'r',encoding="utf-8") as archivo:
-        total = sumatoria_cant_discos(archivo)
-    return total
+    try: 
+        with open(ndjson, 'r',encoding="utf-8") as archivo:
+            total = sumatoria_cant_discos(archivo)
+        return total
+    except:
+        print("Ocurrio un error con el archivo")
     
         
 def sumatoria_cant_discos(discos_db,total=0):            

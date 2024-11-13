@@ -4,8 +4,8 @@
 {"nombre": "Bad", "Artista": "Michael Jackson", "Genero": "Pop", "cantidad": 3}
 {"nombre": "Abbey Road", "Artista": "The Beatles", "Genero": "Rock", "cantidad": 31}
 {"nombre": "Abbey Road", "Artista": "Red Hot Chili Peppers", "Genero": "Rock", "cantidad": 2}
-{"nombre": "Bad", "Artista": "U2", "Genero": "Rock", "cantidad": 37}
+{"nombre": "Bad", "Artista": "U2", "Genero": "Rock", "cantidad": 36}
 {"nombre": "Cómo te voy a olvidar", "Artista": "Los Ángeles Azules", "Genero": "Cumbia", "cantidad": 38}
 {"nombre": "Currents", "Artista": "Tame Impala", "Genero": "Indie", "cantidad": 7}
 {"nombre": "The Four Seasons", "Artista": "Antonio Vivaldi", "Genero": "Clásica", "cantidad": 2}
-{"nombre": "Discovery", "Artista": "Coldplay", "Genero": "Pop", "cantidad": 30}
+{"nombre": "Discovery", "Artista": "Coldplay", "Genero": "Pop", "cantidad": 29}

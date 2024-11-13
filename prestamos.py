@@ -57,6 +57,8 @@ def actualizar_txt(prestamostxt,prestamoamodificar,n_aparicion,modificacion):
             with open("Db/prestamos_db_backup.txt", "w", encoding="utf-8") as backup:
                 cont=0
                 for linea in data:
+                    if not linea: pass
+                    
                     if cont == int(n_aparicion) and modificacion==True:
                         if prestamoamodificar.strip() != "":
                             backup.write(prestamoamodificar + "\n")
@@ -270,7 +272,7 @@ def prestamos_vencidos(fechalimite,prestamostxt): #Listas por comprensión
         listadeprestamosv = [prestamo for prestamo in prestamos_activos if prestamo[4] > fechalimite]
     
         listadeprestamosv= list(map(lambda prestamo: [*prestamo[:4], prestamo[4].strftime("%Y-%m-%d"), *prestamo[5:]], listadeprestamosv))
-        print(listadeprestamosv)
+        funcionesvarias.imprimir_matriz(listadeprestamosv)
     
     except:
         print("Ha ocurrido un error")

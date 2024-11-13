@@ -243,7 +243,20 @@ while uso==0:
                         nombredelalbum=diccionarios_elegidos[str(idelegido)]["nombre"]
                         iddisco=str(idelegido)
                         funcionesvarias.retirar_Disco("Db/discos.json",idelegido)
-                        diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
+                        
+                        while True:
+                            try:
+                                diasdeprestamos=int(input("Ingrese cuantos dias se realizara el prestamo: "))
+                            except TypeError:
+                                print("El valor debe ser un numero entero")
+                                continue
+                            if diasdeprestamos >60:
+                               print ("Excede el numero de dias de prestamo")
+
+                            else: 
+                                break
+                        
+                        
                         monto=int(input("Ingrese el monto total del prestamo: "))
                         prestamos.crear_prestamos(nrocliente, nombredelalbum,iddisco,diasdeprestamos,monto ,r"Db\prestamos_db.txt")
                         Verfificar_información=False        
@@ -302,11 +315,14 @@ while uso==0:
                     discos=DiscosStock.cargar_disco()
                     funcionesvarias.json_a_ndjson(discos)
                     total=funcionesvarias.suma_cantidad_discos("Db/discos.ndjson")
-                    print(f"\n El total de discos disponibles es de {total}")
+                    if total:
+                        print(f"\n El total de discos disponibles es de {total}")
+                    else:
+                        print("No se pudo realizar la sumatoria")
                 
                 case 6: 
                     print("Tenga en cuenta el formato:xxxx-xx-xx (año-mes-dia)\n")
-                    fechadebusqueda=input("Ingrese la fecha por la cual quiere realizar el filtro")
+                    fechadebusqueda=input("Ingrese la fecha por la cual quiere realizar el filtro: ")
                     caso1=validaciones.validaciondefecha(fechadebusqueda)
                     while caso1== False:
                         print("El formato de fecha no es el correcto")
