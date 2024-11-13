@@ -115,7 +115,7 @@ while uso==0:
             print("2. Mostrar personas")
             print("3. Modificar persona")
             print("4. Eliminar persona")
-            print("5. Volver")
+            print("0. Volver")
             opcion = input("Seleccione una opción: ")
 
             if opcion == '1':
@@ -164,7 +164,7 @@ while uso==0:
                 else:
                     print("ID no encontrado. Intente de nuevo.")
             
-            elif opcion == '5':
+            elif opcion == '0':
                 break
             else:
              print("Opción no válida. Intente de nuevo.")
@@ -177,8 +177,8 @@ while uso==0:
             print('2 Modificar prestamos ➖')
             print('3 Eliminar prestamo ⚙️')
             print('4 Mostrar listado 👀')
-            print('5 Prestamos por vencer')
-            print('6 Cantidad de discos disponibles')
+            print('5 Cantidad de discos disponibles')
+            print('6 Busqueda por fecha de vencimiento')
             print("0 volver")
             while True :
                 try:
@@ -197,6 +197,10 @@ while uso==0:
                     print("\n Creación de prestamo ")
                     Verfificar_información=True 
                     while Verfificar_información==True:
+                        Usuarios = Personas.cargar_personas()  
+                        Personas.mostrar_personas(Usuarios)
+                        
+                        print()
                         nrocliente=(input("Ingrese el numero de cliente: "))
                         nrocliente=(f"{nrocliente:0>4}")
                         verificacionuserid=validaciones.ValidUserid(nrocliente) #Se verifica que el user cargado coincida con el parametro regex.
@@ -215,7 +219,7 @@ while uso==0:
                             print("Debe registrar al usuario")
                             Verfificar_información=False
                             break  
-                                
+                        DiscosStock.mostrar()        
                         print("\nBusqueda de album")
                          
                         #Se llama a la funcion para verificar la disponibilidad del album                       
@@ -243,6 +247,7 @@ while uso==0:
                         monto=int(input("Ingrese el monto total del prestamo: "))
                         prestamos.crear_prestamos(nrocliente, nombredelalbum,iddisco,diasdeprestamos,monto ,r"Db\prestamos_db.txt")
                         Verfificar_información=False        
+                        
                 case 2 :# Modicación 
                         print("Modificación de prestamos \n")
                         userid=(input("Ingrese el id del usuario del registro a modificar: "))
@@ -267,7 +272,7 @@ while uso==0:
                                 
                         existencia=validaciones.existenciadeuser(userid,"Db/personas.json")
                             
-                        prestamos.modificar_prestamos(userid,"Db/personas.json","Db/prestamos_db.txt","Db/discos.json")
+                        prestamos.modificar_prestamos(userid,"Db/personaDb/prestamos_db.txt","Db/discos.json")
                 case 3 :# Eliminación
                     print("\n Eliminación de prestamos")
                     userid=(input("Ingrese el id del usuario del registro a modificar: "))
@@ -292,20 +297,24 @@ while uso==0:
                     prestamos.eliminar_prestamos(userid,"Db/prestamos_db.txt")
                 case 4 :# Mostrar
                     prestamos.mostrar_prestamos("Db/prestamos_db.txt")
-                case 5: #Filtro de busqueda por fechas 
-                    fechalimite=input("Ingrese la fecha limite que desea filtrar: ")
-                    caso1=validaciones.validaciondefecha(fechalimite)
-                    while caso1== False: #Se evalua que sea correcto el formato de fecha
+                
+                case 5: #Sumatoria de cantidad de discos disponibles
+                    discos=DiscosStock.cargar_disco()
+                    funcionesvarias.json_a_ndjson(discos)
+                    total=funcionesvarias.suma_cantidad_discos("Db/discos.ndjson")
+                    print(f"\n El total de discos disponibles es de {total}")
+                
+                case 6: 
+                    print("Tenga en cuenta el formato:xxxx-xx-xx (año-mes-dia)\n")
+                    fechadebusqueda=input("Ingrese la fecha por la cual quiere realizar el filtro")
+                    caso1=validaciones.validaciondefecha(fechadebusqueda)
+                    while caso1== False:
                         print("El formato de fecha no es el correcto")
                         print("xxxx-xx-xx")   
-                        fechalimite=input()
-                        caso1=validaciones.validaciondefecha(fechalimite)
-                        prestamos.prestamos_vencidos(fechalimite,Prestamos)
-                
-                case 6: #Sumatoria de cantidad de discos disponibles
-                    with open (r"Db/discos.ndjson","r",encoding="utf-8") as archivo: 
-                        total=funcionesvarias.suma_cantidad_discos(archivo)
-                    print(f"\n El total de discos disponibles es de {total}")
+                        fechadebusqueda=input()
+                        caso1=validaciones.validaciondefecha(fechadebusqueda)
+                        
+                    prestamos.prestamos_vencidos(fechadebusqueda,"Db/prestamos_db.txt")
                     
                     
                    
@@ -336,7 +345,7 @@ while uso==0:
                     
                     aparaiciones=prestamos.busqueda_prestamos(userid,r"Db/prestamos_db.txt","False")
                     if aparaiciones==False:
-                        print("El prestamo no fue encontrado \n")  #Si el usuario no esta registrado regresa al menu principal
+                        print("El prestamo no fue encontrado \n")  
                     else:
                         n_aparicion=input("Qué prestamo desea culminar? ")
                         aparaiciones[n_aparicion][-1]='True'

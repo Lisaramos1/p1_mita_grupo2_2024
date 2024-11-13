@@ -42,15 +42,15 @@ def menu_busqueda_album(db_discos):
     while True: #Manejo de errores
         try: 
             indice=int(input("Ingrese por cual valor desea realizar la busqueda:"))
-            break
+    
         except (ValueError):
             print("Debe ingresar un valor entero")
             continue
         
-        if indicefiltro > 4 or indicefiltro< 1:
+        if indice > 4 or indice< 1:
             print("Ingrese un numero valido")
         else: 
-            False
+            break
     
     #apertura del archivo con todos los discos    
     try: 
@@ -170,14 +170,10 @@ def retirar_Disco(db_discos,idaretirar):
     
     try : 
         with open(db_discos , "w" , encoding="UTF-8")as archivo: #Se cargan los cambios a la db json  
-            json.dump(diccionario,archivo,ensure_ascii=False,indent=4)
-            
-        with open("Db/discos.ndjson", "w", encoding="UTF-8") as archivo_ndjson: #Creamos el archivo ndjson / Posterior uso en Recursividad
-            for key, disco in diccionario.items():
-                json.dump(disco,archivo_ndjson,ensure_ascii=False)
-                archivo_ndjson.write("\n")
+            json.dump(diccionario,archivo,ensure_ascii=False,indent=4)  
+        
     except FileNotFoundError :
-        print("m")
+        print("Archivo no encontrado")
     
     
     
@@ -194,22 +190,37 @@ def agregar_Disco(db_discos,id_disco_nuevo):
     except:
         print("No se pudo abrir el archivo")
 
-
-
-def suma_cantidad_discos(discos_db,total=0):
+def json_a_ndjson(discos_db):
+    """
+    Se actualiza el ndjson, para la función recursiva
+    """
+    with open("Db/discos.ndjson", "w", encoding="UTF-8") as archivo_ndjson: #Creamos el archivo ndjson            
+             for key, item in discos_db.items():  
+                json.dump(item,archivo_ndjson,ensure_ascii=False)
+                archivo_ndjson.write("\n")
     
-    linea=discos_db.readline()
-    if not linea:
-        return total
+def suma_cantidad_discos(ndjson):
+    """
+    Ndjson-->str//direccion del archivo
+    Se llama a la funcion recursiva de sumatoria
+    """
+    with open(ndjson, 'r',encoding="utf-8") as archivo:
+        total = sumatoria_cant_discos(archivo)
+    return total
     
-    
-    try:
-        disco=json.loads(linea.strip())
-        total+=disco["cantidad"]
-    except:
-        pass
         
-    
-    return suma_cantidad_discos(discos_db,total)
+def sumatoria_cant_discos(discos_db,total=0):            
+        linea=discos_db.readline() #Se analiza la linea del archivo
+        
+        if not linea: #Caso base 
+            return total
+        try:
+            disco=json.loads(linea.strip())
+            total+=disco["cantidad"]
+            
+        except:#Se saltea la linea
+            pass
 
+    
+        return sumatoria_cant_discos(discos_db,total)
 

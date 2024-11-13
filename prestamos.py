@@ -3,6 +3,7 @@ import Personas
 import funcionesvarias
 from datetime  import datetime
 import json
+import DiscosStock
 
 
 
@@ -11,7 +12,6 @@ def crear_prestamos (NroCliente,album,iddisco,DiasdePrestamo,monto,Db_prestamos)
     """
     Recibe los inputs para asignarlo a un nuevo prestamo de la matriz
     """
-   
     fechas=validaciones.SumadeDias(DiasdePrestamo)       #Se contabilizan las fechas de los dias del prestamos
     fecha_inicio,fecha_cierre=fechas                     # Se asignan las fechas
     aux=f"{NroCliente},{album},{iddisco},{fecha_inicio},{fecha_cierre},{monto},{"False"}"
@@ -27,7 +27,7 @@ def crear_prestamos (NroCliente,album,iddisco,DiasdePrestamo,monto,Db_prestamos)
 
 def mostrar_prestamos(Prestamos_db):
     encabezado=["userid","disco","discoid","inicio","cierre","monto","estado"]
-    espacios=[10,10,15,15,15,15,7]
+    espacios=[8,20,10,15,15,11,7]
     fila=""
     for i , valor in enumerate(encabezado):
         fila += f"{valor:<{espacios[i]}}"
@@ -41,13 +41,15 @@ def mostrar_prestamos(Prestamos_db):
                 datos=linea.strip().split(",")
                 fila=""
                 for i , j in enumerate(datos):
+                    if i == 1:  
+                        j = j[:15] 
                     fila += f"{j:<{espacios[i]}}"
                 print(fila)
     except:
         print("Ocurrio un error con el archivo")     
         return
     finally:
-        print("-"*sum(espacios),"\n")
+        print("-"*(sum(espacios)+len(encabezado)),"\n")
 
 def actualizar_txt(prestamostxt,prestamoamodificar,n_aparicion,modificacion):
     try: #Realizamos un backup de la matriz sin los datos que se modificaron anteriormente
@@ -174,7 +176,11 @@ def modificar_prestamos(userid,usersjson,prestamostxt,discosjson):
                 nombrealbum=discosencontrados[idnuevodisco]["nombre".lower()]
                 aux=prestamoacambiar[modificacion]
                 prestamoacambiar[modificacion]=nombrealbum
-                #AGREGAR DEVOLUCIÓN A STOCK
+                iddisco=prestamoacambiar[3]
+                #Se agrega el disco devuelto a stock
+                disco=DiscosStock.cargar_disco()
+                disco[str(iddisco)]['cantidad']+=1
+                DiscosStock.guardar_disco(disco)
 
 
             case 2: #Cambio de fecha de inicio de prestamo
@@ -262,9 +268,10 @@ def prestamos_vencidos(fechalimite,prestamostxt): #Listas por comprensión
                 linea=archivo.readline() 
                 
         listadeprestamosv = [prestamo for prestamo in prestamos_activos if prestamo[4] > fechalimite]
+    
+        listadeprestamosv= list(map(lambda prestamo: [*prestamo[:4], prestamo[4].strftime("%Y-%m-%d"), *prestamo[5:]], listadeprestamosv))
         print(listadeprestamosv)
     
-        
     except:
         print("Ha ocurrido un error")
-        
+    
