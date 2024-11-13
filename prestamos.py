@@ -19,7 +19,7 @@ def crear_prestamos (NroCliente,album,DiasdePrestamo,monto,Db_prestamos):
     
     try :
         with open (Db_prestamos,"a",encoding="utf-8") as ultima_linea:
-            ultima_linea.write(aux+ "\n")
+            ultima_linea.write(aux + '\n')
     except FileNotFoundError:
         print(f"no se pudo abrir el archivo {Db_prestamos}")
     else:
@@ -122,7 +122,9 @@ def modificar_prestamos(userid,usersjson,prestamostxt,discosjson):
     n_aparicion=(input("Qué prestamo desea modificar? "))
     
     prestamoacambiar=apariciones[n_aparicion]
-    print((prestamoacambiar))
+
+
+    funcionesvarias.imprimir_matriz(prestamoacambiar)
     print('1 Numero de cliente')
     print('2 Nombre del album')
     print('3 Fecha de prestamo')
@@ -149,6 +151,8 @@ def modificar_prestamos(userid,usersjson,prestamostxt,discosjson):
                 caso1=validaciones.ValidUserid(idcliente) # En caso que la estructura del id no sea la correcta
                 while caso1 == False:
                     print(f"El numero de usuario {idcliente} , no cumple con los parametros")
+                    idcliente=input("Ingrese el nuevo id de cliente")
+                    idcliente=(f"{idcliente:<4}")
 
                 caso2=validaciones.existenciadeuser(idcliente,usersjson) #Caso en que el usuario no esta registrado
                 while caso2==False:
@@ -267,5 +271,3 @@ def prestamos_vencidos(fechalimite,prestamostxt): #Listas por comprensión
     except FileExistsError:
         print("Ha ocurrido un error")
         
-    
-prestamos_vencidos("2024-09-20","Db/prestamos_db.txt")

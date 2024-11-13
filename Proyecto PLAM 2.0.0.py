@@ -130,6 +130,16 @@ while uso==0:
             elif opcion == '3':
                 Personas.mostrar_personas(Usuarios)
                 id_persona = input("Ingrese el ID de la persona que desea modificar: ")
+                id_persona=f"{id_persona:<4}"
+                
+                verificacionuserid=validaciones.ValidUserid(id_persona) #Se verifica que el user cargado coincida con el parametro regex.
+    
+                while verificacionuserid == False:
+                    print("Nro de cliente no valido")
+                    id_persona=input("Ingrese un numero de cliente valido: ")
+                    id_persona=(f"{id_persona:0>4}")
+                    verificacionuserid=validaciones.ValidUserid(id_persona)
+        
                 
                 if id_persona in Usuarios:
                     nuevo_dni = input("Ingrese el nuevo DNI (deje en blanco para no modificar): ")
@@ -147,6 +157,7 @@ while uso==0:
             elif opcion == '4':
                 Personas.mostrar_personas(Usuarios)
                 id_persona = input("Ingrese el ID de la persona que desea eliminar: ")
+                id_persona=f"{id_persona:<4}"
                 
                 if id_persona in Usuarios:
                     Personas.eliminar_persona(Usuarios, id_persona)
@@ -191,7 +202,7 @@ while uso==0:
                         verificacionuserid=validaciones.ValidUserid(nrocliente) #Se verifica que el user cargado coincida con el parametro regex.
                         while verificacionuserid == False:
                             print("Nro de cliente no valido")
-                            nrocliente=("Ingrese un numero de cliente valido: ")
+                            nrocliente=input("Ingrese un numero de cliente valido: ")
                             nrocliente=(f"{nrocliente:0>4}")
                             verificacionuserid=validaciones.ValidUserid(nrocliente)
                         
@@ -239,7 +250,7 @@ while uso==0:
                         verificacionuserid=validaciones.ValidUserid(userid) #Se verifica que el user cargado coincida con el parametro regex.
                         while verificacionuserid == False:
                             print("Nro de cliente no valido")
-                            userid=("Ingrese un numero de cliente valido: ")
+                            userid=input("Ingrese un numero de cliente valido: ")
                             userid=(f"{userid:0>4}")
                             verificacionuserid=validaciones.ValidUserid(userid)
                         
@@ -263,7 +274,7 @@ while uso==0:
                     verificacionuserid=validaciones.ValidUserid(userid) #Se verifica que el user cargado coincida con el parametro regex.
                     while verificacionuserid == False:
                         print("Nro de cliente no valido")
-                        userid=("Ingrese un numero de cliente valido: ")
+                        userid=input("Ingrese un numero de cliente valido: ")
                         userid=(f"{userid:0>4}")
                         verificacionuserid=validaciones.ValidUserid(userid)
                     
@@ -318,7 +329,7 @@ while uso==0:
                     verificacionuserid=validaciones.ValidUserid(userid) #Se verifica que el user cargado coincida con el parametro regex.
                     while verificacionuserid == False:
                         print("Nro de cliente no valido")
-                        userid=(input("Ingrese un numero de cliente valido: "))
+                        userid=input("Ingrese un numero de cliente valido: ")
                         userid=f"{userid:<4}"
                         verificacionuserid=validaciones.ValidUserid(userid)
                     
@@ -326,7 +337,7 @@ while uso==0:
                     
                     if len(aparaiciones)>0:
                         funcionesvarias.imprimir_diccionario(aparaiciones)
-                        n_aparicion=(input("Qué prestamo desea culminar? "))
+                        n_aparicion=input("Qué prestamo desea culminar? ")
                         aparaiciones[n_aparicion]["estado"]=True
                         prestamo_actualizado=f"{aparaiciones[n_aparicion]}"
                         

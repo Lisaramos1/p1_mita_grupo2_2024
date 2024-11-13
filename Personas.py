@@ -1,6 +1,7 @@
 import json
 from funcionesvarias import generadorid  
-from validaciones import Valdni, ValidUsername
+from validaciones import Valdni, ValidUsername,ValidUserid
+
 
 route = "Db/personas.json"
 backup_route = "Db/personas_backup.json"
@@ -65,6 +66,7 @@ def mostrar_personas(Usuarios):
             print(f"ID: {id_persona}, DNI: {datos['dni']}, Nombre: {datos['nombre']}, Apellido: {datos['apellido']}")
 
 def modificar_persona(Usuarios, id_persona, nuevo_dni=None, nuevo_nombre=None, nuevo_apellido=None):
+    
     if id_persona in Usuarios:
         if nuevo_dni:
             Usuarios[id_persona]['dni'] = nuevo_dni
@@ -79,6 +81,14 @@ def modificar_persona(Usuarios, id_persona, nuevo_dni=None, nuevo_nombre=None, n
         print("ID no válido.")
 
 def eliminar_persona(Usuarios, id_persona):
+    verificacionuserid=ValidUserid(id_persona) #Se verifica que el user cargado coincida con el parametro regex.
+    
+    while verificacionuserid == False:
+        print("Nro de cliente no valido")
+        id_persona=("Ingrese un numero de cliente valido: ")
+        id_persona=(f"{id_persona:0>4}")
+        verificacionuserid=ValidUserid(id_persona)
+        
     if id_persona in Usuarios:
         removed_person = Usuarios.pop(id_persona)
         print(f"Persona eliminada: {removed_person}")

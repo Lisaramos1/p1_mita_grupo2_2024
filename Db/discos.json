@@ -42,8 +42,8 @@
         "cantidad": 38
     },
     "8": {
-        "nombre": "C\u00f3mo te voy a olvidar",
-        "Artista": "Los \u00c1ngeles Azules",
+        "nombre": "Cómo te voy a olvidar",
+        "Artista": "Los Ángeles Azules",
         "Genero": "Cumbia",
         "cantidad": 38
     },
@@ -54,7 +54,6 @@
         "cantidad": 7
     },
     "10": {
-<<<<<<< HEAD
         "nombre": "The Four Seasons",
         "Artista": "Antonio Vivaldi",
         "Genero": "Clásica",
@@ -64,12 +63,6 @@
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
-        "cantidad": 31
-=======
-        "nombre": "ysysmo",
-        "Artista": "ysy a",
-        "Genero": "Techno",
-        "cantidad": 1
->>>>>>> 86d29fc96586dde4ddbb0c4fb12b47f84c5a5d17
+        "cantidad": 30
     }
 }

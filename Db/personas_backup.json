@@ -13,5 +13,10 @@
         "nombre": "Carlos",
         "apellido": "Perez",
         "dni": "87452145"
+    },
+    "0004": {
+        "nombre": "Carlos",
+        "apellido": "JUNTO",
+        "dni": "8574125"
     }
 }
