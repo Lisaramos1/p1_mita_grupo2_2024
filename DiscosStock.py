@@ -41,16 +41,19 @@ def agregar():
         discos[disco_existente]['cantidad'] += cantidad
         print(f"Disco existente. Actualizada cantidad a {discos[disco_existente]['cantidad']}.")
     else:
-        # Si no existe, añadimos un nuevo disco
-        nuevo_id = str(int(max(discos.keys(), default="0")) + 1)
-        discos[nuevo_id] = {
+        # Encontrar el primer ID disponible
+        ids_existentes = {int(k) for k in discos.keys()}  # Convertir las claves a enteros
+        nuevo_id = 1
+        while nuevo_id in ids_existentes:
+            nuevo_id += 1  # Buscar el primer número que no esté en los IDs existentes
+
+        discos[str(nuevo_id)] = {
             "nombre": nombre,
             "Artista": artista,
             "Genero": genero,
             "cantidad": cantidad
         }
         print(f"Disco '{nombre}' agregado exitosamente con ID {nuevo_id}.")
-
     guardar_disco(discos)  # Guardar el cambio en el archivo
 
 # Función para modificar los datos de un disco existente

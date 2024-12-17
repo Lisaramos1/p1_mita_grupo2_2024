@@ -11,12 +11,6 @@
         "Genero": "R&B",
         "cantidad": 2
     },
-    "3": {
-        "nombre": "Discovery",
-        "Artista": "Daft Punk",
-        "Genero": "Techno",
-        "cantidad": 1
-    },
     "4": {
         "nombre": "Bad",
         "Artista": "Michael Jackson",
@@ -42,8 +36,8 @@
         "cantidad": 35
     },
     "8": {
-        "nombre": "Cómo te voy a olvidar",
-        "Artista": "Los Ángeles Azules",
+        "nombre": "C\u00f3mo te voy a olvidar",
+        "Artista": "Los \u00c1ngeles Azules",
         "Genero": "Cumbia",
         "cantidad": 37
     },
@@ -53,16 +47,22 @@
         "Genero": "Indie",
         "cantidad": 6
     },
-    "10": {
-        "nombre": "The Four Seasons",
-        "Artista": "Antonio Vivaldi",
-        "Genero": "Clásica",
-        "cantidad": 2
-    },
     "11": {
         "nombre": "Discovery",
         "Artista": "Coldplay",
         "Genero": "Pop",
         "cantidad": 29
+    },
+    "12": {
+        "nombre": "Daada",
+        "Artista": "Dad",
+        "Genero": "Pop",
+        "cantidad": 2
+    },
+    "10": {
+        "nombre": "Adaffe",
+        "Artista": "Lol",
+        "Genero": "Rock",
+        "cantidad": 10
     }
 }
